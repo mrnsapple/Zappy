@@ -54,15 +54,15 @@ int     Client::interactWithServer()
     std::string write_to;
     
     write_to = _interact.readFromFd(_socket_fd);
-    if (write_to.empty() || write_to.compare("WELCOME\n") < 0)
-        return (84);
+    if (write_to.empty() || strcmp(write_to.c_str(), "WELCOME\n") != 0)
+        return (perror("Server didn't answer Welcome"), 84);
     std::cout << "write to:" << write_to;
     _name.append("\n");
     if (_interact.writeInFd(_socket_fd, _name) == -1)
         return (84);
     write_to = _interact.readFromFd(_socket_fd);
-    if (write_to.empty())
-        return (84);
+    if (write_to.empty() || strcmp(write_to.c_str(),"ko\n") == 0)
+        return (perror("Team name sent is not valid"), 84);
     std::cout << "write to:" << write_to;
     return (0);
 }
