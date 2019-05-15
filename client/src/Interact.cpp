@@ -27,8 +27,14 @@ std::string Interact::readFromFd(int fd)
     return (write_to);
 }
 
-int Interact::writeInFd(int fd, std::string message)
+std::string Interact::writeInFd(int fd, std::string message)
 {
-    return (write(fd, message.c_str(), message.length()));
+    std::string str;
+
+    str.clear();
+    if (write(fd, message.c_str(), message.length()) == -1)
+        return (str);
+    else
+        return (readFromFd(fd));
     
 }

@@ -14,7 +14,7 @@ class Interact {
 		Interact();
 		~Interact();
         std::string readFromFd(int );
-        int writeInFd(int , std::string);
+        std::string writeInFd(int , std::string);
 
 	protected:
 	private:

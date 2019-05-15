@@ -32,37 +32,22 @@ void    Client::setMachine(std::string machine)
     _machine = machine;
 }
 
-int    Client::createSocket()
+int     Client::createPlayer()
 {
-    struct sockaddr_in addr;
+    pid_t pid;
 
-    std::cout << _machine << ", name: "<< _name << ", port:" <<_port;
-    _socket_fd = socket(AF_INET, SOCK_STREAM, 0);
-    addr.sin_family = AF_INET;
-    addr.sin_port = htons(_port);
-    addr.sin_addr.s_addr = inet_addr(_machine.c_str());
-    int c = connect(_socket_fd, (const struct sockaddr *)&addr, sizeof(addr));
-    if (c == -1) {
-      std::cerr << "Error on connect" << std::endl;
-      return (-1);
+    Player *my_player = new Player(_port, _name, _machine);
+
+    _players.push_back(my_player);
+    pid = fork();
+    if (pid < 0) {
+        perror("Error when fork\n");
+        exit(84);
+    }
+    else if (pid == 0) {
+        my_player->start_game();
+        exit(0);
     }
     return (0);
 }
 
-int     Client::interactWithServer()
-{
-    std::string write_to;
-    
-    write_to = _interact.readFromFd(_socket_fd);
-    if (write_to.empty() || strcmp(write_to.c_str(), "WELCOME\n") != 0)
-        return (perror("Server didn't answer Welcome"), 84);
-    std::cout << "write to:" << write_to;
-    _name.append("\n");
-    if (_interact.writeInFd(_socket_fd, _name) == -1)
-        return (84);
-    write_to = _interact.readFromFd(_socket_fd);
-    if (write_to.empty() || strcmp(write_to.c_str(),"ko\n") == 0)
-        return (perror("Team name sent is not valid"), 84);
-    std::cout << "write to:" << write_to;
-    return (0);
-}

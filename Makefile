@@ -7,10 +7,15 @@
 
 CLIENT_PATH = client/src/
 
-SRC =	$(CLIENT_PATH)main.cpp 		\
-		$(CLIENT_PATH)Parser.cpp	\
-		$(CLIENT_PATH)Client.cpp	\
-		$(CLIENT_PATH)Interact.cpp
+COMMANDS = player/
+
+SRC =	$(CLIENT_PATH)main.cpp 					\
+		$(CLIENT_PATH)Parser.cpp				\
+		$(CLIENT_PATH)Client.cpp				\
+		$(CLIENT_PATH)Interact.cpp				\
+		$(CLIENT_PATH)$(COMMANDS)Commands.cpp	\
+		$(CLIENT_PATH)$(COMMANDS)Player.cpp
+
 
 
 
