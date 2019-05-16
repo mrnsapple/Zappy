@@ -30,8 +30,9 @@ void get_connections(server_t *serv)
                 serv->sock->client = init_accept(serv);
                 serv->pid = fork();
                 if (serv->pid == 0) {
-                    printf("new connection %s\n", inet_ntoa(serv->sock->dest.sin_addr));
-                    printf("%s\n", read_user(serv->sock->client));
+                    printf("new connection %s:%d\n", inet_ntoa(serv->sock->dest.sin_addr), ntohs(serv->sock->dest.sin_port));
+                    write(serv->sock->client, "Welcome\n", 9);
+                    printf("%s", read_user(serv->sock->client));
                 }
             }
         }
@@ -42,9 +43,7 @@ void start_server(server_t *serv)
 {
     while (1) {
         serv->sock->readFds = serv->sock->fds;
-        // printf("here\n");
         init_select(serv->sock->readFds);
-        // printf("here\n");
         get_connections(serv);
     }
     close(serv->sock->fd);
