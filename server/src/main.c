@@ -5,13 +5,27 @@
 ** main
 */
 
-#include "../include/essentials.h"
 #include "../include/error_management.h"
+#include "../include/server.h"
+#include "../include/get_arguments.h"
+#include "../include/init_server.h"
 
 int main(int ac, char **av)
 {
-    if (ac == 2)
-        if (strcmp(av[1], "-help") == 0)
-            print_help();
+    int val = check_arg(ac, av[1]);
+    server_t *server;
+
+    if (val == 1)
+        print_help();
+    else if (val == 0) {
+        server = take_arguments(ac, av);
+        server->sock = init_server(server);
+        init_listen(server->sock->fd);
+        FD_ZERO(&server->sock->fds);
+        FD_SET(server->sock->fd, &server->sock->fds);
+        start_server(server);
+    }
+    else
+        return (84);
     return (0);
 }
