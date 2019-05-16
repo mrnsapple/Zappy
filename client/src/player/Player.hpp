@@ -8,8 +8,8 @@
 #ifndef playerfile
 #define playerfile
 #include "../../include/list.hpp"
-#include "../Interact.hpp"
 #include "../fifos/utils/Utils.hpp"
+#include "Commands.hpp"
 # include	<iostream>
 # include	<string.h>
 # include	<cstdlib>
@@ -42,10 +42,8 @@ class Player {
         std::string _fifo_read;
         int _x;
         int _y;
-        // Stuff for communicate with server
-        Interact _interact;
         // Stuff for communicate with client
-        Utils _utils;
+        Commands _commands;
 };
 
 #endif /* !andOriol */

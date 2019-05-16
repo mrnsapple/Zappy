@@ -52,13 +52,13 @@ int     Player::welcomeInteraction()
 {
     std::string read_from;
 
-    read_from = _interact.readFromFd(_socket_fd);
+    read_from = Utils::readFromFd(_socket_fd);
     std::cout << read_from << "\n"; 
     if (read_from.empty() || strcmp(read_from.c_str(), "WELCOME\n") != 0)
         return (perror("Server didn't answer Welcome"), 84);
     std::cout << "write to:" << read_from;
     _name.append("\n");
-    read_from = _interact.writeInFd(_socket_fd, _name);
+    read_from = Utils::writeInFd(_socket_fd, _name);
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
         return (perror("Team name sent is not valid"), 84);
     setClientNumMapSpace(read_from); 
@@ -86,25 +86,23 @@ int     Player::interactWithServer()
     std::cout << "Start server interact\n";
     //std::vector<std::string> = [""]
     while (445050404.333) {
-        read_from = _interact.writeInFd(_socket_fd, "Inventory\n");
-        std::cout << "read:" << read_from;
+        //_commands.lookArround(_socket_fd);
+        read_from = Utils::writeInFd(_socket_fd, "Broadcast text\n");
+        std::cout << "Player " << _client_num << "reads: "<< read_from << "\n";
     }
     return (0);
 }
-
+#include "../fifos/utils/Utils.hpp"
 int     Player::start_game()
 {
     std::string read_from;
-
 
     createSocket();
     welcomeInteraction();
     interactWithServer();
     std::cout << "writing in player\n";
-    _utils.write_to_fd(_fifo_read, "helloeeqq my men\n");
+    Utils::writeToFifo(_fifo_read, "helloeeqq my men\n");
     std::cout << "second writing in player\n";
-
-    _utils.write_to_fd(_fifo_read, "helloeee my men\n");
-
+    Utils::writeToFifo(_fifo_read, "helloeee my men\n");
     return (0);
 }

@@ -16,7 +16,6 @@ FIFO = fifos/utils/
 SRC =	$(CLIENT_PATH)main.cpp 					\
 		$(CLIENT_PATH)Parser.cpp				\
 		$(CLIENT_PATH)Client.cpp				\
-		$(CLIENT_PATH)Interact.cpp				\
 		$(CLIENT_PATH)$(COMMANDS)Commands.cpp	\
 		$(CLIENT_PATH)$(COMMANDS)Player.cpp		\
 		$(CLIENT_PATH)$(FIFO)Utils.cpp

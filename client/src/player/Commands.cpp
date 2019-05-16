@@ -19,3 +19,12 @@ bool    Commands::tryCommands()
 {
     return true;
 }
+
+void    lookArround()
+{}
+
+void    Inventory()
+{}
+
+void    BroadcastText()
+{}

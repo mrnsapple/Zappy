@@ -15,9 +15,11 @@
 class Utils {
 	public:
 		int num_charact(std::string &string, char character);
-		std::string	read_from_fd(std::string fifo);
-		bool	write_to_fd(std::string fifo, std::string);
+		static std::string	readFromFifo(std::string fifo);
+		static bool	writeToFifo(std::string fifo, std::string);
 
+		static std::string readFromFd(int );
+        static std::string writeInFd(int , std::string);
 		Utils();
 		~Utils();    
 };

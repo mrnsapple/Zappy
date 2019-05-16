@@ -5,7 +5,6 @@
 ** Info about client
 */
 
-# include "Interact.hpp"
 # ifndef MyClient
 # define MyClient
 # include "../include/list.hpp"
@@ -30,11 +29,9 @@ private:
         std::string _name;
         std::string _machine;
         std::vector<Player*> _players;
-        Interact _interact;
 
         // Communicate client player
         std::string     _fifo_read;
-        Utils _utils;
         
 };
 

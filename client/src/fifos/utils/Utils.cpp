@@ -18,7 +18,7 @@ Utils::~Utils()
 }
 
 
-bool	Utils::write_to_fd(std::string fifo, std::string to_write)
+ bool	Utils::writeToFifo(std::string fifo, std::string to_write)
 {
     int fd = open(fifo.c_str(), O_WRONLY, O_CREAT, O_TRUNC); 
     if (fd == -1) {
@@ -31,7 +31,7 @@ bool	Utils::write_to_fd(std::string fifo, std::string to_write)
 }
 
 
-std::string	Utils::read_from_fd(std::string fifo)
+ std::string	Utils::readFromFifo(std::string fifo)
 {
      char buf;
     std::string str;
@@ -61,4 +61,29 @@ int Utils::num_charact(std::string &string, char character)
             count++;
     }
     return count;
+}
+
+
+std::string Utils::readFromFd(int fd)
+{
+    std::string write_to;
+    
+    write_to.resize(100);
+    if (read(fd, (void *)write_to.c_str(), 100) == -1) {
+        (write_to.clear());
+        return (write_to);
+    }
+    return (write_to);
+}
+
+std::string Utils::writeInFd(int fd, std::string message)
+{
+    std::string str;
+
+    str.clear();
+    if (write(fd, message.c_str(), message.length()) == -1)
+        return (str);
+    else
+        return (readFromFd(fd));
+    
 }
