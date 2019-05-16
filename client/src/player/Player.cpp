@@ -94,6 +94,11 @@ int     Player::start_game()
     std::string read_from;
 
     //createSocket();
-    _utils.write_to_fd(_fifo_read, "hello my men\n");
+    std::cout << "writing in player\n";
+    _utils.write_to_fd(_fifo_read, "helloeeqq my men\n");
+    std::cout << "second writing in player\n";
+
+    _utils.write_to_fd(_fifo_read, "helloeee my men\n");
+
     return (0);
 }

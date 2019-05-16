@@ -9,7 +9,7 @@ CLIENT_PATH = client/src/
 
 COMMANDS = player/
 
-FIFO = fifo/utils/
+FIFO = fifos/utils/
 
 SRC =	$(CLIENT_PATH)main.cpp 					\
 		$(CLIENT_PATH)Parser.cpp				\
@@ -24,14 +24,19 @@ SRC =	$(CLIENT_PATH)main.cpp 					\
 
 OBJ	=	$(SRC:.cpp=.o)
 
+	
 
 NAME	=	zappy_ai
 
 all	:	$(NAME)
 
+#rmfifo: 
+#	rm -rf client/src/fifos/read/myfifo
+
 $(NAME)	:	$(OBJ)
 	#g++ -g -Werror -Wall -Wextra -o $(NAME) $(SRC)
 	g++ -g -Wall -Wextra -o $(NAME) $(SRC)
+
 clean:
 	rm -rf $(LIBOBJ)
 	rm -rf $(GAMESOBJ)

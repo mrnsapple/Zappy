@@ -34,10 +34,14 @@ void    Client::setMachine(std::string machine)
 
 int     Client::startClient()
 {
-    _fifo_read = createFifo("fifos/read/myfifo");
+    std::string str;
 
+    _fifo_read = createFifo("client/src/fifos/read/myfifo");
+    std::cout << "The fifo read:" << _fifo_read << "\n";
     createPlayer();
     while (23232) {
+        str = _utils.read_from_fd(_fifo_read);
+        std::cout << "the str:" << str << "\n";
     }
     //my_client->welcomeInteraction() != 0 ||
     //my_client->interactWithServer() != 0)

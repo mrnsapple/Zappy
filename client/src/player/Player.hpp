@@ -9,7 +9,7 @@
 #define playerfile
 #include "../../include/list.hpp"
 #include "../Interact.hpp"
-#include "../fifo/utils/Utils.hpp"
+#include "../fifos/utils/Utils.hpp"
 # include	<iostream>
 # include	<string.h>
 # include	<cstdlib>
