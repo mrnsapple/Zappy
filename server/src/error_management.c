@@ -7,7 +7,7 @@
 
 #include "../include/essentials.h"
 
-void print_help()
+void print_help(void)
 {
     printf("USAGE: ./zappy_server -p port -x width -y height");
     printf(" -n name1 name2 ... -c clientNb -f freg\n");
@@ -20,7 +20,11 @@ void print_help()
     printf(" unit for execution of actions\n");
 }
 
-// int check_arg(char **av)
-// {
-//     // if 
-// }
+int check_arg(int ac, char *first_arg)
+{
+    if (ac == 2 && strcmp(first_arg, "-help") == 0)
+        return (1);
+    else if (ac > 12)
+        return (0);
+    return (-1);
+}

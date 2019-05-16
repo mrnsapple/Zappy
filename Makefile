@@ -20,8 +20,11 @@ SRC =	$(CLIENT_PATH)main.cpp 					\
 		$(CLIENT_PATH)$(COMMANDS)Player.cpp		\
 		$(CLIENT_PATH)$(FIFO)Utils.cpp
 
-SERVSRC	=	$(SERVER_PATH)main.c	\
-			$(SERVER_PATH)error_management.c
+SERVSRC	=	$(SERVER_PATH)main.c				\
+			$(SERVER_PATH)error_management.c	\
+			$(SERVER_PATH)get_arguments.c		\
+			$(SERVER_PATH)init_server.c			\
+			$(SERVER_PATH)start_server.c
 
 OBJ	=	$(SRC:.cpp=.o)
 
@@ -39,6 +42,7 @@ rmfifo:
 $(NAME)	:	rmfifo $(OBJ)
 	g++ -g -Wall -Wextra -o $(NAME) $(SRC)
 
+$(SERVNAME)	:	$(SERVOBJ)
 	gcc -g -Wall -Wextra -Werror -o $(SERVNAME) $(SERVSRC)
 
 clean:
