@@ -9,6 +9,7 @@
 #define playerfile
 #include "../../include/list.hpp"
 #include "../Interact.hpp"
+#include "../fifo/utils/Utils.hpp"
 # include	<iostream>
 # include	<string.h>
 # include	<cstdlib>
@@ -20,7 +21,7 @@
 
 class Player {
 	public:
-		Player(int port, std::string name, std::string machine);
+		Player(int port, std::string name, std::string machine, std::string );
 		~Player();
         int     createSocket();
         int     welcomeInteraction();
@@ -33,14 +34,18 @@ class Player {
         int _port;
         std::string _name;
         std::string _machine;
-
-        int _socket_fd;
+        //The player num given by server
         int _client_num;
+        //The socket of the player
+        int _socket_fd;
+        //The fifo to comunicate with the client for create new player
+        std::string _fifo_read;
         int _x;
         int _y;
-
+        // Stuff for communicate with server
         Interact _interact;
-        
+        // Stuff for communicate with client
+        Utils _utils;
 };
 
 #endif /* !andOriol */

@@ -7,10 +7,10 @@
 
 #include "Player.hpp"
 
-Player::Player(int port, std::string name, std::string machine) :
-    _port(port), _name(name), _machine(machine)
-{
-}
+Player::Player(int port, std::string name, std::string machine, std::string fifo_read) :
+    _port(port), _name(name), _machine(machine), _fifo_read(fifo_read)
+{}
+
 
 Player::~Player()
 {
@@ -27,6 +27,23 @@ std::vector<std::string> Player::separate_string(std::string str, char character
         seglist.push_back(segment);
     }
     return seglist;
+}
+
+int    Player::createSocket()
+{
+    struct sockaddr_in addr;
+
+    std::cout << _machine << ", name: "<< _name << ", port:" <<_port;
+    _socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(_port);
+    addr.sin_addr.s_addr = inet_addr(_machine.c_str());
+    int c = connect(_socket_fd, (const struct sockaddr *)&addr, sizeof(addr));
+    if (c == -1) {
+      std::cerr << "Error on connect" << std::endl;
+      return (-1);
+    }
+    return (0);
 }
 
 int     Player::welcomeInteraction()
@@ -74,5 +91,9 @@ int     Player::interactWithServer()
 
 int     Player::start_game()
 {
+    std::string read_from;
+
+    //createSocket();
+    _utils.write_to_fd(_fifo_read, "hello my men\n");
     return (0);
 }

@@ -19,11 +19,8 @@ int     client_creation(int ac, char **av)
     Client *my_client = get_client(ac, av);
 
     if (my_client == NULL)
-        //my_client->createSocket() != 0 ||
-        //my_client->welcomeInteraction() != 0 ||
-        //my_client->interactWithServer() != 0)
         return (84);
-    return (0);
+    return (my_client->startClient());
 }
 
 int main(int ac, char **av)
