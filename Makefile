@@ -14,11 +14,11 @@ COMMANDS = player/
 FIFO = fifos/utils/
 
 SRC =	$(CLIENT_PATH)main.cpp 					\
-		$(CLIENT_PATH)Parser.cpp				\
-		$(CLIENT_PATH)Client.cpp				\
+		$(CLIENT_PATH)parser/Parser.cpp				\
+		$(CLIENT_PATH)client/Client.cpp				\
 		$(CLIENT_PATH)$(COMMANDS)Commands.cpp	\
 		$(CLIENT_PATH)$(COMMANDS)Player.cpp		\
-		$(CLIENT_PATH)$(FIFO)Utils.cpp
+		$(CLIENT_PATH)utils/Utils.cpp
 
 SERVSRC	=	$(SERVER_PATH)main.c				\
 			$(SERVER_PATH)error_management.c	\

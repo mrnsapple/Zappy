@@ -8,7 +8,7 @@
 #ifndef playerfile
 #define playerfile
 #include "../../include/list.hpp"
-#include "../fifos/utils/Utils.hpp"
+#include "../utils/Utils.hpp"
 #include "Commands.hpp"
 # include	<iostream>
 # include	<string.h>

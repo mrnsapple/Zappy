@@ -92,7 +92,7 @@ int     Player::interactWithServer()
     }
     return (0);
 }
-#include "../fifos/utils/Utils.hpp"
+
 int     Player::start_game()
 {
     std::string read_from;

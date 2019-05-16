@@ -6,7 +6,6 @@
 */
 
 #include "Parser.hpp"
-#include "Client.hpp"
 
 Parser::Parser(int ac, char **av)
 {

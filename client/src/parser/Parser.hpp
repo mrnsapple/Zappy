@@ -5,8 +5,8 @@
 ** Info about parser 
 */
 
-#include "../include/list.hpp"
-#include "Client.hpp"
+#include "../../include/list.hpp"
+#include "../client/Client.hpp"
 #ifndef MyParser
 #define MyParser
 
