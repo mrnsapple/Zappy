@@ -30,21 +30,25 @@ void    Client::setPort(int port)
 void    Client::setMachine(std::string machine)
 {
     _machine = machine;
+    if (strcmp(machine.c_str(), "localhost") == 0)
+        _machine = "127.0.0.1";
 }
 
 int     Client::startClient()
 {
-    std::string str;
+    std::string read_from;
 
     _fifo_read = createFifo("client/src/fifos/read/myfifo");
     std::cout << "The fifo read:" << _fifo_read << "\n";
     createPlayer();
+    
     while (23232) {
-        str = _utils.read_from_fd(_fifo_read);
-        std::cout << "the str:" << str << "\n";
+        sleep(1);
+        read_from = _utils.read_from_fd(_fifo_read);
+        std::cout << "Client read from player:" << read_from << "\n";
+        if (strcmp(read_from.c_str(), "Create a player\n") == 0)
+            createPlayer();
     }
-    //my_client->welcomeInteraction() != 0 ||
-    //my_client->interactWithServer() != 0)
     return (0);
 }
 

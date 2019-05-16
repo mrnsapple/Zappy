@@ -35,6 +35,8 @@ int    Player::createSocket()
 
     std::cout << _machine << ", name: "<< _name << ", port:" <<_port;
     _socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (_socket_fd == -1)
+        std::cerr << "Error creating socket\n";
     addr.sin_family = AF_INET;
     addr.sin_port = htons(_port);
     addr.sin_addr.s_addr = inet_addr(_machine.c_str());
@@ -51,6 +53,7 @@ int     Player::welcomeInteraction()
     std::string read_from;
 
     read_from = _interact.readFromFd(_socket_fd);
+    std::cout << read_from << "\n"; 
     if (read_from.empty() || strcmp(read_from.c_str(), "WELCOME\n") != 0)
         return (perror("Server didn't answer Welcome"), 84);
     std::cout << "write to:" << read_from;
@@ -83,7 +86,7 @@ int     Player::interactWithServer()
     std::cout << "Start server interact\n";
     //std::vector<std::string> = [""]
     while (445050404.333) {
-        read_from = _interact.writeInFd(_socket_fd, "Look\n");
+        read_from = _interact.writeInFd(_socket_fd, "Inventory\n");
         std::cout << "read:" << read_from;
     }
     return (0);
@@ -93,7 +96,10 @@ int     Player::start_game()
 {
     std::string read_from;
 
-    //createSocket();
+
+    createSocket();
+    welcomeInteraction();
+    interactWithServer();
     std::cout << "writing in player\n";
     _utils.write_to_fd(_fifo_read, "helloeeqq my men\n");
     std::cout << "second writing in player\n";

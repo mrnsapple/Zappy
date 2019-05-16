@@ -34,10 +34,10 @@ SERVNAME =	zappy_server
 
 all	:	$(NAME) $(SERVNAME)
 
-#rmfifo: 
-#	rm -rf client/src/fifos/read/myfifo
+rmfifo: 
+	rm -rf client/src/fifos/read/myfifo
 
-$(NAME)	:	$(OBJ)
+$(NAME)	:	rmfifo $(OBJ)
 	g++ -g -Wall -Wextra -o $(NAME) $(SRC)
 
 	gcc -g -Wall -Wextra -Werror -o $(SERVNAME) $(SERVSRC)

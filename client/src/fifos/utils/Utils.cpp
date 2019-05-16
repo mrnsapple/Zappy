@@ -45,7 +45,6 @@ std::string	Utils::read_from_fd(std::string fifo)
     str.clear();        
     while (read(fd, &buf, 1) > 0 && buf != '\n' && buf != '\0') {
         str += buf;
-        std::cout << "the strin:" << str;
     }
     close (fd);
     return str;
