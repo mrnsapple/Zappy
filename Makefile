@@ -7,6 +7,8 @@
 
 CLIENT_PATH = client/src/
 
+SERVER_PATH = server/src/
+
 COMMANDS = player/
 
 FIFO = fifos/utils/
@@ -19,32 +21,34 @@ SRC =	$(CLIENT_PATH)main.cpp 					\
 		$(CLIENT_PATH)$(COMMANDS)Player.cpp		\
 		$(CLIENT_PATH)$(FIFO)Utils.cpp
 
-
-
+SERVSRC	=	$(SERVER_PATH)main.c	\
+			$(SERVER_PATH)error_management.c
 
 OBJ	=	$(SRC:.cpp=.o)
 
-	
+SERVOBJ	=	$(SERVSRC:.c=.o)
 
 NAME	=	zappy_ai
 
-all	:	$(NAME)
+SERVNAME =	zappy_server
+
+all	:	$(NAME) $(SERVNAME)
 
 #rmfifo: 
 #	rm -rf client/src/fifos/read/myfifo
 
 $(NAME)	:	$(OBJ)
-	#g++ -g -Werror -Wall -Wextra -o $(NAME) $(SRC)
 	g++ -g -Wall -Wextra -o $(NAME) $(SRC)
 
+	gcc -g -Wall -Wextra -Werror -o $(SERVNAME) $(SERVSRC)
+
 clean:
-	rm -rf $(LIBOBJ)
-	rm -rf $(GAMESOBJ)
 	rm -rf $(OBJ)
+	rm -rf $(SERVOBJ)
 
 fclean:	clean
-	rm -rf $(NAME) *~ *# *.o
-	rm -rf lib/*.so
-	rm -rf games/*.so
+	rm -rf $(NAME)
+	rm -rf $(SERVNAME)
+	rm -rf *~ *# *.o
 
 re:	fclean all
