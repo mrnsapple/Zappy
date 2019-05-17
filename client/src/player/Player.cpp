@@ -65,6 +65,11 @@ int     Player::welcomeInteraction()
     return (0);   
 }
 
+void     Player::createCommands()
+{
+    _commands = new Commands(_socket_fd);
+}
+
 int    Player::setClientNumMapSpace(std::string read_from)
 {
     std::vector<std::string> vect;
@@ -82,14 +87,8 @@ int    Player::setClientNumMapSpace(std::string read_from)
 
 int     Player::interactWithServer()
 {
-    std::string read_from;
     std::cout << "Start server interact\n";
-    //std::vector<std::string> = [""]
-    while (445050404.333) {
-        //_commands.lookArround(_socket_fd);
-        read_from = Utils::writeInFd(_socket_fd, "Broadcast text\n");
-        std::cout << "Player " << _client_num << "reads: "<< read_from << "\n";
-    }
+    _commands->executeCommands();
     return (0);
 }
 
@@ -99,6 +98,7 @@ int     Player::start_game()
 
     createSocket();
     welcomeInteraction();
+    createCommands();
     interactWithServer();
     std::cout << "writing in player\n";
     Utils::writeToFifo(_fifo_read, "helloeeqq my men\n");

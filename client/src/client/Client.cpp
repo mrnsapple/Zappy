@@ -41,7 +41,7 @@ int     Client::startClient()
     _fifo_read = createFifo("client/src/fifos/read/myfifo");
     std::cout << "The fifo read:" << _fifo_read << "\n";
     createPlayer();
-    createPlayer();
+    //createPlayer();
 
     while (23232) {
         sleep(1);

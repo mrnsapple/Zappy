@@ -20,6 +20,9 @@ class Utils {
 
 		static std::string readFromFd(int );
         static std::string writeInFd(int , std::string);
+
+		static std::vector<std::string> separeteByChar(std::string str, char character);
+
 		Utils();
 		~Utils();    
 };

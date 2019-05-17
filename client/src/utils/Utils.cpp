@@ -86,3 +86,16 @@ std::string Utils::writeInFd(int fd, std::string message)
         return (readFromFd(fd));
     
 }
+
+std::vector<std::string> Utils::separeteByChar(std::string str, char character)
+{
+    std::stringstream test(str);
+    std::string segment;
+    std::vector<std::string> seglist;
+
+    while(std::getline(test, segment, character))
+    {
+        seglist.push_back(segment);
+    }
+    return seglist;
+}
