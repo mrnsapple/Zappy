@@ -12,8 +12,8 @@
 
 class Inventory {
 	public:
-		Inventory();
-		~Inventory();
+		Inventory(){};
+		~Inventory(){};
 
 	protected:
 	private:

@@ -67,8 +67,8 @@ std::string Utils::readFromFd(int fd)
 {
     std::string write_to;
     
-    write_to.resize(100);
-    if (read(fd, (void *)write_to.c_str(), 100) == -1) {
+    write_to.resize(1000);
+    if (read(fd, (void *)write_to.c_str(), 1000) == -1) {
         (write_to.clear());
         return (write_to);
     }

@@ -88,7 +88,10 @@ int    Player::setClientNumMapSpace(std::string read_from)
 int     Player::interactWithServer()
 {
     std::cout << "Start server interact\n";
-    _commands->executeCommands();
+    _inventory = _commands->getInventory();
+    _commands->printInventoryItem(_inventory);
+    _stuff_in_tiles = _commands->getLookArround();
+    _commands->printStuffInTiles();
     return (0);
 }
 

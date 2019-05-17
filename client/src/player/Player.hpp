@@ -45,6 +45,9 @@ class Player {
                 int _y;
                 // Stuff for communicate with client
                 Commands *_commands;
+                std::map<std::string, int> _inventory;
+		std::vector<std::map<std::string, int>> _stuff_in_tiles;
+
 };
 
 #endif /* !andOriol */
