@@ -18,12 +18,11 @@ class Commands {
 		
 		//Retrieve inventory
 		std::map<std::string, int>   getInventory();
-		void    printInventoryItem(std::map<std::string, int> );
-		void 	printStuffInTiles();
 		bool    tryCommands();
        std::vector<std::map<std::string, int>>    getLookArround();
         int    sendBroadcastText( std::string);
-		
+		int getConnectNbr();
+
 	protected:
 	private:
 		int _socket_fd;

@@ -63,6 +63,18 @@ std::vector<std::map<std::string, int>>    Commands::getLookArround()
     return (_stuff_in_tiles);
 }
 
+int Commands::getConnectNbr()
+{
+    std::string read_from;
+
+    //Retrieve info
+    read_from = Utils::writeInFd(_socket_fd, "Connect_nbr\n");
+    if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
+        return (perror("Inventory not recieved\n"), -1);
+    //std::cout << "read:" << read_from << "\n";
+    return (std::stoi(read_from));
+}
+
 std::map<std::string, int>  Commands::getInventory()
 {
     std::string read_from;
@@ -74,6 +86,7 @@ std::map<std::string, int>  Commands::getInventory()
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
         return (perror("Inventory not recieved\n"), _inventory);
     // Parse result string
+    std::cout << "rad_form:" << read_from << "\n";
     read_from.erase(std::remove(read_from.begin(), read_from.end(), '['), read_from.end());
     read_from.erase(std::remove(read_from.begin(), read_from.end(), ']'), read_from.end());
     //std::cout << _socket_fd << " reads: "<< read_from << "\n";
@@ -87,25 +100,6 @@ std::map<std::string, int>  Commands::getInventory()
         //    std::cout << ":" << b << ":\n";         
     }    
     return (_inventory);
-}
-
-void    Commands::printInventoryItem(std::map<std::string, int> inventory)
-{
-    std::map<std::string, int>::iterator it = inventory.begin();
-    
-    std::cout << "Start printing\n";
-    while(it != inventory.end()) {
-        std::cout<<it->first<<" :: "<<it->second<<std::endl;
-        it++;
-    }
-}
-
-void 	Commands::printStuffInTiles()
-{
-    for(auto a: _stuff_in_tiles) {
-        printInventoryItem(a);
-    }
-
 }
 
 int    Commands::sendBroadcastText( std::string text)

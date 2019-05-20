@@ -69,6 +69,11 @@ void     Player::createCommands()
 {
     _commands = new Commands(_socket_fd);
 }
+void     Player::createAi()
+{
+    _ai = new Ai(&_inventory, &_stuff_in_tiles);
+}
+
 
 int    Player::setClientNumMapSpace(std::string read_from)
 {
@@ -88,10 +93,17 @@ int    Player::setClientNumMapSpace(std::string read_from)
 int     Player::interactWithServer()
 {
     std::cout << "Start server interact\n";
-    _inventory = _commands->getInventory();
-    _commands->printInventoryItem(_inventory);
-    _stuff_in_tiles = _commands->getLookArround();
-    _commands->printStuffInTiles();
+    //while (4433.312121) {
+        _inventory = _commands->getInventory();
+        Utils::printMap(_inventory);
+        _stuff_in_tiles = _commands->getLookArround();
+        _connect_nbr = _commands->getConnectNbr();
+        std::cout << "Connect nbr:" << _connect_nbr << "\n";
+        Utils::printVectorMap(_stuff_in_tiles);
+           // _inventory["food"]--;
+
+        _ai->get_what_to_do();
+    //}
     return (0);
 }
 
@@ -102,9 +114,11 @@ int     Player::start_game()
     createSocket();
     welcomeInteraction();
     createCommands();
+    createAi();
     interactWithServer();
     std::cout << "writing in player\n";
     Utils::writeToFifo(_fifo_read, "helloeeqq my men\n");
+
     std::cout << "second writing in player\n";
     Utils::writeToFifo(_fifo_read, "helloeee my men\n");
     return (0);

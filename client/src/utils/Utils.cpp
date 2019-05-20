@@ -16,6 +16,24 @@ Utils::~Utils()
 
 }
 
+void    Utils::printMap(std::map<std::string, int> inventory)
+{
+    std::map<std::string, int>::iterator it = inventory.begin();
+    
+    std::cout << "Start printing\n";
+    while(it != inventory.end()) {
+        std::cout<<it->first<<" :: "<<it->second<<std::endl;
+        it++;
+    }
+}
+
+void 	Utils::printVectorMap(std::vector<std::map<std::string, int>>  _stuff_in_tiles)
+{
+    for(auto a: _stuff_in_tiles) {
+        printMap(a);
+    }
+
+}
 
  bool	Utils::writeToFifo(std::string fifo, std::string to_write)
 {

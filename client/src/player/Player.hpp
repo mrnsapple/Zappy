@@ -9,6 +9,7 @@
 #define playerfile
 #include "../../include/list.hpp"
 #include "../utils/Utils.hpp"
+#include "Ai.hpp"
 #include "Commands.hpp"
 # include	<iostream>
 # include	<string.h>
@@ -25,6 +26,7 @@ class Player {
 		~Player();
                 int     createSocket();
                 void     createCommands();
+                void    createAi();
                 int     welcomeInteraction();
                 int     interactWithServer();
                 std::vector<std::string> separate_string(std::string , char);
@@ -43,11 +45,17 @@ class Player {
                 std::string _fifo_read;
                 int _x;
                 int _y;
-                // Stuff for communicate with client
+                // Command for communicate with server
                 Commands *_commands;
+                //Ai for know what to do
+                Ai *_ai;
+                //Inventory given by Inventory\n
                 std::map<std::string, int> _inventory;
+                //Info by sending Look\n
 		std::vector<std::map<std::string, int>> _stuff_in_tiles;
-
+                // Client number by connect_nbr\n
+                int     _connect_nbr;
+                
 };
 
 #endif /* !andOriol */
