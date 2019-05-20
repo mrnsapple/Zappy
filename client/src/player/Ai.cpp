@@ -8,8 +8,9 @@
 #include "Ai.hpp"
 
 Ai::Ai(std::map<std::string, int> *inventory, 
-    std::vector<std::map<std::string, int>> *stuf_in_tiles) :
-    _inventory(inventory), _stuff_in_tiles(stuf_in_tiles)
+    std::vector<std::map<std::string, int>> *stuf_in_tiles,
+     std::map<std::string, int> *gems_finding) :
+    _inventory(inventory), _stuff_in_tiles(stuf_in_tiles), _gems_finding(gems_finding)
 {
 }
 

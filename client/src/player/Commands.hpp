@@ -12,7 +12,10 @@
 
 class Commands {
 	public:
-		Commands(int);
+		Commands(int socket_fd,
+    		std::map<std::string, int> *inventory, 
+ 			std::map<std::string, int> *gems_finding,
+			 std::vector<std::map<std::string, int>> *);
 		~Commands();
         // Send vector of mesages to server
 		int sendCommands(std::vector<std::string>);
@@ -29,9 +32,10 @@ class Commands {
 	private:
 		int _socket_fd;
 		std::map<std::string, int> _stuff_in_tile;
-		std::vector<std::map<std::string, int>> _stuff_in_tiles;
+		std::vector<std::map<std::string, int>> *_stuff_in_tiles;
 
-		std::map<std::string, int> _inventory;
+		std::map<std::string, int> *_inventory;
+		std::map<std::string, int> *_gems_finding;
 
 };
 

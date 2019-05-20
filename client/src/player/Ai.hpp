@@ -14,7 +14,7 @@
 
 class Ai {
 	public:
-		Ai(std::map<std::string, int> *, std::vector<std::map<std::string, int>> *);
+		Ai(std::map<std::string, int> *, std::vector<std::map<std::string, int>> *,  std::map<std::string, int> *);
         Ai(){}
 
         ~Ai();
@@ -29,6 +29,7 @@ class Ai {
         std::map<std::string, int> *_inventory;
         std::vector<std::map<std::string, int>> *_stuff_in_tiles;
         std::vector<std::string> _result;
+		std::map<std::string, int> *_gems_finding;
 
 };
 

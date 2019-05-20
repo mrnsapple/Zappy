@@ -8,8 +8,21 @@
 #include "Player.hpp"
 
 Player::Player(int port, std::string name, std::string machine, std::string fifo_read) :
-    _port(port), _name(name), _machine(machine), _fifo_read(fifo_read)
-{}
+    _port(port), _name(name), _machine(machine), _fifo_read(fifo_read), _lvl(0)
+{
+    _gems_finding = { 
+        {"linemate", 1},
+        {"dareumere", 0},
+        {"sibur", 0},
+        {"mediane", 0},
+        {"phiras", 0},
+        {"thystame", 0},
+    };
+    _inventory = _gems_finding;
+    _inventory.insert(std::make_pair("food", 0));
+    //_stuff_in_tiles = _inventory;
+    //_stuff_in_tiles.insert(std::make_pair("player", 0));
+}
 
 
 Player::~Player()
@@ -67,11 +80,12 @@ int     Player::welcomeInteraction()
 
 void     Player::createCommands()
 {
-    _commands = new Commands(_socket_fd);
+    _commands = new Commands(_socket_fd, &_inventory, &_gems_finding, &_stuff_in_tiles);
 }
+
 void     Player::createAi()
 {
-    _ai = new Ai(&_inventory, &_stuff_in_tiles);
+    _ai = new Ai(&_inventory, &_stuff_in_tiles, &_gems_finding);
 }
 
 
@@ -93,11 +107,12 @@ int    Player::setClientNumMapSpace(std::string read_from)
 int     Player::interactWithServer()
 {
     std::cout << "Start server interact\n";
+    _connect_nbr = _commands->getConnectNbr();
+        
     while (4433.312121) {
-        _inventory = _commands->getInventory();
+        _commands->getInventory();
         Utils::printMap(_inventory);
-        _stuff_in_tiles = _commands->getLookArround();
-        _connect_nbr = _commands->getConnectNbr();
+        _commands->getLookArround();
         std::cout << "Connect nbr:" << _connect_nbr << "\n";
         Utils::printVectorMap(_stuff_in_tiles);
         // _inventory["food"]--;

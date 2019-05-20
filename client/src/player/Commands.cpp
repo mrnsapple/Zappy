@@ -7,18 +7,16 @@
 
 #include "Commands.hpp"
 
-Commands::Commands(int socket_fd) : _socket_fd(socket_fd)
+Commands::Commands(int socket_fd,
+    std::map<std::string, int> *inventory, 
+ std::map<std::string, int> *gems_finding,
+ std::vector<std::map<std::string, int>> *stuff_in_tiles) :
+  _socket_fd(socket_fd)
 {
-    _inventory = { 
-        {"food", 0},
-        {"linemate", 0},
-        {"dareumere", 0},
-        {"sibur", 0},
-        {"mediane", 0},
-        {"phiras", 0},
-        {"thystame", 0},
-    };
-    _stuff_in_tile = _inventory;
+    _inventory = inventory;
+    _gems_finding = gems_finding;
+    _stuff_in_tiles = stuff_in_tiles;
+    _stuff_in_tile = *_inventory;
     _stuff_in_tile.insert(std::make_pair("player", 0));
     
 }
@@ -38,11 +36,11 @@ std::vector<std::map<std::string, int>>    Commands::getLookArround()
     std::vector<std::string> vect_str;
     std::vector<std::string> vect_ptr;
     std::map<std::string, int> my_map;
-    _stuff_in_tiles.clear();
+    (*_stuff_in_tiles).clear();
     //Retrieve info
     read_from = Utils::writeInFd(_socket_fd, "Look\n");
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
-        return (perror("Inventory not recieved\n"), _stuff_in_tiles);
+        return (perror("Inventory not recieved\n"), *_stuff_in_tiles);
     // Parse result string
     read_from.erase(std::remove(read_from.begin(), read_from.end(), '['), read_from.end());
     read_from.erase(std::remove(read_from.begin(), read_from.end(), ']'), read_from.end());
@@ -53,14 +51,14 @@ std::vector<std::map<std::string, int>>    Commands::getLookArround()
         vect_ptr = Utils::separeteByChar(a, ' ');
         for(std::string b: vect_ptr) {
             std::map<std::string, int>::iterator it = _stuff_in_tile.find(b);
-            if(it != _stuff_in_tile.end())
+            if(it != (_stuff_in_tile).end())
                 my_map[b] = my_map[b] + 1;
             //std::cout << ":" << b << ":\n";      
         }
-        _stuff_in_tiles.push_back(my_map);
+        (*_stuff_in_tiles).push_back(my_map);
     }    
     //std::cout << "read look:" << read_from << "\n";
-    return (_stuff_in_tiles);
+    return (*_stuff_in_tiles);
 }
 
 int Commands::getConnectNbr()
@@ -84,7 +82,7 @@ std::map<std::string, int>  Commands::getInventory()
     //Retrieve info
     read_from = Utils::writeInFd(_socket_fd, "Inventory\n");
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
-        return (perror("Inventory not recieved\n"), _inventory);
+        return (perror("Inventory not recieved\n"), *_inventory);
     // Parse result string
     std::cout << "rad_form:" << read_from << "\n";
     read_from.erase(std::remove(read_from.begin(), read_from.end(), '['), read_from.end());
@@ -95,11 +93,11 @@ std::map<std::string, int>  Commands::getInventory()
     for(std::string a: vect_str) {
         vect_ptr = Utils::separeteByChar(a, ' ');
         if (vect_ptr.size() == 3)
-            _inventory[vect_ptr[1]] = std::stoi(vect_ptr[2]);
+            (*_inventory)[vect_ptr[1]] = std::stoi(vect_ptr[2]);
         //for(std::string b: vect_ptr)
         //    std::cout << ":" << b << ":\n";         
     }    
-    return (_inventory);
+    return (*_inventory);
 }
 
 int Commands::sendCommands(std::vector<std::string> message_vector)

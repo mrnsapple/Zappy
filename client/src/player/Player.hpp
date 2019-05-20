@@ -58,7 +58,11 @@ class Player {
 		std::vector<std::map<std::string, int>> _stuff_in_tiles;
                 // Client number by connect_nbr\n
                 int     _connect_nbr;
-                
+                //Level of player
+                int _lvl;
+        
+                std::map<std::string, int> _gems_finding;
+
 };
 
 #endif /* !andOriol */
