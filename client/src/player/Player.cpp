@@ -111,11 +111,12 @@ int     Player::interactWithServer()
         
     while (4433.312121) {
         _commands->getInventory();
+        std::cout  << "\nPrint Inventory:\n";
         Utils::printMap(_inventory);
         _commands->getLookArround();
-        std::cout << "Connect nbr:" << _connect_nbr << "\n";
+        std::cout << "\n\nConnect nbr:" << _connect_nbr << "\n";
         Utils::printVectorMap(_stuff_in_tiles);
-        // _inventory["food"]--;
+        //_inventory["food"]--;
 
         _ai_result = _ai->get_what_to_do();
         _commands->sendCommands(_ai_result);

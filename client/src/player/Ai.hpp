@@ -19,7 +19,9 @@ class Ai {
 
         ~Ai();
         std::vector<std::string> get_what_to_do();
-        int get_food();
+        int get_element(std::string);
+        int get_stones();
+
         int get_item_pos(int location);
 
         void  get_take_object(int amount, std::string);

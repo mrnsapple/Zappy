@@ -22,9 +22,10 @@ void    Utils::printMap(std::map<std::string, int> inventory)
     
     std::cout << "Start printing\n";
     while(it != inventory.end()) {
-        std::cout<<it->first<<" :: "<<it->second<<std::endl;
+        std::cout<<it->first<<" :: "<<it->second << ", ";
         it++;
     }
+    std::cout << std::endl;
 }
 
 void 	Utils::printVectorMap(std::vector<std::map<std::string, int>>  _stuff_in_tiles)
@@ -100,9 +101,11 @@ std::string Utils::writeInFd(int fd, std::string message)
     str.clear();
     if (write(fd, message.c_str(), message.length()) == -1)
         return (str);
-    else
-        return (readFromFd(fd));
-    
+    else {
+        str = readFromFd(fd);
+        
+        return (str);
+    }
 }
 
 std::vector<std::string> Utils::separeteByChar(std::string str, char character)

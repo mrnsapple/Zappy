@@ -72,19 +72,22 @@ void  Ai::get_take_object(int amount, std::string object)
     std::string take =  "Take ";
 
     take.append(object);
+    //take.append("hiras");
+    
     take.append("\n");
     for (int i = 0; i < amount; i++)
         _result.push_back(take);
 }
 
-int Ai::get_food()
+int Ai::get_element(std::string element)
 {
     int location = 0;
 
+    _result.clear();
     for (auto a: *_stuff_in_tiles) {
-        if (a["food"] > 0) {
+        if (a[element] > 0) {
             get_item_pos(location);
-            get_take_object(a["food"], "food");
+            get_take_object(a[element], element);
             return (0);
         }
         location++;
@@ -92,22 +95,38 @@ int Ai::get_food()
     return 0;
 }
 
+int Ai::get_stones()
+{
+    std::map<std::string, int>::iterator itr; 
+
+    for (itr = (*_gems_finding).begin(); itr != (*_gems_finding).end(); itr++) { 
+        if (itr->second > 0) {
+            get_element(itr->first);
+            //get_element("linemate");
+            if (!_result.empty())
+                break;
+        }
+        //std::cout << '\t' << itr->first 
+        //     << '\t' << itr->second << '\n'; 
+    }
+    return 0;
+}
+
+
 std::vector<std::string> Ai::get_what_to_do()
 {
     _result.clear();
-    get_food();
+    //get_element("food");
+    get_stones();
+    /*if ((*_inventory)["food"] < 5)
+        get_element("food");
+    else
+        get_stones();
+    */
     for (auto a : _result)
         std::cout << "pos:" << a;
-   
-    /*if ((*_inventory)["food"] < 5)
-        result = get_food();
-    else
-        result.clear();
-    */
-
     if (_result.empty())//If it does nocing,let's rotate
         _result.push_back("Right\n");
- 
     return _result;
 }
 

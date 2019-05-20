@@ -84,7 +84,7 @@ std::map<std::string, int>  Commands::getInventory()
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
         return (perror("Inventory not recieved\n"), *_inventory);
     // Parse result string
-    std::cout << "rad_form:" << read_from << "\n";
+    //std::cout << "rad_form:" << read_from << "\n";
     read_from.erase(std::remove(read_from.begin(), read_from.end(), '['), read_from.end());
     read_from.erase(std::remove(read_from.begin(), read_from.end(), ']'), read_from.end());
     //std::cout << _socket_fd << " reads: "<< read_from << "\n";
