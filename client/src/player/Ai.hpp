@@ -15,14 +15,21 @@
 class Ai {
 	public:
 		Ai(std::map<std::string, int> *, std::vector<std::map<std::string, int>> *);
-		~Ai();
+        Ai(){}
+
+        ~Ai();
         std::vector<std::string> get_what_to_do();
-        std::vector<std::string> get_food();
-         std::vector<std::string> get_item_pos(int);
+        int get_food();
+        int get_item_pos(int location);
+
+        void  get_take_object(int amount, std::string);
+
 	protected:
 	private:
         std::map<std::string, int> *_inventory;
-    std::vector<std::map<std::string, int>> *_stuff_in_tiles;
+        std::vector<std::map<std::string, int>> *_stuff_in_tiles;
+        std::vector<std::string> _result;
+
 };
 
 #endif /* !ai */

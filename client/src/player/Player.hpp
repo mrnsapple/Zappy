@@ -49,6 +49,9 @@ class Player {
                 Commands *_commands;
                 //Ai for know what to do
                 Ai *_ai;
+                // Ai result value
+                std::vector<std::string> _ai_result;
+
                 //Inventory given by Inventory\n
                 std::map<std::string, int> _inventory;
                 //Info by sending Look\n

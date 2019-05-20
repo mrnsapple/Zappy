@@ -93,17 +93,20 @@ int    Player::setClientNumMapSpace(std::string read_from)
 int     Player::interactWithServer()
 {
     std::cout << "Start server interact\n";
-    //while (4433.312121) {
+    while (4433.312121) {
         _inventory = _commands->getInventory();
         Utils::printMap(_inventory);
         _stuff_in_tiles = _commands->getLookArround();
         _connect_nbr = _commands->getConnectNbr();
         std::cout << "Connect nbr:" << _connect_nbr << "\n";
         Utils::printVectorMap(_stuff_in_tiles);
-           // _inventory["food"]--;
+        // _inventory["food"]--;
 
-        _ai->get_what_to_do();
-    //}
+        _ai_result = _ai->get_what_to_do();
+        _commands->sendCommands(_ai_result);
+        Utils::printMap(_commands->getInventory());
+       
+    }
     return (0);
 }
 

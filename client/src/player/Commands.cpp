@@ -38,7 +38,7 @@ std::vector<std::map<std::string, int>>    Commands::getLookArround()
     std::vector<std::string> vect_str;
     std::vector<std::string> vect_ptr;
     std::map<std::string, int> my_map;
-
+    _stuff_in_tiles.clear();
     //Retrieve info
     read_from = Utils::writeInFd(_socket_fd, "Look\n");
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
@@ -100,6 +100,18 @@ std::map<std::string, int>  Commands::getInventory()
         //    std::cout << ":" << b << ":\n";         
     }    
     return (_inventory);
+}
+
+int Commands::sendCommands(std::vector<std::string> message_vector)
+{   
+    std::string read_from;
+    
+    //Retrieve info
+    for (auto message : message_vector) {
+        read_from = Utils::writeInFd(_socket_fd, message);
+        std::cout << "ret:" << read_from;
+    }
+    return (0);
 }
 
 int    Commands::sendBroadcastText( std::string text)

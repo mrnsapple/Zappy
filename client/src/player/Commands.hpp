@@ -14,7 +14,9 @@ class Commands {
 	public:
 		Commands(int);
 		~Commands();
-        
+        // Send vector of mesages to server
+		int sendCommands(std::vector<std::string>);
+
 		
 		//Retrieve inventory
 		std::map<std::string, int>   getInventory();
