@@ -103,9 +103,10 @@ std::vector<std::string> Ai::get_what_to_do()
     else
         result.clear();
     */
-    
-    //std::cout << "print ai inventory:\n\n";
-    //Utils::printMap(*_inventory);
+
+    if (_result.empty())//If it does nocing,let's rotate
+        _result.push_back("Right\n");
+ 
     return _result;
 }
 
