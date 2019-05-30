@@ -18,6 +18,21 @@
 #include <fcntl.h>
 #include "essentials.h"
 
+typedef struct object_s {
+    char *name;
+    int num;
+} object_t;
+
+typedef struct client_inventory_s {
+    object_t linemate;
+    object_t deraumere;
+    object_t sibur;
+    object_t mendiane;
+    object_t phiras;
+    object_t thystame;
+    object_t food;
+} client_inventory_t;
+
 typedef struct socket_s {
     int fd;
     int client;

@@ -18,19 +18,19 @@ void init_listen(int fd)
 int init_socket(void)
 {
     int sockfd;
-    // int sockopt;
-    // int nm = 1;
+    int sockopt;
+    int nm = 1;
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
         perror("Socket creation failed");
         exit(84);
     }
-    // sockopt = setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &nm, sizeof(nm));
-    // if (sockopt < 0) {
-        // perror("Socket options failed");
-        // exit(0);
-    // }
+    sockopt = setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &nm, sizeof(nm));
+    if (sockopt < 0) {
+        perror("Socket options failed");
+        exit(0);
+    }
     return (sockfd);
 }
 

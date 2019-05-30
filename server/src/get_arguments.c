@@ -18,8 +18,14 @@ server_t *take_arguments(int ac, char **av)
             server->width = atoi(av[i + 1]);
         if (strcmp(av[i], "-y") == 0)
             server->height = atoi(av[i + 1]);
-        // if (strcmp(av[i], "-n") == 0)
-            // server->team_names[0] = "name1";
+        if (strcmp(av[i], "-n") == 0) {
+            int old = i;
+            server->team_names = malloc(sizeof(char*) * 10);
+            for (int o = 0; strcmp(av[i + 1], "-c") != 0; o++, i++) {
+                server->team_names[o] = av[i + 1];
+            }
+            i = old;
+        }
         if (strcmp(av[i], "-c") == 0)
             server->client_nb = atoi(av[i + 1]);
         if (strcmp(av[i], "-f") == 0)

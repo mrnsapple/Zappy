@@ -5,7 +5,7 @@
 ** by oriol
 */
 
-#include "client/src/parser/Parser.hpp"
+#include "parser/Parser.hpp"
 
 Client *get_client(int ac, char **av)
 {
