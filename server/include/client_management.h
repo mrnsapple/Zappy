@@ -11,7 +11,7 @@
 #include "server.h"
 
 
-int    init_client(socket_t *socket, int fd);
+int    init_client(server_t *serv, int fd, char *team_name);
 void    client_interaction(server_t *serv);
 
 

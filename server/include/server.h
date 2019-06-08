@@ -37,7 +37,7 @@ typedef struct client_id_s {
     //the file descriptor 
     int fd;
     //the team name
-    char *name;
+    char *team_name;
 
     struct client_id_s *next;
 } client_id_t;
@@ -47,7 +47,7 @@ typedef struct teams_s {
     //the file descriptor 
     int clients_in_team;
     //the team name
-    char *name;
+    char *team_name;
     client_id_t *clients;
     struct team_s *next;
 
@@ -68,6 +68,7 @@ typedef struct server_s {
     int width;
     int height;
     int client_nb;
+    char **team_names;
     int freq;
     pid_t pid;
     socket_t *sock;
