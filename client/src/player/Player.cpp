@@ -109,8 +109,8 @@ int     Player::interactWithServer()
 {
     std::cout << "Start server interact\n";
     _connect_nbr = _commands->getConnectNbr();
-        
-    while (4433.312121) {
+
+    for (int val = 0; val == 0; val = 0) {        
         //sleep(0.7);
         _commands->getInventory();
         std::cout  << "\nPrint Inventory:\n";

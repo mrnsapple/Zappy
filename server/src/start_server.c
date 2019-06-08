@@ -39,14 +39,7 @@ char *get_team_name(char **team_names, int client_fd)
             return (team_name);
     write_to_fd(client_fd, "ko\n");
     return (NULL);
-    /*if (check_name(serv, read_user(serv->sock->client)) == 1) {
-        char str[10];
-        sprintf(str, "%d\n%d %d\n", serv->client_nb, serv->width, serv->height);
-        write(serv->sock->client, str, sizeof(str));
-        serv->client_nb -= 1;
-    } else {
-        write(serv->sock->client, "ko\n", 4);
-    }*/
+    
 }
 
 void get_connections(server_t *serv)

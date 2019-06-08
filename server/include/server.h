@@ -36,6 +36,8 @@ typedef struct client_inventory_s {
 typedef struct client_id_s {
     //the file descriptor 
     int fd;
+    //know if map size has been sent
+    int send_map_size;
     //the team name
     char *team_name;
 

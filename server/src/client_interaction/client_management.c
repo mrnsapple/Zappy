@@ -21,6 +21,7 @@ client_id_t *malloc_client(int fd, char *team_name)
     client->next = NULL;
     client->fd = fd;
     client->team_name = team_name;
+    client->send_map_size = 1;
     return client;
 }
 
