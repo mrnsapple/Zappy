@@ -49,7 +49,7 @@ typedef struct teams_s {
     //the team name
     char *team_name;
     client_id_t *clients;
-    struct team_s *next;
+    struct teams_s *next;
 
 } teams_t;
 

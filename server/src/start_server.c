@@ -8,6 +8,7 @@
 #include "../include/init_server.h"
 #include "../include/server.h"
 #include "../include/error_management.h"
+#include "../include/client_management.h"
 
 char *remove_char(char *str, char x)
 {
@@ -24,16 +25,6 @@ char *remove_spaces(char *str)
             str[i] = '\0';
     return (str);
 }
-
-/*
-int check_name(server_t *serv, char *clientName)
-{
-    clientName = remove_char(clientName, '\n');
-    for (int i = 0; serv->team_names != NULL; i++)
-        if (strcmp(serv->team_names[i], clientName))
-            return (1);
-    return (0);
-}*/
 
 char *get_team_name(char **team_names, int client_fd)
 {
@@ -69,7 +60,7 @@ void get_connections(server_t *serv)
             team_name = get_team_name(serv->team_names, fd);
             printf("fd:%d, team_name:%s\n", fd, team_name);
             init_client(serv, fd, team_name);
-            //client_interaction(serv);
+            client_interaction(serv);
             //serv->sock->client = init_accept(serv);
             //serv->pid = fork();
             //user_interaction(serv);

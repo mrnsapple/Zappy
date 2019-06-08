@@ -5,8 +5,11 @@
 ** error_management
 */
 
-#include "../include/essentials.h"
-#include "../include/client_management.h"
+#include "../../include/essentials.h"
+#include "../../include/client_management.h"
+#include "../../include/init_server.h"
+#include "../../include/server.h"
+#include "../../include/error_management.h"
 
 client_id_t *malloc_client(int fd, char *team_name)
 {
@@ -43,7 +46,7 @@ int add_client_to_existing_team(int client_nb, teams_t *team, client_id_t *clien
         return (-1);
     }
     for (clients = clients; clients->next != NULL; clients = clients->next);
-        clients->next = client;
+    clients->next = client;
     return (0);
 }
 
@@ -60,16 +63,7 @@ int    init_client(server_t *serv, int fd, char *team_name)
             if (strcmp(teams->team_name, team_name) == 0)
                 add_client_to_existing_team(serv->client_nb, teams, malloc_client(fd, team_name));
         for (teams = teams; teams->next != NULL; teams = teams->next);
-            teams->next = malloc_team(malloc_client(fd, team_name));
+        teams->next = malloc_team(malloc_client(fd, team_name));
     }
     return (0); 
 }
-/*
-void    client_interaction(server_t *serv)
-{
-    client_id_t *clients = serv->sock->clients;
-    
-    for (; clients != NULL; clients = clients->next)
-        printf("the fd:%d\n", clients->fd );
-}
-*/
