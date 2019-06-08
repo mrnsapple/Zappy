@@ -94,18 +94,18 @@ std::string Utils::readFromFd(int fd)
     return (write_to);
 }
 
-std::string Utils::writeInFd(int fd, std::string message)
+std::string Utils::writeInFd(int fd, std::string message, bool read_to)
 {
     std::string str;
 
     str.clear();
     if (write(fd, message.c_str(), message.length()) == -1)
         return (str);
-    else {
+    else if (read_to == true) {
         str = readFromFd(fd);
-        
         return (str);
     }
+    return ("END\n");
 }
 
 std::vector<std::string> Utils::separeteByChar(std::string str, char character)

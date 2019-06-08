@@ -22,7 +22,9 @@ SRC =	$(CLIENT_PATH)main.cpp 						\
 		$(CLIENT_PATH)utils/Utils.cpp
 
 SERVSRC	=	$(SERVER_PATH)main.c				\
+			$(SERVER_PATH)client_management.c	\
 			$(SERVER_PATH)error_management.c	\
+			$(SERVER_PATH)fd_management.c		\
 			$(SERVER_PATH)get_arguments.c		\
 			$(SERVER_PATH)init_server.c			\
 			$(SERVER_PATH)start_server.c

@@ -21,7 +21,7 @@ class Utils {
 		static bool	writeToFifo(std::string fifo, std::string);
 		//file descriptor interactions
 		static std::string readFromFd(int );
-        static std::string writeInFd(int , std::string);
+        static std::string writeInFd(int , std::string, bool);
 
 		static std::vector<std::string> separeteByChar(std::string str, char character);
 

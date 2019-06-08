@@ -10,8 +10,9 @@
 Commands::Commands(int socket_fd,
     std::map<std::string, int> *inventory, 
  std::map<std::string, int> *gems_finding,
- std::vector<std::map<std::string, int>> *stuff_in_tiles) :
-  _socket_fd(socket_fd)
+ std::vector<std::map<std::string, int>> *stuff_in_tiles,
+ std::string fifo_read) :
+  _socket_fd(socket_fd), _fifo_read(fifo_read)
 {
     _inventory = inventory;
     _gems_finding = gems_finding;
@@ -38,10 +39,11 @@ std::vector<std::map<std::string, int>>    Commands::getLookArround()
     std::map<std::string, int> my_map;
     (*_stuff_in_tiles).clear();
     //Retrieve info
-    read_from = Utils::writeInFd(_socket_fd, "Look\n");
+    read_from = Utils::writeInFd(_socket_fd, "Look\n", true);
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
         return (perror("Inventory not recieved\n"), *_stuff_in_tiles);
     // Parse result string
+    std::cout << "the look result:" << read_from << "\n";
     read_from.erase(std::remove(read_from.begin(), read_from.end(), '['), read_from.end());
     read_from.erase(std::remove(read_from.begin(), read_from.end(), ']'), read_from.end());
     // Allocate in _stuff_in_tiles variable
@@ -66,7 +68,7 @@ int Commands::getConnectNbr()
     std::string read_from;
 
     //Retrieve info
-    read_from = Utils::writeInFd(_socket_fd, "Connect_nbr\n");
+    read_from = Utils::writeInFd(_socket_fd, "Connect_nbr\n", true);
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
         return (perror("Inventory not recieved\n"), -1);
     //std::cout << "read:" << read_from << "\n";
@@ -80,11 +82,11 @@ std::map<std::string, int>  Commands::getInventory()
     std::vector<std::string> vect_ptr;
 
     //Retrieve info
-    read_from = Utils::writeInFd(_socket_fd, "Inventory\n");
+    read_from = Utils::writeInFd(_socket_fd, "Inventory\n", true);
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
         return (perror("Inventory not recieved\n"), *_inventory);
     // Parse result string
-    //std::cout << "rad_form:" << read_from << "\n";
+    std::cout << "inventiory:" << read_from << "\n";
     read_from.erase(std::remove(read_from.begin(), read_from.end(), '['), read_from.end());
     read_from.erase(std::remove(read_from.begin(), read_from.end(), ']'), read_from.end());
     //std::cout << _socket_fd << " reads: "<< read_from << "\n";
@@ -106,8 +108,11 @@ int Commands::sendCommands(std::vector<std::string> message_vector)
     
     //Retrieve info
     for (auto message : message_vector) {
-        read_from = Utils::writeInFd(_socket_fd, message);
-        std::cout << "ret:" << read_from;
+        if (strcmp(message.c_str(), "Fork\n") == 0)
+            Utils::writeToFifo(_fifo_read, "Create a player\n");
+        std::cout << "pos:" << message << "\n";
+        read_from = Utils::writeInFd(_socket_fd, message, true);
+        std::cout << "return:" << read_from << "\n";
     }
     return (0);
 }
@@ -115,7 +120,7 @@ int Commands::sendCommands(std::vector<std::string> message_vector)
 int    Commands::sendBroadcastText( std::string text)
 {
     std::string read_from;
-    read_from = Utils::writeInFd(_socket_fd, "Broadcast " + text + "\n");
+    read_from = Utils::writeInFd(_socket_fd, "Broadcast " + text + "\n", true);
     //std::cout << "Player " << _client_num << "reads: "<< read_from << "\n";
     return (0);
 }

@@ -7,7 +7,7 @@
 
 #include "../include/essentials.h"
 
-void print_help(void)
+int print_help(void)
 {
     printf("USAGE: ./zappy_server -p port -x width -y height");
     printf(" -n name1 name2 ... -c clientNb -f freg\n");
@@ -18,6 +18,8 @@ void print_help(void)
     printf("\tclientsNb\tis the number of authorized clients per team\n");
     printf("\tfreq\tis the reciprocal of time");
     printf(" unit for execution of actions\n");
+    
+    return (0);
 }
 
 int check_arg(int ac, char *first_arg)

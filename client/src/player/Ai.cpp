@@ -100,33 +100,45 @@ int Ai::get_stones()
     std::map<std::string, int>::iterator itr; 
 
     for (itr = (*_gems_finding).begin(); itr != (*_gems_finding).end(); itr++) { 
-        if (itr->second > 0) {
-            get_element(itr->first);
-            //get_element("linemate");
+        //if (itr->second > 0) {
+            if ((*_inventory)[itr->first] == 0)
+                get_element(itr->first);
+            //get_element("thystame");
             if (!_result.empty())
                 break;
-        }
+        //}
         //std::cout << '\t' << itr->first 
         //     << '\t' << itr->second << '\n'; 
     }
     return 0;
 }
 
+bool    Ai::time_to_create_player()
+{
+    return false;
+}
 
 std::vector<std::string> Ai::get_what_to_do()
 {
     _result.clear();
-    //get_element("food");
-    get_stones();
-    /*if ((*_inventory)["food"] < 5)
+//            get_stones();
+
+    if ((*_inventory)["food"] < 5)
         get_element("food");
+    else if (time_to_create_player() == true)
+        _result.push_back("Fork\n");
     else
         get_stones();
-    */
-    for (auto a : _result)
-        std::cout << "pos:" << a;
-    if (_result.empty())//If it does nocing,let's rotate
+    //for (auto a : _result)
+    //    std::cout << "pos:" << a;
+    if (_result.empty()) {//If it does nocing,let's rotate
         _result.push_back("Right\n");
+        _result.push_back("Right\n");
+        for (int i = 0; i < 4; i++)    
+            _result.push_back("Forward\n");
+
+        std::cout << "Result is empty\n";
+    }
     return _result;
 }
 

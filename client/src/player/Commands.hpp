@@ -15,7 +15,8 @@ class Commands {
 		Commands(int socket_fd,
     		std::map<std::string, int> *inventory, 
  			std::map<std::string, int> *gems_finding,
-			 std::vector<std::map<std::string, int>> *);
+			 std::vector<std::map<std::string, int>> *,
+			 std::string);
 		~Commands();
         // Send vector of mesages to server
 		int sendCommands(std::vector<std::string>);
@@ -36,6 +37,8 @@ class Commands {
 
 		std::map<std::string, int> *_inventory;
 		std::map<std::string, int> *_gems_finding;
+        
+		std::string _fifo_read;
 
 };
 

@@ -75,6 +75,9 @@ socket_t *init_server(server_t *serv)
 {
     socket_t *sock = malloc(sizeof(socket_t));
 
+    if (sock == NULL)
+        return (NULL);
+    sock->teams = NULL;
     sock->fd = init_socket();
     sock->address = init_bind_address(serv->port, sock->fd);
     return (sock);

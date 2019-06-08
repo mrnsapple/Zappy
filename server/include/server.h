@@ -33,9 +33,30 @@ typedef struct client_inventory_s {
     object_t food;
 } client_inventory_t;
 
+typedef struct client_id_s {
+    //the file descriptor 
+    int fd;
+    //the team name
+    char *name;
+
+    struct client_id_s *next;
+} client_id_t;
+
+
+typedef struct teams_s {
+    //the file descriptor 
+    int clients_in_team;
+    //the team name
+    char *name;
+    client_id_t *clients;
+    struct team_s *next;
+
+} teams_t;
+
 typedef struct socket_s {
     int fd;
-    int client;
+    teams_t *teams;
+    //int client;
     struct sockaddr_in address;
     struct sockaddr_in dest;
     fd_set fds;
@@ -46,7 +67,6 @@ typedef struct server_s {
     int port;
     int width;
     int height;
-    char **team_names;
     int client_nb;
     int freq;
     pid_t pid;

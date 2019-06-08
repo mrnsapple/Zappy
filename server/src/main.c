@@ -10,22 +10,25 @@
 #include "../include/get_arguments.h"
 #include "../include/init_server.h"
 
-int main(int ac, char **av)
+int server(int ac, char **av)
 {
     int val = check_arg(ac, av[1]);
     server_t *server;
 
     if (val == 1)
-        print_help();
-    else if (val == 0) {
-        server = take_arguments(ac, av);
-        server->sock = init_server(server);
-        init_listen(server->sock->fd);
-        FD_ZERO(&server->sock->fds);
-        FD_SET(server->sock->fd, &server->sock->fds);
-        start_server(server);
-    }
-    else
+        return (print_help());
+    else if (val == -1)
         return (84);
+    server = take_arguments(ac, av);
+    server->sock = init_server(server);
+    init_listen(server->sock->fd);
+    FD_ZERO(&server->sock->fds);
+    FD_SET(server->sock->fd, &server->sock->fds);
+    start_server(server);
     return (0);
+}
+
+int main(int ac, char **av)
+{
+    return (server(ac, av));
 }
