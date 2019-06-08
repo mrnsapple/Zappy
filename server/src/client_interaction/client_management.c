@@ -41,12 +41,14 @@ int add_client_to_existing_team(int client_nb, teams_t *team, client_id_t *clien
 {
     client_id_t *clients = team->clients;
 
-    if (team->clients_in_team > client_nb) {
+    if (team->clients_in_team >= client_nb) {
+        perror("Can not add another client in team\n");
         write_to_fd(client->fd, "ko\n");
         return (-1);
     }
     for (clients = clients; clients->next != NULL; clients = clients->next);
     clients->next = client;
+    team->clients_in_team += 1;
     return (0);
 }
 
@@ -56,12 +58,13 @@ int    init_client(server_t *serv, int fd, char *team_name)
 
     if (serv->sock->teams == NULL)
         serv->sock->teams = malloc_team(malloc_client(fd, team_name));
-    
     else {
         //check team already exists
         for (teams = teams; teams != NULL; teams = teams->next)
             if (strcmp(teams->team_name, team_name) == 0)
-                add_client_to_existing_team(serv->client_nb, teams, malloc_client(fd, team_name));
+                return (add_client_to_existing_team(serv->client_nb, teams, malloc_client(fd, team_name)));
+        //create team
+        teams = serv->sock->teams;
         for (teams = teams; teams->next != NULL; teams = teams->next);
         teams->next = malloc_team(malloc_client(fd, team_name));
     }
