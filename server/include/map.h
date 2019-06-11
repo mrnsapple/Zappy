@@ -11,15 +11,14 @@
 #include "server.h"
 
 //ponlo en una lista o array.
-typedef struct gems_s{
-    char* name;
+typedef struct item_s{
+    char *name;
     int amount;
-} gems_t;
+} item_t;
 
 typedef struct map_s{
-    client_id_t player;
-    gems_t gemas;
-    int comida;
+    client_id_t *player;
+    item_t *gemas;
     int huevo;
 } map_t;
 

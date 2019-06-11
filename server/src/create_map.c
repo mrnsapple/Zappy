@@ -13,9 +13,10 @@
 void begin_map(int width, int height)
 {
     map_t** map;
-    int x = 0;
-    int y = 0;
-    for (int y = 0; width != y; y++){
 
+    map = malloc(sizeof(map_t) * height);
+
+    for (int y = 0; height != y; y++){
+        map[y] = malloc(sizeof(map_t) * width);
     }
 }
