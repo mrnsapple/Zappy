@@ -21,14 +21,25 @@ void    connect_number(char *result, server_t *serv,  teams_t *teams, client_id_
     }
 }
 
-void    inventory(char *result, server_t *serv,  teams_t *teams, client_id_t *clients)
+int    inventory(char *result, server_t *serv,  teams_t *teams, client_id_t *clients)
 {
-    char *str = "";
+    char str[200];// = "[ ";
+    char char_arr [100];
 
-    for (int i = 0; strcmp(clients->items[i].name, "END") != 0; i++)
-        printf("item:%s\n", clients->items[i].name);
-    if (strcmp(result, "Inventory\n") == 0) {
-        //sprintf(str, "%d", serv->client_nb - teams->clients_in_team);
-        write_to_fd(clients->fd, str);
-    }  
+    if (strcmp(result, "Inventory\n") != 0)
+        return 0;
+    strcpy(str,"[ ");
+    for (int i = 0; strcmp(clients->items[i].name, "end") != 0; i++) {
+        printf("item:%s, %d\n", clients->items[i].name, strcmp(clients->items[i].name, "end"));
+        strcat(str, clients->items[i].name);
+        strcat(str, " ");
+        sprintf(char_arr, "%d", clients->items[i].amount);
+        strcat(str, char_arr);
+        if (strcmp(clients->items[i + 1].name, "end") != 0)
+            strcat(str, ",");
+        strcat(str, " ");
+    }
+    strcat(str, "]");
+    printf("the str:%s\n", str);
+    write_to_fd(clients->fd, str);
 }

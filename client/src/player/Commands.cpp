@@ -70,7 +70,7 @@ int Commands::getConnectNbr()
     //Retrieve info
     read_from = Utils::writeInFd(_socket_fd, "Connect_nbr\n", true);
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
-        return (perror("Inventory not recieved\n"), -1);
+        return (perror("Connect nbr not recieved\n"), -1);
     std::cout << "read:" << read_from << "\n";
     return (std::stoi(read_from));
 }
@@ -82,6 +82,7 @@ std::map<std::string, int>  Commands::getInventory()
     std::vector<std::string> vect_ptr;
 
     //Retrieve info
+    std::cout << "before write inventry\n";
     read_from = Utils::writeInFd(_socket_fd, "Inventory\n", true);
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
         return (perror("Inventory not recieved\n"), *_inventory);

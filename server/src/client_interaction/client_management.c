@@ -32,7 +32,10 @@ client_id_t *malloc_client(int fd, char *team_name)
     client->fd = fd;
     client->team_name = team_name;
     client->send_map_size = 1;
-    client->items = items;
+    client->items = malloc(sizeof(client_id_t) * 9);
+    //buff = malloc(totalsize);
+    memcpy(client->items, &items, sizeof(item_t) * 9);
+    
 
 
     return client;

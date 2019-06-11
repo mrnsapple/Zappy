@@ -62,6 +62,7 @@ void get_connections(server_t *serv)
 void start_server(server_t *serv)
 {
     while (1) {
+        printf("in loop\n");
         serv->sock->readFds = serv->sock->fds;
         init_select(serv->sock->readFds);
         get_connections(serv);
