@@ -26,7 +26,9 @@ void    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
 
     if (clients->send_map_size == 1)
        send_map_size(serv, teams, clients);
+    printf("before read\n");
     result = read_user(clients->fd);
+    printf("after read\n");
     connect_number(result, serv, teams, clients);
     inventory(result, serv, teams, clients);
     printf("result:%s\n", result);

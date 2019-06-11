@@ -51,7 +51,7 @@ struct sockaddr_in init_bind_address(int port, int fd)
 }
 
 void init_select(fd_set readFds)
-{
+{    
     if (select(FD_SETSIZE, &readFds, NULL, NULL, NULL) < 0) {
         perror("Select failed");
         exit(84);

@@ -42,4 +42,5 @@ int    inventory(char *result, server_t *serv,  teams_t *teams, client_id_t *cli
     strcat(str, "]");
     printf("the str:%s\n", str);
     write_to_fd(clients->fd, str);
+    return (0);
 }
