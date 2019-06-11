@@ -20,13 +20,15 @@ void    connect_number(char *result, server_t *serv,  teams_t *teams, client_id_
         write_to_fd(clients->fd, char_arr);
     }
 }
-/*
+
 void    inventory(char *result, server_t *serv,  teams_t *teams, client_id_t *clients)
 {
     char *str = "";
 
+    for (int i = 0; strcmp(clients->items[i].name, "END") != 0; i++)
+        printf("item:%s\n", clients->items[i].name);
     if (strcmp(result, "Inventory\n") == 0) {
         //sprintf(str, "%d", serv->client_nb - teams->clients_in_team);
         write_to_fd(clients->fd, str);
     }  
-}*/
+}

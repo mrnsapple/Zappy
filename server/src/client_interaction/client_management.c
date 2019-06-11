@@ -22,7 +22,8 @@ client_id_t *malloc_client(int fd, char *team_name)
         { .name = "mendiane", .amount = 0 },
         { .name = "phiras", .amount = 0 },
         { .name = "thystame", .amount = 0 },
-        
+        { .name = "end", .amount = 0 },
+
     };
     client = malloc(sizeof(client_id_t));
     if (client == NULL)

@@ -49,7 +49,7 @@ $(NAME)	:	rmfifo $(OBJ)
 	g++ -g -Wall -Wextra -o $(NAME) $(SRC)
 
 $(SERVNAME)	:	$(SERVOBJ)
-	gcc -g -Wall -Wextra -Werror -o $(SERVNAME) $(SERVSRC)
+	gcc -g -Wall -Wextra  -o $(SERVNAME) $(SERVSRC)
 
 clean:
 	rm -rf $(OBJ)
