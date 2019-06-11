@@ -109,7 +109,7 @@ int     Player::interactWithServer()
 {
     std::cout << "Start server interact\n";
     _connect_nbr = _commands->getConnectNbr();
-
+    //exit (0);
     for (int val = 0; val == 0; val = 0) {        
         //sleep(0.7);
         _commands->getInventory();

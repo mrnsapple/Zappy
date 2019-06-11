@@ -53,7 +53,6 @@ void get_connections(server_t *serv)
             team_name = get_team_name(serv->team_names, fd);
             printf("fd:%d, team_name:%s\n", fd, team_name);
             init_client(serv, fd, team_name);
-            client_interaction(serv);
             //serv->sock->client = init_accept(serv);
             //serv->pid = fork();
             //user_interaction(serv);
@@ -66,6 +65,8 @@ void start_server(server_t *serv)
         serv->sock->readFds = serv->sock->fds;
         init_select(serv->sock->readFds);
         get_connections(serv);
+        client_interaction(serv);
+
     }
     close(serv->sock->fd);
 }

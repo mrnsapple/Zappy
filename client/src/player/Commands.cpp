@@ -71,7 +71,7 @@ int Commands::getConnectNbr()
     read_from = Utils::writeInFd(_socket_fd, "Connect_nbr\n", true);
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
         return (perror("Inventory not recieved\n"), -1);
-    //std::cout << "read:" << read_from << "\n";
+    std::cout << "read:" << read_from << "\n";
     return (std::stoi(read_from));
 }
 

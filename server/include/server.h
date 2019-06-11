@@ -17,21 +17,18 @@
 #include <sys/time.h>
 #include <fcntl.h>
 #include "essentials.h"
+//#include "map.h"
 
-typedef struct object_s {
+/*typedef struct object_s {
     char *name;
     int num;
 } object_t;
+*/
+typedef struct item_s{
+    char *name;
+    int amount;
+} item_t;
 
-typedef struct client_inventory_s {
-    object_t linemate;
-    object_t deraumere;
-    object_t sibur;
-    object_t mendiane;
-    object_t phiras;
-    object_t thystame;
-    object_t food;
-} client_inventory_t;
 
 typedef struct client_id_s {
     //the file descriptor 
@@ -40,7 +37,7 @@ typedef struct client_id_s {
     int send_map_size;
     //the team name
     char *team_name;
-
+    item_t *items;
     struct client_id_s *next;
 } client_id_t;
 

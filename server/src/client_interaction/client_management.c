@@ -14,7 +14,16 @@
 client_id_t *malloc_client(int fd, char *team_name)
 {
     client_id_t *client;
-
+    item_t items[] = {
+        { .name = "food", .amount = 10 },
+        { .name = "linemate", .amount = 0 },
+        { .name = "deraumere", .amount = 0 },
+        { .name = "sibur", .amount = 0 },
+        { .name = "mendiane", .amount = 0 },
+        { .name = "phiras", .amount = 0 },
+        { .name = "thystame", .amount = 0 },
+        
+    };
     client = malloc(sizeof(client_id_t));
     if (client == NULL)
         exit(84);
@@ -22,6 +31,9 @@ client_id_t *malloc_client(int fd, char *team_name)
     client->fd = fd;
     client->team_name = team_name;
     client->send_map_size = 1;
+    client->items = items;
+
+
     return client;
 }
 

@@ -22,8 +22,14 @@ void    send_map_size(server_t *serv, teams_t *teams, client_id_t *clients)
 
 void    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
 {
+    char *result;
+
     if (clients->send_map_size == 1)
        send_map_size(serv, teams, clients);
+    result = read_user(clients->fd);
+    connect_number(result, serv, teams, clients);
+    printf("result:%s\n", result);
+
     printf("team_name:%s, fd:%d\n", clients->team_name, clients->fd);
     
 }

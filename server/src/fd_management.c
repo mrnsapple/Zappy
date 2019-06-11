@@ -26,5 +26,6 @@ int write_to_fd(int fd, char *str)
 {
     if (write(fd, str, strlen(str)) == -1)
         exit(84);
+    printf("writen_to_fd:%s\n", str);
     return (0);
 }
