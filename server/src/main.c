@@ -24,7 +24,7 @@ int server(int ac, char **av)
     server->map = init_map(server->width, server->height);
     display_map(server->map);
     server->sock = init_server(server);
-    init_listen(server->sock->fd);
+    init_listen(server->sock->fd, server->client_nb, server->team_names);
     FD_ZERO(&server->sock->fds);
     FD_SET(server->sock->fd, &server->sock->fds);
     start_server(server);

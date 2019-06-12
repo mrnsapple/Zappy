@@ -7,9 +7,15 @@
 
 #include "../include/init_server.h"
 
-void init_listen(int fd)
+void init_listen(int fd, int client_nb, char **team_names)
 {
-    if (listen(fd, 5) < 0) {
+    //Numero de equipos * numero de clientes por equipo
+    //numero maximo de jugadores
+    int teams = 0;
+    for (int i = 0;team_names[i] != NULL; i++) 
+        teams++;
+    int max_number = teams * client_nb;
+    if (listen(fd, max_number) < 0) {
         perror("Listening failed");
         exit(84);
     }
