@@ -9,6 +9,7 @@
 #include "../include/server.h"
 #include "../include/get_arguments.h"
 #include "../include/init_server.h"
+#include "../include/map.h"
 
 int server(int ac, char **av)
 {
@@ -20,6 +21,8 @@ int server(int ac, char **av)
     else if (val == -1)
         return (84);
     server = take_arguments(ac, av);
+    server->map = init_map(server->width, server->height);
+    display_map(server->map);
     server->sock = init_server(server);
     init_listen(server->sock->fd);
     FD_ZERO(&server->sock->fds);

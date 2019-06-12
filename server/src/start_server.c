@@ -72,7 +72,6 @@ void fd_stuff(server_t *serv)
         clients = teams->clients;
         for (; clients != NULL; clients = clients->next)
             FD_SET (clients->fd, &(serv->sock->readFds));
-
     }
 }
 
