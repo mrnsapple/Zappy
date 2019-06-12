@@ -20,9 +20,12 @@ void    send_map_size(server_t *serv, teams_t *teams, client_id_t *clients)
     write_to_fd(clients->fd, str);
 }
 
-void    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
+int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
 {
     char *result;
+
+    if (! FD_ISSET(clients->fd, &serv->sock->readFds))
+        return 0;
 
     if (clients->send_map_size == 1)
        send_map_size(serv, teams, clients);
@@ -33,7 +36,7 @@ void    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
     inventory(result, serv, teams, clients);
     printf("result:%s\n", result);
     printf("team_name:%s, fd:%d\n", clients->team_name, clients->fd);
-    
+    return (0);  
 }
 
 void    client_interaction(server_t *serv)

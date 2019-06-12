@@ -47,32 +47,47 @@ void get_connections(server_t *serv)
     int fd;
     char *team_name;
 
-    for (int i = 0; i < FD_SETSIZE; i++)
-        if (FD_ISSET(i, &serv->sock->readFds) && i == serv->sock->fd) {
-            printf("oscarillo and oscafrinestail\n");
-            fd = init_accept(serv);
-            team_name = get_team_name(serv->team_names, fd);
-            printf("fd:%d, team_name:%s\n", fd, team_name);
-            init_client(serv, fd, team_name);
-            //serv->sock->client = init_accept(serv);
-            //serv->pid = fork();
-            //user_interaction(serv);
-        }
+    //for (int i = 0; i < FD_SETSIZE; i++)
+    if (FD_ISSET(serv->sock->fd, &serv->sock->readFds)) {
+        printf("oscarillo and oscafrinestail\n");
+        fd = init_accept(serv);
+        team_name = get_team_name(serv->team_names, fd);
+        printf("fd:%d, team_name:%s\n", fd, team_name);
+        init_client(serv, fd, team_name);
+        //serv->sock->client = init_accept(serv);
+        //serv->pid = fork();
+        //user_interaction(serv);
+    }
+
+}
+
+void fd_stuff(server_t *serv)
+{
+    teams_t *teams = serv->sock->teams;
+    client_id_t *clients;
+
+    FD_ZERO (&(serv->sock->readFds));
+    FD_SET (serv->sock->fd, &(serv->sock->readFds));
+    for (; teams != NULL; teams = teams->next) {
+        clients = teams->clients;
+        for (; clients != NULL; clients = clients->next)
+            FD_SET (clients->fd, &(serv->sock->readFds));
+
+    }
 }
 
 void start_server(server_t *serv)
 {
     while (42) {
         serv->sock->readFds = serv->sock->fds;
-        FD_ZERO (&(serv->sock->readFds));
-        FD_SET (serv->sock->fd, &(serv->sock->readFds));
+        fd_stuff(serv);
     
         printf("initselect\n");
         init_select(serv->sock->readFds);
         printf("beforegetconections\n");
+        client_interaction(serv);
         get_connections(serv);
         printf("aftergetconections\n");
-        client_interaction(serv);
 
     }
     close(serv->sock->fd);
