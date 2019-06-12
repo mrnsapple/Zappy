@@ -49,6 +49,7 @@ void get_connections(server_t *serv)
 
     for (int i = 0; i < FD_SETSIZE; i++)
         if (FD_ISSET(i, &serv->sock->readFds) && i == serv->sock->fd) {
+            printf("oscarillo and oscafrinestail\n");
             fd = init_accept(serv);
             team_name = get_team_name(serv->team_names, fd);
             printf("fd:%d, team_name:%s\n", fd, team_name);
