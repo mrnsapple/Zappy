@@ -49,8 +49,9 @@ void get_connections(server_t *serv)
 
     //for (int i = 0; i < FD_SETSIZE; i++)
     if (FD_ISSET(serv->sock->fd, &serv->sock->readFds)) {
-        printf("oscarillo and oscafrinestail\n");
+        printf("Awaiting for a new connection\n");
         fd = init_accept(serv);
+        printf("Connection has been accepted\n");
         team_name = get_team_name(serv->team_names, fd);
         printf("fd:%d, team_name:%s\n", fd, team_name);
         init_client(serv, fd, team_name);
@@ -80,14 +81,12 @@ void start_server(server_t *serv)
     while (42) {
         serv->sock->readFds = serv->sock->fds;
         fd_stuff(serv);
-    
-        printf("initselect\n");
+        printf("FD stuff done\n");
         init_select(serv->sock->readFds);
-        printf("beforegetconections\n");
+        printf("Select Initialization is done, comencing client interaction\n");
         client_interaction(serv);
         get_connections(serv);
-        printf("aftergetconections\n");
-
+        printf("get connections achieved\n");
     }
     close(serv->sock->fd);
 }

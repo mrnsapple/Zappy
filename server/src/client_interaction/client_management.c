@@ -73,10 +73,8 @@ int    init_client(server_t *serv, int fd, char *team_name)
 {
     teams_t *teams = serv->sock->teams;
 
-    if (serv->sock->teams == NULL) {
-        printf("             here's to you\n");
+    if (serv->sock->teams == NULL)
         serv->sock->teams = malloc_team(malloc_client(fd, team_name));
-    }
     else {
         //check team already exists
         for (teams = teams; teams != NULL; teams = teams->next)
