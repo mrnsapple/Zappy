@@ -11,7 +11,7 @@
 #include "../include/server.h"
 
 void init_listen(int fd, int client_nb, char **teams_nb);
-void init_select(fd_set fds);
+void init_select(fd_set fds, int nfds);
 int init_accept(server_t *serv);
 socket_t *init_server(server_t *serv);
 void start_server(server_t *serv);

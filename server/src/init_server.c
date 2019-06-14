@@ -56,10 +56,10 @@ struct sockaddr_in init_bind_address(int port, int fd)
     return (address);
 }
 
-void init_select(fd_set readFds)
+void init_select(fd_set readFds, int nfds)
 {   
-    struct timeval time = {.tv_sec = 1, .tv_usec = 1}; 
-    if (select(FD_SETSIZE, &readFds, NULL, NULL, &time) < 0) {
+    // struct timeval time = {.tv_sec = 1, .tv_usec = 1}; 
+    if (select(nfds + 1, &readFds, NULL, NULL, NULL) < 0) {
         perror("Select failed");
         exit(84);
     }
@@ -70,7 +70,7 @@ int init_accept(server_t *serv)
     int addrlen = sizeof(serv->sock->dest);
     int sock;
 
-    sock = accept(serv->sock->fd, (struct sockaddr*)&serv->sock->dest, (socklen_t*)&addrlen);
+    sock = accept(serv->sock->fd, (struct sockaddr*)&serv->sock->address, (socklen_t*)&addrlen);
     if (sock < 0) {
         perror("accepting failed");
         exit(84);

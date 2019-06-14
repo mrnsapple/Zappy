@@ -14,7 +14,7 @@
 void    send_map_size(server_t *serv, teams_t *teams, client_id_t *clients)
 {
     char str[10];
-    
+
     clients->send_map_size = 0;
     sprintf(str, "%d\n%d %d\n", serv->client_nb - teams->clients_in_team, serv->width, serv->height);
     write_to_fd(clients->fd, str);
@@ -24,9 +24,8 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
 {
     char *result;
 
-    if (! FD_ISSET(clients->fd, &serv->sock->readFds))
+    if (!FD_ISSET(clients->fd, &serv->sock->readFds))
         return 0;
-
     if (clients->send_map_size == 1)
        send_map_size(serv, teams, clients);
     printf("before read\n");
@@ -36,7 +35,7 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
     inventory(result, serv, teams, clients);
     printf("result:%s\n", result);
     printf("team_name:%s, fd:%d\n", clients->team_name, clients->fd);
-    return (0);  
+    return (0);
 }
 
 void    client_interaction(server_t *serv)
@@ -49,4 +48,4 @@ void    client_interaction(server_t *serv)
         for (; clients != NULL; clients = clients->next)
             client_actions(serv, teams, clients);
     }
-}   
+}

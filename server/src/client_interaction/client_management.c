@@ -35,16 +35,13 @@ client_id_t *malloc_client(int fd, char *team_name)
     client->items = malloc(sizeof(client_id_t) * 9);
     //buff = malloc(totalsize);
     memcpy(client->items, &items, sizeof(item_t) * 9);
-    
-
-
     return client;
 }
 
 teams_t *malloc_team(client_id_t *client)
 {
     teams_t *team;
-    
+
     team = malloc(sizeof(teams_t));
     if (team == NULL)
         exit(84);
@@ -85,5 +82,5 @@ int    init_client(server_t *serv, int fd, char *team_name)
         for (teams = teams; teams->next != NULL; teams = teams->next);
         teams->next = malloc_team(malloc_client(fd, team_name));
     }
-    return (0); 
+    return (0);
 }
