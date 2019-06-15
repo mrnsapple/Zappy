@@ -70,13 +70,13 @@ void get_connections(server_t *serv)
     int fd;
     char *team_name;
 
-    //for (int i = 0; i < FD_SETSIZE; i++)
-    if (FD_ISSET(serv->sock->fd, &serv->sock->readFds)) {
-        printf("Awaiting for a new connection\n");
-        fd = init_accept(serv);
-        printf("Connection with fd %d has been accepted\n", fd);
-        team_name = get_team_name(serv->team_names, fd);
-        init_client(serv, fd, team_name);
+    for (int i = 0; i < FD_SETSIZE; i++)
+        if (FD_ISSET(i, &serv->sock->readFds) && i == serv->sock->fd) {
+            printf("Awaiting for a new connection\n");
+            fd = init_accept(serv);
+            printf("Connection with fd %d has been accepted\n", fd);
+            team_name = get_team_name(serv->team_names, fd);
+            init_client(serv, fd, team_name);
     }
     /* for (int i = 0; i < serv->client_nb; i++) {
         //serv->sock->sd = serv->socket_client[i];
