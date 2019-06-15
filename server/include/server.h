@@ -17,18 +17,11 @@
 #include <sys/time.h>
 #include <fcntl.h>
 #include "essentials.h"
-//#include "map.h"
 
-/*typedef struct object_s {
-    char *name;
-    int num;
-} object_t;
-*/
 typedef struct item_s{
     char *name;
     int amount;
 } item_t;
-
 
 typedef struct client_id_s {
     //the file descriptor 
@@ -49,7 +42,6 @@ typedef struct teams_s {
     char *team_name;
     client_id_t *clients;
     struct teams_s *next;
-
 } teams_t;
 
 typedef struct socket_s {
@@ -62,6 +54,12 @@ typedef struct socket_s {
     fd_set readFds;
 } socket_t;
 
+typedef struct map_s {
+    client_id_t *player;
+    item_t *gems;
+    int egg;
+} map_t;
+
 typedef struct server_s {
     int port;
     int width;
@@ -71,6 +69,9 @@ typedef struct server_s {
     int freq;
     pid_t pid;
     socket_t *sock;
+    map_t ***map;
+    //bool for know when stop server
+    int _stop_server;
 } server_t;
 
 #endif /* !SERVER_H_ */

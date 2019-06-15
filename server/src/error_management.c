@@ -18,13 +18,12 @@ int print_help(void)
     printf("\tclientsNb\tis the number of authorized clients per team\n");
     printf("\tfreq\tis the reciprocal of time");
     printf(" unit for execution of actions\n");
-    
     return (0);
 }
 
 int check_arg(int ac, char *first_arg)
 {
-    if (ac == 2 && strcmp(first_arg, "-help") == 0)
+    if (ac == 2 && strcmp(first_arg, "--help") == 0)
         return (1);
     else if (ac > 12)
         return (0);

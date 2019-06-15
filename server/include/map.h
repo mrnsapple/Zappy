@@ -10,12 +10,7 @@
 
 #include "server.h"
 
-//ponlo en una lista o array.
-
-typedef struct map_s{
-    client_id_t *player;
-    item_t *gemas;
-    int huevo;
-} map_t;
+map_t ***init_map(int width, int height);
+void display_map(map_t ***map);
 
 #endif /* !MAP_H_ */

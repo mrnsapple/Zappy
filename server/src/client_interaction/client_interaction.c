@@ -24,9 +24,11 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
 {
     char *result;
 
-    if (! FD_ISSET(clients->fd, &serv->sock->readFds))
+    if (! FD_ISSET(clients->fd, &serv->sock->readFds)) {
+        printf("returns 0\n");
         return 0;
-
+    }
+    printf("inclient action\n\n");
     if (clients->send_map_size == 1)
        send_map_size(serv, teams, clients);
     printf("before read\n");

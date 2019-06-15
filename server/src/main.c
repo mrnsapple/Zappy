@@ -9,6 +9,16 @@
 #include "../include/server.h"
 #include "../include/get_arguments.h"
 #include "../include/init_server.h"
+#include "../include/map.h"
+#include <signal.h>
+
+void stopServer(int signal)
+{
+    if (signal == SIGINT) {
+        perror("Server interrumped\n");
+        exit (84);
+    }
+}
 
 int server(int ac, char **av)
 {
@@ -20,10 +30,13 @@ int server(int ac, char **av)
     else if (val == -1)
         return (84);
     server = take_arguments(ac, av);
+    //server->map = init_map(server->width, server->height);
+    //display_map(server->map);
     server->sock = init_server(server);
-    init_listen(server->sock->fd);
-    FD_ZERO(&server->sock->fds);
-    FD_SET(server->sock->fd, &server->sock->fds);
+    init_listen(server->sock->fd, server->client_nb, server->team_names);
+    //FD_ZERO(&server->sock->fds);
+    //FD_SET(server->sock->fd, &server->sock->fds);
+    signal(SIGINT, stopServer);
     start_server(server);
     return (0);
 }

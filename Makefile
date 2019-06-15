@@ -29,7 +29,8 @@ SERVSRC	=	$(SERVER_PATH)main.c				\
 			$(SERVER_PATH)fd_management.c		\
 			$(SERVER_PATH)get_arguments.c		\
 			$(SERVER_PATH)init_server.c			\
-			$(SERVER_PATH)start_server.c
+			$(SERVER_PATH)start_server.c		\
+			$(SERVER_PATH)create_map.c
 
 
 OBJ	=	$(SRC:.cpp=.o)
