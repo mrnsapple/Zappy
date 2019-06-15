@@ -50,8 +50,9 @@ void fd_stuff(server_t *serv)
     FD_SET(serv->sock->fd, &(serv->sock->readFds));
     for (; teams != NULL; teams = teams->next) {
         clients = teams->clients;
-        for (; clients != NULL; clients = clients->next)
+        for (; clients != NULL; clients = clients->next) {
             FD_SET (clients->fd, &(serv->sock->readFds));
+        }
     }
 }
 
@@ -62,7 +63,6 @@ void get_connections(server_t *serv)
 
     for (int i = 0; i < FD_SETSIZE; i++)
         if (FD_ISSET(i, &serv->sock->readFds)) {
-            printf("i:%d\n", i);
             if (i == serv->sock->fd) {
                 printf("Awaiting for a new connection\n");
                 fd = init_accept(serv);
@@ -70,7 +70,11 @@ void get_connections(server_t *serv)
                 team_name = get_team_name(serv->team_names, fd);
                 init_client(serv, fd, team_name);
             }
+            else
+                client_interaction(serv, i);
+            
         }
+
     /* for (int i = 0; i < serv->client_nb; i++) {
         //serv->sock->sd = serv->socket_client[i];
         printf("here yo go\n");
@@ -91,8 +95,9 @@ void start_server(server_t *serv)
         fd_stuff(serv);
         init_select(&(serv->sock->readFds), serv->sock->max_sd);
         //printf("Select Initialization is done, comencing client interaction\n");
-        client_interaction(serv);
         get_connections(serv);
+        client_interaction(serv, 0);
+
         // printf("get connections achieved\n");
     }
     close(serv->sock->fd);

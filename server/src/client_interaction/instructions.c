@@ -17,7 +17,7 @@ void    connect_number(char *result, server_t *serv,  teams_t *teams, client_id_
 
     if (strcmp(result, "Connect_nbr\n") == 0) {
         sprintf(char_arr, "%d", serv->client_nb - teams->clients_in_team);
-        write_to_fd(clients->fd, char_arr);
+        serv->to_write = char_arr;
     }
 }
 
@@ -30,7 +30,7 @@ int    inventory(char *result, server_t *serv,  teams_t *teams, client_id_t *cli
         return 0;
     strcpy(str,"[ ");
     for (int i = 0; strcmp(clients->items[i].name, "end") != 0; i++) {
-        printf("item:%s, %d\n", clients->items[i].name, strcmp(clients->items[i].name, "end"));
+        //printf("item:%s, %d\n", clients->items[i].name, strcmp(clients->items[i].name, "end"));
         strcat(str, clients->items[i].name);
         strcat(str, " ");
         sprintf(char_arr, "%d", clients->items[i].amount);
@@ -40,7 +40,7 @@ int    inventory(char *result, server_t *serv,  teams_t *teams, client_id_t *cli
         strcat(str, " ");
     }
     strcat(str, "]");
-    printf("the str:%s\n", str);
-    write_to_fd(clients->fd, str);
+    //printf("the str:%s\n", str);
+    serv->to_write = str;
     return (0);
 }

@@ -30,7 +30,7 @@ int server(int ac, char **av)
     else if (val == -1)
         return (84);
     server = take_arguments(ac, av);
-    signal(SIGINT, stopServer);
+    //signal(SIGINT, stopServer);
     server->map = init_map(server->width, server->height);
     display_map(server->map);
     server->sock = init_server(server);

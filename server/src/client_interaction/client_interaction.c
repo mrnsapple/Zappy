@@ -22,37 +22,38 @@ void    send_map_size(server_t *serv, teams_t *teams, client_id_t *clients)
 
 int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
 {
-    char *result;
+    char *read_result;
 
-    if (! FD_ISSET(clients->fd, &serv->sock->readFds)) {
-        printf("returns 0\n");
-        return 0;
-    }
+    serv->to_write="ko\n";
     printf("inclient action\n\n");
     if (clients->send_map_size == 1)
        send_map_size(serv, teams, clients);
     printf("before read\n");
-    result = read_user(clients->fd);
+    read_result = read_user(clients->fd);
     printf("after read\n");
-    connect_number(result, serv, teams, clients);
-    inventory(result, serv, teams, clients);
-    printf("result:%s\n", result);
+    connect_number(read_result, serv, teams, clients);
+    inventory(read_result, serv, teams, clients);
+    
+    write_to_fd(clients->fd, serv->to_write);
+
+    printf("read_result:%s, response:%s:\n", read_result, serv->to_write);
     printf("team_name:%s, fd:%d\n", clients->team_name, clients->fd);
     return (0);
 }
 
-void    client_interaction(server_t *serv)
+void    client_interaction(server_t *serv, int fd)
 {
     teams_t *teams = serv->sock->teams;
     client_id_t *clients;
-
+    //printf("ualala\n");
     for (; teams != NULL; teams = teams->next) {
-        printf("there is a team\n");
+        //printf("there is a team\n");
         clients = teams->clients;
         for (; clients != NULL; clients = clients->next) {
-            printf("in clien action\n");
-            client_actions(serv, teams, clients);
-
+            //if (fd == clients->fd) {
+                //printf("in clien action\n");
+                client_actions(serv, teams, clients);
+            //}
         }
     }
 }

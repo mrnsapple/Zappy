@@ -39,7 +39,10 @@ std::vector<std::map<std::string, int>>    Commands::getLookArround()
     std::map<std::string, int> my_map;
     (*_stuff_in_tiles).clear();
     //Retrieve info
+    printf("before write look\n");
+
     read_from = Utils::writeInFd(_socket_fd, "Look\n", true);
+    printf("after write look\n");
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
         return (perror("Inventory not recieved\n"), *_stuff_in_tiles);
     // Parse result string

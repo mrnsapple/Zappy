@@ -74,6 +74,8 @@ typedef struct server_s {
     map_t ***map;
     //bool for know when stop server
     int _stop_server;
+    //To_write
+    char *to_write;
 } server_t;
 
 #endif /* !SERVER_H_ */
