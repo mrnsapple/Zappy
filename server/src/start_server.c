@@ -33,13 +33,36 @@ char *get_team_name(char **team_names, int client_fd)
 
     write_to_fd(client_fd, "WELCOME\n");
     team_name = remove_spaces(read_user(client_fd));
-    
     for (int i = 0; team_names != NULL && team_names[i] != NULL; i++)
         if (strcmp(team_names[i], team_name) == 0)
             return (team_name);
     write_to_fd(client_fd, "ko\n");
     return (NULL);
     
+}
+
+void fd_stuff(server_t *serv)
+{
+    teams_t *teams = serv->sock->teams;
+    client_id_t *clients;
+
+    FD_ZERO(&serv->sock->readFds);
+    FD_SET(serv->sock->fd, &serv->sock->readFds);
+    serv->sock->max_sd = serv->sock->fd;
+        
+    for (int i = 0; i < serv->client_nb; i++) {
+        //serv->sock->sd = serv->socket_client[i];
+        if (serv->sock->sd > 0)
+            FD_SET(serv->sock->sd, &serv->sock->readFds);
+        if (serv->sock->sd > serv->sock->max_sd)
+            serv->sock->max_sd = serv->sock->sd;
+    }
+    
+    for (; teams != NULL; teams = teams->next) {
+        clients = teams->clients;
+        for (; clients != NULL; clients = clients->next)
+            FD_SET (clients->fd, &(serv->sock->readFds));
+    }
 }
 
 void get_connections(server_t *serv)
@@ -51,43 +74,33 @@ void get_connections(server_t *serv)
     if (FD_ISSET(serv->sock->fd, &serv->sock->readFds)) {
         printf("Awaiting for a new connection\n");
         fd = init_accept(serv);
-        printf("Connection has been accepted\n");
-        //printf("fd:%d, team_name:%s\n", fd, team_name);
+        printf("Connection with fd %d has been accepted\n", fd);
         team_name = get_team_name(serv->team_names, fd);
         init_client(serv, fd, team_name);
-        
-        //serv->sock->client = init_accept(serv);
-        //serv->pid = fork();
     }
-
-}
-
-void fd_stuff(server_t *serv)
-{
-    teams_t *teams = serv->sock->teams;
-    client_id_t *clients;
-
-    FD_ZERO (&(serv->sock->readFds));
-    FD_SET (serv->sock->fd, &(serv->sock->readFds));
-    for (; teams != NULL; teams = teams->next) {
-        clients = teams->clients;
-        for (; clients != NULL; clients = clients->next)
-            FD_SET (clients->fd, &(serv->sock->readFds));
-    }
+    /* for (int i = 0; i < serv->client_nb; i++) {
+        //serv->sock->sd = serv->socket_client[i];
+        printf("here yo go\n");
+        if (FD_ISSET(serv->sock->sd, &serv->sock->readFds)) {
+            // client_interaction(serv);
+            printf("now it's here\n");
+            printf("user sent -> %s\n", read_user(fd));
+            
+        }
+    }*/
 }
 
 void start_server(server_t *serv)
 {
     serv->_stop_server = 1;
     while (serv->_stop_server == 1) {
-        serv->sock->readFds = serv->sock->fds;
+        //serv->sock->readFds = serv->sock->fds;
         fd_stuff(serv);
-        printf("FD stuff done\n");
-        init_select(serv->sock->readFds);
+        init_select(serv->sock->readFds, serv->sock->max_sd);
         printf("Select Initialization is done, comencing client interaction\n");
         client_interaction(serv);
         get_connections(serv);
-        printf("get connections achieved\n");
+        // printf("get connections achieved\n");
     }
     close(serv->sock->fd);
 }

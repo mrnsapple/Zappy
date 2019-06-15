@@ -18,13 +18,13 @@
 #include <fcntl.h>
 #include "essentials.h"
 
-typedef struct item_s{
+typedef struct item_s {
     char *name;
     int amount;
 } item_t;
 
 typedef struct client_id_s {
-    //the file descriptor 
+    //the file descriptor
     int fd;
     //know if map size has been sent
     int send_map_size;
@@ -36,7 +36,7 @@ typedef struct client_id_s {
 
 
 typedef struct teams_s {
-    //the file descriptor 
+    //the file descriptor
     int clients_in_team;
     //the team name
     char *team_name;
@@ -50,7 +50,9 @@ typedef struct socket_s {
     //int client;
     struct sockaddr_in address;
     struct sockaddr_in dest;
-    fd_set fds;
+    // fd_set fds;
+    int max_sd;
+    int sd;
     fd_set readFds;
 } socket_t;
 
