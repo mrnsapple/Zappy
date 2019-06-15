@@ -46,18 +46,8 @@ void fd_stuff(server_t *serv)
     teams_t *teams = serv->sock->teams;
     client_id_t *clients;
 
-    FD_ZERO(&serv->sock->readFds);
-    FD_SET(serv->sock->fd, &serv->sock->readFds);
-    serv->sock->max_sd = serv->sock->fd;
-        
-    for (int i = 0; i < serv->client_nb; i++) {
-        //serv->sock->sd = serv->socket_client[i];
-        if (serv->sock->sd > 0)
-            FD_SET(serv->sock->sd, &serv->sock->readFds);
-        if (serv->sock->sd > serv->sock->max_sd)
-            serv->sock->max_sd = serv->sock->sd;
-    }
-    
+    FD_ZERO(&(serv->sock->readFds));
+    FD_SET(serv->sock->fd, &(serv->sock->readFds));
     for (; teams != NULL; teams = teams->next) {
         clients = teams->clients;
         for (; clients != NULL; clients = clients->next)
@@ -71,13 +61,16 @@ void get_connections(server_t *serv)
     char *team_name;
 
     for (int i = 0; i < FD_SETSIZE; i++)
-        if (FD_ISSET(i, &serv->sock->readFds) && i == serv->sock->fd) {
-            printf("Awaiting for a new connection\n");
-            fd = init_accept(serv);
-            printf("Connection with fd %d has been accepted\n", fd);
-            team_name = get_team_name(serv->team_names, fd);
-            init_client(serv, fd, team_name);
-    }
+        if (FD_ISSET(i, &serv->sock->readFds)) {
+            printf("i:%d\n", i);
+            if (i == serv->sock->fd) {
+                printf("Awaiting for a new connection\n");
+                fd = init_accept(serv);
+                printf("Connection with fd %d has been accepted\n", fd);
+                team_name = get_team_name(serv->team_names, fd);
+                init_client(serv, fd, team_name);
+            }
+        }
     /* for (int i = 0; i < serv->client_nb; i++) {
         //serv->sock->sd = serv->socket_client[i];
         printf("here yo go\n");
@@ -96,8 +89,8 @@ void start_server(server_t *serv)
     while (serv->_stop_server == 1) {
         //serv->sock->readFds = serv->sock->fds;
         fd_stuff(serv);
-        init_select(serv->sock->readFds, serv->sock->max_sd);
-        printf("Select Initialization is done, comencing client interaction\n");
+        init_select(&(serv->sock->readFds), serv->sock->max_sd);
+        //printf("Select Initialization is done, comencing client interaction\n");
         client_interaction(serv);
         get_connections(serv);
         // printf("get connections achieved\n");
