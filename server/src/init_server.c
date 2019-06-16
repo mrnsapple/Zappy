@@ -56,7 +56,7 @@ struct sockaddr_in init_bind_address(int port, int fd)
     return (address);
 }
 
-void init_select(fd_set *readFds, int nfds)
+void init_select(fd_set *readFds)
 {   
     struct timeval time = {.tv_sec = 0.000000001, .tv_usec = 1}; 
     //if (select(FD_SETSIZE, &readFds, NULL, NULL, &time) < 0) {

@@ -93,7 +93,7 @@ void start_server(server_t *serv)
     while (serv->_stop_server == 1) {
         //serv->sock->readFds = serv->sock->fds;
         fd_stuff(serv);
-        init_select(&(serv->sock->readFds), serv->sock->max_sd);
+        init_select(&(serv->sock->readFds));
         //printf("Select Initialization is done, comencing client interaction\n");
         get_connections(serv);
         client_interaction(serv, 0);

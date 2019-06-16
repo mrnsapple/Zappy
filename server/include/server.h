@@ -57,8 +57,9 @@ typedef struct socket_s {
 } socket_t;
 
 typedef struct map_s {
-    client_id_t *player;
-    item_t *gems;
+    client_id_t **player;
+    item_t *items;
+    int is_last;
     int egg;
 } map_t;
 
@@ -71,7 +72,7 @@ typedef struct server_s {
     int freq;
     pid_t pid;
     socket_t *sock;
-    map_t ***map;
+    map_t **map;
     //bool for know when stop server
     int _stop_server;
     //To_write

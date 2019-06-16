@@ -18,19 +18,19 @@ SRC =	$(CLIENT_PATH)main.cpp 						\
 		$(CLIENT_PATH)client/Client.cpp				\
 		$(CLIENT_PATH)$(COMMANDS)Commands.cpp		\
 		$(CLIENT_PATH)$(COMMANDS)Player.cpp			\
-		$(CLIENT_PATH)$(COMMANDS)Ai.cpp			\
+		$(CLIENT_PATH)$(COMMANDS)Ai.cpp				\
 		$(CLIENT_PATH)utils/Utils.cpp
 
-SERVSRC	=	$(SERVER_PATH)main.c				\
+SERVSRC	=	$(SERVER_PATH)main.c					\
 			$(SERVER_PATH)client_interaction/client_management.c	\
 			$(SERVER_PATH)client_interaction/client_interaction.c	\
 			$(SERVER_PATH)client_interaction/instructions.c			\
-			$(SERVER_PATH)error_management.c	\
-			$(SERVER_PATH)fd_management.c		\
-			$(SERVER_PATH)get_arguments.c		\
-			$(SERVER_PATH)init_server.c			\
-			$(SERVER_PATH)start_server.c		\
-			$(SERVER_PATH)create_map.c
+			$(SERVER_PATH)error_management.c		\
+			$(SERVER_PATH)fd_management.c			\
+			$(SERVER_PATH)get_arguments.c			\
+			$(SERVER_PATH)init_server.c				\
+			$(SERVER_PATH)start_server.c			\
+			$(SERVER_PATH)map_creation/create_map.c
 
 
 OBJ	=	$(SRC:.cpp=.o)
