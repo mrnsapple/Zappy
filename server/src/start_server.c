@@ -71,21 +71,10 @@ void get_connections(server_t *serv)
                 team_name = get_team_name(serv->team_names, fd);
                 init_client(serv, fd, team_name);
             }
-            else
-                client_interaction(serv, i);
+            //else
+            //    client_interaction(serv, i);
             
         }
-
-    /* for (int i = 0; i < serv->client_nb; i++) {
-        //serv->sock->sd = serv->socket_client[i];
-        printf("here yo go\n");
-        if (FD_ISSET(serv->sock->sd, &serv->sock->readFds)) {
-            // client_interaction(serv);
-            printf("now it's here\n");
-            printf("user sent -> %s\n", read_user(fd));
-            
-        }
-    }*/
 }
 
 void start_server(server_t *serv)
@@ -101,7 +90,7 @@ void start_server(server_t *serv)
         init_select(&(serv->sock->readFds));
         //printf("Select Initialization is done, comencing client interaction\n");
         get_connections(serv);
-        client_interaction(serv, 0);
+        client_interaction(serv);
 
         // printf("get connections achieved\n");
     }

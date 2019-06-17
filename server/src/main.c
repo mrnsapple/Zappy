@@ -42,5 +42,6 @@ int server(int ac, char **av)
 
 int main(int ac, char **av)
 {
+    srand(time(0));
     return (server(ac, av));
 }
