@@ -31,6 +31,7 @@ typedef struct client_id_s {
     //the team name
     char *team_name;
     item_t *items;
+    int direction;
     struct client_id_s *next;
 } client_id_t;
 

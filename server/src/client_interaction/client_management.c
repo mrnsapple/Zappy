@@ -17,7 +17,7 @@ void add_to_map(server_t *serv, client_id_t *client)
     int pos_y = rand() % serv->height;
     printf("x:%d,y:%d\n", pos_x, pos_y);
     serv->map[pos_x][pos_y].player = &client;
-    
+
     for (int y = 0; serv->map[y] != NULL; y++) {
         for (int x = 0; (serv->map[y][x]).is_last == 0; x++) {
             if (serv->map[y][x].player == NULL)
