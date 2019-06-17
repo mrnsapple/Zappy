@@ -28,6 +28,11 @@ typedef struct item_s {
     int amount;
 } item_t;
 
+typedef struct pos_s {
+    int x;
+    int y;
+} pos_t;
+
 typedef struct client_id_s {
     //the file descriptor
     int fd;
