@@ -7,12 +7,12 @@
 
 #ifndef MAP_H_
 #define MAP_H_
-#include<time.h> 
 
+#include <time.h> 
 #include "server.h"
 
 map_t **init_map(int width, int height);
 void display_map(map_t **map);
-void    fill_map(map_t **map);
+void fill_map(map_t **map);
 
 #endif /* !MAP_H_ */

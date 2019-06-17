@@ -6,7 +6,7 @@
 */
 
 #include "../../include/map.h"
-#include<time.h> 
+#include <time.h> 
 
 void display_items(item_t *items)
 {
@@ -35,7 +35,7 @@ map_t **init_map(int width, int height)
 item_t *copy_of_items(void)
 {
     item_t items[] = {
-        { .name = "food", .amount = 10 },
+    { .name = "food", .amount = 10 },
         { .name = "linemate", .amount = 0 },
         { .name = "deraumere", .amount = 0 },
         { .name = "sibur", .amount = 0 },
