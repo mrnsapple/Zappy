@@ -32,20 +32,9 @@ map_t **init_map(int width, int height)
     return (map);
 }
 
-item_t    *randomize_items(item_t *items)
+item_t *copy_of_items(void)
 {
-    
-    for (int i = 0; strcmp(items[i].name, "end") != 0; i++) {
-        items[i].amount = rand() % 5;
-        printf("randval:%d\n", items[i].amount);
-    }
-    //printf("before mempcy\n");
-    return (items);
-}
-
-void    fill_map(map_t **map)
-{
-     item_t items[] = {
+    item_t items[] = {
         { .name = "food", .amount = 10 },
         { .name = "linemate", .amount = 0 },
         { .name = "deraumere", .amount = 0 },
@@ -54,28 +43,44 @@ void    fill_map(map_t **map)
         { .name = "phiras", .amount = 0 },
         { .name = "thystame", .amount = 0 },
         { .name = "end", .amount = 0 },
-
     };
-    for (int y = 0; map[y] != NULL; y++)
-        for (int x = 0; (map[y][x]).is_last == 0; x++) {
-            map[y][x].items = items;
-            map[y][x].items = randomize_items(map[y][x].items);
+    int i = 0;
+    item_t *c_items = NULL;
+    for (i = 0; strcmp(items[i].name, "end") != 0; i++);
+    c_items = malloc(sizeof(item_t *) * (i + 20));
+    for (i = 0; strcmp(items[i].name, "end") != 0; i++) {
+        c_items[i].name = strdup(items[i].name);
+        c_items[i].amount = items[i].amount;
+    }
+    c_items[i].name = strdup(items[i].name);
+    c_items[i].amount = items[i].amount;
+    return (c_items);
+}
 
-        }
-      for (int y = 0; map[y] != NULL; y++)
+item_t    *randomize_items(void)
+{
+    item_t *items = copy_of_items(); 
+    for (int i = 0; strcmp(items[i].name, "end") != 0; i++) {
+        items[i].amount = rand() % 6;
+    }
+    return (items);
+}
+
+void    fill_map(map_t **map)
+{
+    for (int y = 0; map[y] != NULL; y++)
         for (int x = 0; (map[y][x]).is_last == 0; x++)
-            display_items(map[y][x].items);
-    
+            map[y][x].items = randomize_items();
 }
 
 void display_map(map_t **map)
 {
     for (int y = 0; map[y] != NULL; y++) {
         for (int x = 0; (map[y][x]).is_last == 0; x++) {
-            printf("x");
-            //display_items(map[y][x].items);
+            //printf("x");
+            display_items(map[y][x].items);
         }
-        printf("\n");
     }
+    printf("\n");
 
 }
