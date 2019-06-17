@@ -18,6 +18,11 @@
 #include <fcntl.h>
 #include "essentials.h"
 
+#define LEFT 0
+#define UP 1
+#define RIGHT 2
+#define DOWN 3
+
 typedef struct item_s {
     char *name;
     int amount;
@@ -32,6 +37,8 @@ typedef struct client_id_s {
     char *team_name;
     item_t *items;
     int direction;
+    int pos_x;
+    int pos_y;
     struct client_id_s *next;
 } client_id_t;
 

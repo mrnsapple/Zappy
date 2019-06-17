@@ -44,3 +44,35 @@ int    inventory(char *result, server_t *serv,  teams_t *teams, client_id_t *cli
     serv->to_write = str;
     return (0);
 }
+
+int forward(char *result, server_t *serv, teams_t *teams, client_id_t *clients)
+{
+    if (strcmp(result, "Forward\n") == 0) {
+        printf("client pos %d,%d\n", clients->pos_x, clients->pos_y);
+        
+        // if (clients->direction == UP) {
+        //     int new_pos_x = clients->pos_x - 1;
+            
+        //     serv->map[new_pos_x][clients->pos_y].player[0] = clients;
+        //     serv->map[clients->pos_x][clients->pos_y].player[0] = NULL;
+        //     clients->pos_x = new_pos_x;
+        // }
+        for (int y = 0; serv->map[y] != NULL; y++) {
+            for (int x = 0; (serv->map[y][x]).is_last == 0; x++) {
+                for (int i = 0; serv->map[y][x].player != NULL && serv->map[y][x].player[i] != NULL; i++) {
+                    if (serv->map[y][x].player[i]->fd == clients->fd) {
+                        printf("this player wants to move\n");
+                    }
+                }
+                // if (serv->map[y][x].player == NULL)
+                    // printf("x");
+                // else
+                    // printf("o");
+            //display_items(map[y][x].items);
+            }
+            printf("\n");
+        }
+    
+    }
+    return (0);
+}
