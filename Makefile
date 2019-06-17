@@ -30,7 +30,8 @@ SERVSRC	=	$(SERVER_PATH)main.c					\
 			$(SERVER_PATH)get_arguments.c			\
 			$(SERVER_PATH)init_server.c				\
 			$(SERVER_PATH)start_server.c			\
-			$(SERVER_PATH)map_creation/create_map.c
+			$(SERVER_PATH)map_creation/create_map.c \
+			$(SERVER_PATH)grafic_motor/map_grafic.c
 
 
 OBJ	=	$(SRC:.cpp=.o)
@@ -50,7 +51,7 @@ $(NAME)	:	rmfifo $(OBJ)
 	g++ -g -Wall -Wextra -o $(NAME) $(SRC)
 
 $(SERVNAME)	:	$(SERVOBJ)
-	gcc -g -Wall -Wextra  -o $(SERVNAME) $(SERVSRC)
+	gcc -g -Wall -Wextra  -o $(SERVNAME) $(SERVSRC) -lSDL2main -lSDL2
 
 clean:
 	rm -rf $(OBJ)

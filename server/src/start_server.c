@@ -10,6 +10,7 @@
 #include "../include/error_management.h"
 #include "../include/client_management.h"
 #include "../include/map.h"
+#include "../include/grafic_motor.h"
 
 char *remove_char(char *str, char x)
 {
@@ -80,7 +81,11 @@ void get_connections(server_t *serv)
 void start_server(server_t *serv)
 {
     serv->_stop_server = 1;
+    grafics_t *graphic;
+    graphic = create_window();
     while (serv->_stop_server == 1) {
+        //funcion con bucle SDL_PollEvent 
+        window_loop(serv, graphic);
         //serv->sock->readFds = serv->sock->fds;
         display_map(serv->map);
 
@@ -92,5 +97,8 @@ void start_server(server_t *serv)
 
         // printf("get connections achieved\n");
     }
+    printf("Ded\n");
+    SDL_DestroyWindow(graphic->window);
+    SDL_Quit();        
     close(serv->sock->fd);
 }
