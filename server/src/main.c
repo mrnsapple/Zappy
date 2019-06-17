@@ -33,9 +33,9 @@ int server(int ac, char **av)
     //signal(SIGINT, stopServer);
     server->map = init_map(server->width, server->height);
     printf("afterinitmap\n");
-    display_map(server->map);
     server->sock = init_server(server);
     init_listen(server->sock->fd, server->client_nb, server->team_names);
+    
     start_server(server);
     return (0);
 }

@@ -11,8 +11,16 @@
 void display_items(item_t *items)
 {
     for (int i = 0; strcmp(items[i].name, "end") != 0; i++)
-        printf("d:%s:%d,", (items[i]).name, (items[i]).amount);
+        printf(",%s:%d,", (items[i]).name, (items[i]).amount);
     printf("\n");
+}
+
+void display_players(client_id_t **players)
+{
+    printf("players:");
+    for (int i = 0; players != NULL && players[i] != NULL; i++)
+        printf("%s, %d", players[i]->team_name, players[i]->fd);
+    //printf("\n");
 }
 
 map_t **init_map(int width, int height)
@@ -80,10 +88,10 @@ void display_map(map_t **map)
 {
     for (int y = 0; map[y] != NULL; y++) {
         for (int x = 0; (map[y][x]).is_last == 0; x++) {
-            //printf("x");
+            display_players(map[y][x].player);
             display_items(map[y][x].items);
         }
     }
-    printf("\n");
+    printf("\n\n");
 
 }
