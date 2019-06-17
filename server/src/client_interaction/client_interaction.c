@@ -32,7 +32,7 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
     read_result = read_user(clients->fd);
     printf("after read\n");
     connect_number(read_result, serv, teams, clients);
-    inventory(read_result, serv, teams, clients);
+    inventory(read_result, serv, clients);
     forward(read_result, serv, teams, clients);
     
     write_to_fd(clients->fd, serv->to_write);
