@@ -98,6 +98,8 @@ void start_server(server_t *serv)
     }
     printf("Ded\n");
     //SDL_DestroyWindow(graphic->window);
-    //SDL_Quit();        
+    //SDL_Quit();      
+        // SDL_FreeSurface(graphic->imageSurface);
+    // SDL_FreeSurface(graphic->windowSurface);   
     close(serv->sock->fd);
 }

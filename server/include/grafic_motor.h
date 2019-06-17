@@ -14,6 +14,8 @@
 typedef struct grafics_s {
     SDL_Window *window;
     SDL_Event event;
+    SDL_Surface *imageSurface;
+    SDL_Surface *windowSurface;
 } grafics_t;
 grafics_t *create_window(void);
 void window_loop(server_t *serv, grafics_t *graphic);
