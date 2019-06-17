@@ -73,8 +73,8 @@ void get_connections(server_t *serv)
                 init_client(serv, fd, team_name);
             }
             //else
+            //    delete_client(serv, i);
             //    client_interaction(serv, i);
-            
         }
 }
 
