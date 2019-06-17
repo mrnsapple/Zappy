@@ -56,7 +56,6 @@ void    fill_map(map_t **map)
         { .name = "end", .amount = 0 },
 
     };
-    srand(time(0));
     for (int y = 0; map[y] != NULL; y++)
         for (int x = 0; (map[y][x]).is_last == 0; x++) {
             map[y][x].items = items;

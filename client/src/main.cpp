@@ -26,6 +26,7 @@ int     client_creation(int ac, char **av)
 int main(int ac, char **av)
 {
     try {
+        srand(time(0));
         return (client_creation(ac, av));
     }
     catch ( int e ) {
