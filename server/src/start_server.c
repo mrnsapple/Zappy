@@ -74,17 +74,6 @@ void get_connections(server_t *serv)
                 client_interaction(serv, i);
             
         }
-
-    /* for (int i = 0; i < serv->client_nb; i++) {
-        //serv->sock->sd = serv->socket_client[i];
-        printf("here yo go\n");
-        if (FD_ISSET(serv->sock->sd, &serv->sock->readFds)) {
-            // client_interaction(serv);
-            printf("now it's here\n");
-            printf("user sent -> %s\n", read_user(fd));
-            
-        }
-    }*/
 }
 
 void start_server(server_t *serv)

@@ -6,7 +6,7 @@
 */
 
 #include "../../include/map.h"
-#include<time.h> 
+#include <time.h> 
 
 void display_items(item_t *items)
 {
@@ -32,12 +32,12 @@ map_t **init_map(int width, int height)
     return (map);
 }
 
-item_t    *randomize_items(item_t *items)
+item_t *randomize_items(item_t *items)
 {
     
     for (int i = 0; strcmp(items[i].name, "end") != 0; i++) {
         items[i].amount = rand() % 5;
-        printf("randval:%d\n", items[i].amount);
+        // printf("randval:%d\n", items[i].amount);
     }
     //printf("before mempcy\n");
     return (items);
