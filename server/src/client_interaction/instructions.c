@@ -20,14 +20,23 @@ void    connect_number(char *result, server_t *serv,  teams_t *teams, client_id_
         serv->to_write = char_arr;
     }
 }
-//int 
-int    inventory(char *result, server_t *serv,  teams_t *teams, client_id_t *clients)
+
+int look(char *result, server_t *serv, client_id_t *clients)
+{
+    if (strcmp(result, "Look\n") != 0)
+        return (0);
+    printf("look asked\n");
+    //exit (0);
+    return (0);
+}
+
+int    inventory(char *result, server_t *serv, client_id_t *clients)
 {
     char str[200];// = "[ ";
     char char_arr [100];
 
     if (strcmp(result, "Inventory\n") != 0)
-        return 0;
+        return (0);
     strcpy(str,"[ ");
     for (int i = 0; strcmp(clients->items[i].name, "end") != 0; i++) {
         //printf("item:%s, %d\n", clients->items[i].name, strcmp(clients->items[i].name, "end"));
