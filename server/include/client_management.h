@@ -17,5 +17,5 @@ void connect_number(char *result, server_t *serv,  teams_t *teams, client_id_t *
 int inventory(char *result, server_t *serv , client_id_t *clients);
 int look(char *result, server_t *serv, client_id_t *clients);
 int forward(char *result, server_t *serv, teams_t *teams, client_id_t *clients);
-
+int    delete_client(server_t *serv, int client_fd);
 #endif /* !clientman */

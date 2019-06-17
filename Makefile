@@ -25,13 +25,14 @@ SERVSRC	=	$(SERVER_PATH)main.c					\
 			$(SERVER_PATH)client_interaction/client_management.c	\
 			$(SERVER_PATH)client_interaction/client_interaction.c	\
 			$(SERVER_PATH)client_interaction/instructions.c			\
-			$(SERVER_PATH)client_interaction/look.c				\
-			$(SERVER_PATH)error_management.c		\
-			$(SERVER_PATH)fd_management.c			\
-			$(SERVER_PATH)get_arguments.c			\
-			$(SERVER_PATH)init_server.c				\
-			$(SERVER_PATH)start_server.c			\
-			$(SERVER_PATH)map_creation/create_map.c \
+			$(SERVER_PATH)client_interaction/look.c					\
+			$(SERVER_PATH)client_interaction/delete_client.c		\
+			$(SERVER_PATH)error_management.c			\
+			$(SERVER_PATH)fd_management.c				\
+			$(SERVER_PATH)get_arguments.c				\
+			$(SERVER_PATH)init_server.c					\
+			$(SERVER_PATH)start_server.c				\
+			$(SERVER_PATH)map_creation/create_map.c 	\
 			$(SERVER_PATH)grafic_motor/map_grafic.c
 
 

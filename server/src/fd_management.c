@@ -14,11 +14,16 @@ char *read_user(int fd)
 {
     char buff[1024];
     char *str;
+    int result;
 
     bzero(buff, 1024);
-    if (read(fd, buff, 1024) < 0) {
+    result = read(fd, buff, 1024);
+    if (result < 0) {
         perror("Read error\n");
         return (NULL);
+    }
+    else if (result == 0) {
+        return (strdup("DELETE CLIENT"));
     }
     str = strdup(buff);
     return (str);

@@ -44,6 +44,7 @@ void add_to_map(server_t *serv, client_id_t *client)
         }
         printf("\n");
     }
+    display_map(serv->map);
 }
 
 client_id_t *malloc_client(int fd, char *team_name, server_t *serv)
