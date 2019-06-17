@@ -70,8 +70,8 @@ void get_connections(server_t *serv)
                 team_name = get_team_name(serv->team_names, fd);
                 init_client(serv, fd, team_name);
             }
-            else
-                client_interaction(serv, i);
+            //else
+            //    client_interaction(serv, i);
             
         }
 }
@@ -85,7 +85,7 @@ void start_server(server_t *serv)
         init_select(&(serv->sock->readFds));
         //printf("Select Initialization is done, comencing client interaction\n");
         get_connections(serv);
-        client_interaction(serv, 0);
+        client_interaction(serv);
 
         // printf("get connections achieved\n");
     }

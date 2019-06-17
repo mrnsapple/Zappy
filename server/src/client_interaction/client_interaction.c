@@ -41,7 +41,7 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
     return (0);
 }
 
-void    client_interaction(server_t *serv, int fd)
+void    client_interaction(server_t *serv)
 {
     teams_t *teams = serv->sock->teams;
     client_id_t *clients;

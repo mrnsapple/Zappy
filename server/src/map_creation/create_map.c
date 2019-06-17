@@ -24,8 +24,10 @@ map_t **init_map(int width, int height)
         map[x] = malloc(sizeof(map_t) * (width + 1));
     map[height] = NULL;
     for (int y = 0; map[y] != NULL; y++) {
-        for (int x = 0; x < width; x++)
+        for (int x = 0; x < width; x++) {
             (map[y][x]).is_last = 0;
+            map[y][x].player = NULL;
+        }
         map[y][width].is_last = 1;
     }
     fill_map(map);
@@ -46,6 +48,7 @@ item_t *copy_of_items(void)
     };
     int i = 0;
     item_t *c_items = NULL;
+
     for (i = 0; strcmp(items[i].name, "end") != 0; i++);
     c_items = malloc(sizeof(item_t *) * (i + 20));
     for (i = 0; strcmp(items[i].name, "end") != 0; i++) {

@@ -11,23 +11,39 @@
 #include "../../include/server.h"
 #include "../../include/error_management.h"
 
+
 void add_to_map(server_t *serv, client_id_t *client)
 {
     int pos_x = rand() % serv->width;
     int pos_y = rand() % serv->height;
-    printf("x:%d,y:%d\n", pos_x, pos_y);
-    serv->map[pos_x][pos_y].player = &client;
+    client_id_t **c_player;
+    int i;
 
-    for (int y = 0; serv->map[y] != NULL; y++) {
-        for (int x = 0; (serv->map[y][x]).is_last == 0; x++) {
-            if (serv->map[y][x].player == NULL)
-                printf("x");
-            else
-                printf("o");
-            //display_items(map[y][x].items);
-        }
-        printf("\n");
+    printf("x:%d,y:%d\n", pos_x, pos_y);
+    if (serv->map[pos_y][pos_x].player == NULL) {
+        serv->map[pos_y][pos_x].player = malloc(sizeof(client_id_t) * 2);
+        serv->map[pos_y][pos_x].player[0] = client;
+        serv->map[pos_y][pos_x].player[1] = NULL;
+        
+    } else {
+        for (i = 0; serv->map[pos_y][pos_x].player[i] != NULL; i++);
+        c_player = malloc(sizeof(client_id_t) * (i + 3));
+        for (i = 0; serv->map[pos_y][pos_x].player[i] != NULL; i++)
+            c_player[i] = serv->map[pos_y][pos_x].player[i];
+        c_player[i] = client;
+        c_player[i + 1] = NULL;
+        serv->map[pos_y][pos_x].player = c_player;
     }
+    //  for (int y = 0; serv->map[y] != NULL; y++) {
+    //     for (int x = 0; (serv->map[y][x]).is_last == 0; x++) {
+    //         if (serv->map[y][x].player == NULL)
+    //             printf("x");
+    //         else
+    //             printf("o");
+    //         //display_items(map[y][x].items);
+    //     }
+    //     printf("\n");
+    // }
 }
 
 client_id_t *malloc_client(int fd, char *team_name, server_t *serv)

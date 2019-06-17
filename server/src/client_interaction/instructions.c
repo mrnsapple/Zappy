@@ -20,7 +20,7 @@ void    connect_number(char *result, server_t *serv,  teams_t *teams, client_id_
         serv->to_write = char_arr;
     }
 }
-
+//int 
 int    inventory(char *result, server_t *serv,  teams_t *teams, client_id_t *clients)
 {
     char str[200];// = "[ ";
