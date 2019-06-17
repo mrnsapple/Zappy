@@ -85,7 +85,8 @@ void start_server(server_t *serv)
     while (serv->_stop_server == 1) {
         //funcion con bucle SDL_PollEvent 
         //window_loop(serv, graphic);
-        display_map(serv->map);
+        //serv->sock->readFds = serv->sock->fds;
+        // display_map(serv->map);
 
         fd_stuff(serv);
         init_select(&(serv->sock->readFds));
