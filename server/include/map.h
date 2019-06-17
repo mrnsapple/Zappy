@@ -15,4 +15,9 @@ map_t **init_map(int width, int height);
 void display_map(map_t **map);
 void fill_map(map_t **map);
 
+typedef struct dir_s {
+    int dir;
+    char *(*fun_ptr)(map_t **map, client_id_t *clients);
+} dir_t;
+
 #endif /* !MAP_H_ */

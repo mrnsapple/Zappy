@@ -44,7 +44,7 @@ std::vector<std::map<std::string, int>>    Commands::getLookArround()
     read_from = Utils::writeInFd(_socket_fd, "Look\n", true);
     printf("after write look\n");
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
-        return (perror("Inventory not recieved\n"), *_stuff_in_tiles);
+        return (perror("look not recieved\n"), *_stuff_in_tiles);
     // Parse result string
     std::cout << "the look result:" << read_from << "\n";
     read_from.erase(std::remove(read_from.begin(), read_from.end(), '['), read_from.end());
