@@ -37,7 +37,7 @@ int look(char *result, server_t *serv, client_id_t *clients)
     printf("in look\n");
     return (0);
 
-    pos_t pos = {-2, -2};
+    pos_t pos = {-2, -2, -2};
     dir_t dir[] = {
         { 0, look_up },
         { 1, look_left },
