@@ -16,16 +16,20 @@ char *read_user(int fd)
     char *str;
 
     bzero(buff, 1024);
-    if (read(fd, buff, 1024) < 0)
+    if (read(fd, buff, 1024) < 0) {
+        perror("Read error\n");
         return (NULL);
+    }
     str = strdup(buff);
     return (str);
 }
 
 int write_to_fd(int fd, char *str)
 {
-    if (write(fd, str, strlen(str)) == -1)
+    if (write(fd, str, strlen(str)) == -1) {
+        perror("write fail\n");
         exit(84);
+    }
     printf("writen_to_fd:%s\n", str);
     return (0);
 }
