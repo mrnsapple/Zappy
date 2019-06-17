@@ -22,9 +22,8 @@ char *read_user(int fd)
         perror("Read error\n");
         return (NULL);
     }
-    else if (result == 0) {
+    else if (result == 0)
         return (strdup("DELETE CLIENT"));
-    }
     str = strdup(buff);
     return (str);
 }
