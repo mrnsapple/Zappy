@@ -44,6 +44,7 @@ void window_loop(server_t *serv, grafics_t *graphic)
     SDL_Rect rec = { 50, 50, 20, 20};
     RectSDL_t *rectangulo = init_rectangle(color, rec);
     draw_rectangle(rectangulo, graphic->render);
+    SDL_RenderPresent(graphic->render);
     // SDL_UpdateWindowSurface(graphic->window);
 }
 
