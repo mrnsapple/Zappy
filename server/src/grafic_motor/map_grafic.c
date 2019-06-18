@@ -21,33 +21,30 @@ grafics_t *create_window(void)
         768,
         SDL_WINDOW_ALLOW_HIGHDPI
     );
-    grafics->windowSurface = SDL_GetWindowSurface(grafics->window);
     if (grafics->window == NULL) {
         printf("Could not create window: %s \n", SDL_GetError()); 
         exit(84);
     }
+    grafics->render = SDL_CreateRenderer(grafics->window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
     printf("window should be made here or something\n");
-    grafics->imageSurface = SDL_LoadBMP("server/src/grafic_motor/faggot.bmp");
-    if (grafics->imageSurface == NULL) {
-        printf("SDL could not load image: %s \n", SDL_GetError());
-        exit(84);
-    }
     return (grafics);
 }
 
 void window_loop(server_t *serv, grafics_t *graphic)
 {
+    SDL_SetRenderDrawColor(graphic->render, 0, 0, 0, 0);
+    SDL_RenderClear(graphic->render);
     //The window is opened: could enter program loop here.
-    // grafics_t *grafics;
-    // grafics = malloc(sizeof(grafics));
-    printf("i'm here\n");    
     while ( SDL_PollEvent(&graphic->event) != 0){
         if (graphic->event.type == SDL_QUIT) {
             serv->_stop_server = 0;
         }
     }
-    SDL_BlitSurface(graphic->imageSurface,NULL,graphic->windowSurface,NULL);
-    SDL_UpdateWindowSurface(graphic->window);
+    SDL_Color color = {255, 0, 0, 0};
+    SDL_Rect rec = { 50, 50, 20, 20};
+    RectSDL_t *rectangulo = init_rectangle(color, rec);
+    draw_rectangle(rectangulo, graphic->render);
+    // SDL_UpdateWindowSurface(graphic->window);
 }
 
 // void display_map (map_t **map)
