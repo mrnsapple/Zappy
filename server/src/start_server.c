@@ -73,8 +73,8 @@ void get_connections(server_t *serv)
                 init_client(serv, fd, team_name);
             }
             //else
+            //    delete_client(serv, i);
             //    client_interaction(serv, i);
-            
         }
 }
 
@@ -86,7 +86,7 @@ void start_server(server_t *serv)
         //funcion con bucle SDL_PollEvent 
         window_loop(serv, graphic);
         //serv->sock->readFds = serv->sock->fds;
-        display_map(serv->map);
+        // display_map(serv->map);
 
         fd_stuff(serv);
         init_select(&(serv->sock->readFds));

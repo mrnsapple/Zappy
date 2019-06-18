@@ -10,6 +10,7 @@
 
 #include <time.h> 
 #include "server.h"
+pos_t   get_position(map_t ** map, client_id_t *clients);
 
 map_t **init_map(int width, int height);
 void display_map(map_t **map);

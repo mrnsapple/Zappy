@@ -24,17 +24,22 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
 {
     char *read_result;
 
-    serv->to_write="ko\n";
+    serv->to_write=strdup("ko\n");
     printf("inclient action\n\n");
     if (clients->send_map_size == 1)
        send_map_size(serv, teams, clients);
-    printf("before read\n");
     read_result = read_user(clients->fd);
-    printf("after read\n");
+    if (strcmp(read_result, "DELETE CLIENT") == 0) {
+        return (delete_client(serv, clients->fd));
+    }
+    printf("after read:%s\n", read_result);
     connect_number(read_result, serv, teams, clients);
-    inventory(read_result, serv, clients);
-    forward(read_result, serv, teams, clients);
+    // inventory(read_result, serv, clients);
+    forward(read_result, serv, clients);
     look(read_result, serv, clients);
+    right(read_result, serv, clients);
+    left(read_result, serv, clients);
+    //write_to_fd(clients->fd, "ko\n");
     write_to_fd(clients->fd, serv->to_write);
 
     printf("read_result:%s, response:%s:\n", read_result, serv->to_write);
