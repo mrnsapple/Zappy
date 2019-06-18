@@ -11,8 +11,8 @@
 #include <SDL2/SDL.h>
 
 typedef struct RectSDL_s {
-    SDL_Rect    rect;
-    SDL_Color   color;
+    SDL_Rect rect;
+    SDL_Color color;
 }RectSDL_t;
 
 RectSDL_t *init_rectangle(SDL_Color color, SDL_Rect rect);
