@@ -34,24 +34,20 @@ int check_items(char *result)
     return (84);
 }
 
-int take( pos_t pos, char *result,map_t **map, client_id_t *clients)
+int take(char *result,map_t **map, client_id_t *clients)
 {
     if (check_items(result) == 84){
         printf("Wrong item\n");
     }
-    int what_item = check_items(result);
-    int dump_x = 0;
-    int dump_y = 0;
-    for (int y = 0; map[y] != NULL; y++) {
-        for (int x = 0; (map[y][x]).is_last == 0; x++) {
-            for (int i = 0; map[y][x].items->name == result && map[y][x].items->amount > 0; i++){
-                dump_x = x;
-                dump_y = y;
-                pos = get_position(map, clients);
-                if (pos.x == dump_x && pos.y == dump_y)
+    for (int y = 0; map[y] != NULL; y++)
+        for (int x = 0; (map[y][x]).is_last == 0; x++)
+            for (int i = 0; map[y][x].player != NULL && map[y][x].player[i] != NULL; i++)
+                if ((map[y][x]).player->fd == clients->fd) {
+                    //anadir el item a este clients->items
+                    //eliminar el item del map->items
                     take_it(map,clients);
-            }
-        }
-    }
+                }
+    
+    
 }
     //hacer un bucle por cada elemento del mapa y ver que hay
