@@ -84,10 +84,10 @@ void get_connections(server_t *serv)
 void start_server(server_t *serv)
 {
     serv->_stop_server = 1;
-    //grafics_t *graphic = create_window(serv);
+    // grafics_t *graphic = create_window(serv);
     while (serv->_stop_server == 1) {
-        //window_loop(serv, graphic);
-        display_map(serv->map);
+        // window_loop(serv, graphic);
+        // display_map(serv->map);
         fd_stuff(serv);
         init_select(&(serv->sock->readFds));
         get_connections(serv);

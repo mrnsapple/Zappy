@@ -25,10 +25,8 @@ void init_rect_map(server_t *serv, rect_sdl_t ***rect_map, rect_sdl_t ***rect_cl
 
     for (int y = 0; serv->map[y] != NULL; y++) {
         for (int x = 0; serv->map[y][x].is_last == 0; x++) {
-            // (*rect_map)[i] = init_rectangle(REDSDL, init_rect(15 * (x * 2), 15 * (y * 2), 25, 25));
             (*rect_map)[i] = init_rectangle(REDSDL, MAPRECT(x, y));
             for (int o = 0; serv->map[y][x].player != NULL && serv->map[y][x].player[o] != NULL; o++) {
-                // (*rect_client)[u] = init_rectangle(CYANSDL, init_rect(10 * (x * 2), 10 * (y * 2), 10, 10));
                 (*rect_client)[u] = init_rectangle(CYANSDL, MAPCLIENT(x, y));
                 u++;
             }
