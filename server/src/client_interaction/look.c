@@ -34,8 +34,6 @@ char   *look_down(map_t **map, client_id_t *clients)
 
 int look(char *result, server_t *serv, client_id_t *clients)
 {
-    return (0);
-
     pos_t pos = {-2, -2, -2};
     dir_t dir[] = {
         { 0, look_up },
@@ -44,9 +42,12 @@ int look(char *result, server_t *serv, client_id_t *clients)
         { 3, look_down },
     };
 
-    if (strcmp(result, "Look\n") != 0)
+    if (strcmp(result, "Look\n") != 0) {
+        printf("its not look:%s\n", result);
         return (0);
-    return (0);
+    }
+    //return (0);
+    exit(0);
     for (int i =0; i < 4; i++)
         if (dir[i].dir == clients->direction)
             dir[i].fun_ptr(serv->map, clients);

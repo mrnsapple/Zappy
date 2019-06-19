@@ -62,7 +62,7 @@ int    client_interaction(server_t *serv)
         for (; clients != NULL; clients = clients->next) {
             //if (fd == clients->fd) {
                 //printf("in clien action\n");
-            printf("is dead:%d\n", clients->is_dead);
+            //printf("is dead:%d\n", clients->is_dead);
             if (clients->is_dead == 0 && client_actions(serv, teams, clients) == 5)
                 return (2);
             //}

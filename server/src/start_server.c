@@ -53,7 +53,7 @@ void fd_stuff(server_t *serv)
     for (; teams != NULL; teams = teams->next) {
         clients = teams->clients;
         for (; clients != NULL; clients = clients->next) {
-            printf("client fd:%d\n", clients->fd);
+            //printf("client fd:%d\n", clients->fd);
             if (clients->is_dead == 0)
                 FD_SET (clients->fd, &(serv->sock->readFds));
         }
