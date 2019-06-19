@@ -36,12 +36,12 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
         return (5);
     }
     printf("after read:%s\n", read_result);
-    //connect_number(read_result, serv, teams, clients);
-    // inventory(read_result, serv, clients);
-    //forward(read_result, serv, clients);
-    //look(read_result, serv, clients);
-    //right(read_result, serv, clients);
-    //left(read_result, serv, clients);
+    connect_number(read_result, serv, teams, clients);
+    inventory(read_result, serv, clients);
+    forward(read_result, serv, clients);
+    look(read_result, serv, clients);
+    right(read_result, serv, clients);
+    left(read_result, serv, clients);
     //write_to_fd(clients->fd, "ko\n");
     write_to_fd(clients->fd, serv->to_write);
 
@@ -62,7 +62,8 @@ int    client_interaction(server_t *serv)
         for (; clients != NULL; clients = clients->next) {
             //if (fd == clients->fd) {
                 //printf("in clien action\n");
-            if (client_actions(serv, teams, clients) == 5)
+            printf("is dead:%d\n", clients->is_dead);
+            if (clients->is_dead == 0 && client_actions(serv, teams, clients) == 5)
                 return (2);
             //}
         }

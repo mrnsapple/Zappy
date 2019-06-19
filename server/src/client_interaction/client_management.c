@@ -10,7 +10,7 @@
 #include "../../include/init_server.h"
 #include "../../include/server.h"
 #include "../../include/error_management.h"
-
+#include "../../include/map.h"
 
 void add_to_map(server_t *serv, client_id_t *client, int pos_y, int pos_x)
 {
@@ -70,7 +70,8 @@ client_id_t *malloc_client(int fd, char *team_name, server_t *serv)
     client->team_name = team_name;
     client->send_map_size = 1;
     client->direction = UP;
-    client->items = malloc(sizeof(client_id_t) * 9);
+    client->is_dead = 0;
+    client->items = malloc(sizeof(item_t) * 9);
     //buff = malloc(totalsize);
     memcpy(client->items, &items, sizeof(item_t) * 9);
     add_to_map(serv, client, rand() % serv->height, rand() % serv->width);

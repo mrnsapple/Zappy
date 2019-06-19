@@ -15,5 +15,6 @@ void init_select(fd_set *fds);
 int init_accept(server_t *serv);
 socket_t *init_server(server_t *serv);
 void start_server(server_t *serv);
+void display_map(map_t **map);
 
 #endif /* !INIT_SERVER_H_ */

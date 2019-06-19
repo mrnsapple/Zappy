@@ -8,11 +8,11 @@
 #include "../../include/server.h"
 #include "../../include/grafic_motor.h"
 
-grafics_t *create_window(void)
+grafics_t *create_window(server_t *serv)
 {
     grafics_t *grafics;
     grafics = malloc(sizeof(grafics_t));
-    SDL_Init (SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_VIDEO);
     grafics->window = SDL_CreateWindow(
         "Zappy",
         SDL_WINDOWPOS_UNDEFINED,
@@ -21,43 +21,27 @@ grafics_t *create_window(void)
         768,
         SDL_WINDOW_ALLOW_HIGHDPI
     );
-    grafics->windowSurface = SDL_GetWindowSurface(grafics->window);
     if (grafics->window == NULL) {
         printf("Could not create window: %s \n", SDL_GetError()); 
         exit(84);
     }
-    printf("window should be made here or something\n");
-    grafics->imageSurface = SDL_LoadBMP("server/src/grafic_motor/faggot.bmp");
-    if (grafics->imageSurface == NULL) {
-        printf("SDL could not load image: %s \n", SDL_GetError());
-        exit(84);
-    }
+    grafics->render = SDL_CreateRenderer(grafics->window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
+    grafics->rect_map = malloc_map(serv->width, serv->height);
+    grafics->rect_client = malloc_map(serv->width, serv->height);
     return (grafics);
 }
 
 void window_loop(server_t *serv, grafics_t *graphic)
 {
-    //The window is opened: could enter program loop here.
-    // grafics_t *grafics;
-    // grafics = malloc(sizeof(grafics));
-    printf("i'm here\n");    
+    SDL_SetRenderDrawColor(graphic->render, 0, 0, 0, 0);
+    SDL_RenderClear(graphic->render);
     while ( SDL_PollEvent(&graphic->event) != 0){
         if (graphic->event.type == SDL_QUIT) {
             serv->_stop_server = 0;
         }
     }
-    SDL_BlitSurface(graphic->imageSurface,NULL,graphic->windowSurface,NULL);
-    SDL_UpdateWindowSurface(graphic->window);
+    init_rect_map(serv, &graphic->rect_map, &graphic->rect_client);
+    draw_rect_map(graphic->rect_map, graphic->render);
+    draw_rect_map(graphic->rect_client, graphic->render);
+    SDL_RenderPresent(graphic->render);
 }
-
-// void display_map (map_t **map)
-// {
-//     create_window();
-// }
-
-// //Dump main for testing 
-// int main ()
-// {
-//     create_window();
-//     exit(0);
-// }

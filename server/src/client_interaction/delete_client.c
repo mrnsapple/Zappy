@@ -55,17 +55,18 @@ int  delete_client(server_t *serv, int client_fd)
     printf("maybe client stoped,id:%d\n", client_fd);
     //exit (0);
     close(client_fd);
-    for (int y = 0; serv->map[y] != NULL; y++)
+    /* for (int y = 0; serv->map[y] != NULL; y++)
         for (int x = 0; (serv->map[y][x]).is_last == 0; x++)
             delete_from_map(serv->map[y][x].player, client_fd);
     printf("second for\n");
-
+    */
     for (teams_t *teams = serv->sock->teams; teams != NULL; teams = teams->next)
         for (client_id_t *clients = teams->clients; clients != NULL; clients = clients->next) {
-            if (client_fd == clients->fd) {
-                
-                delete_client_from_list(serv->sock->teams, clients, prev_clients);
-                return (5);
+            if (client_fd == clients->fd && clients->is_dead == 0) {
+                teams->clients_in_team--;
+                clients->is_dead=1;
+                //delete_client_from_list(serv->sock->teams, clients, prev_clients);
+                //return (5);
                 //printf("in clien action\n");
             }
             prev_clients = clients;

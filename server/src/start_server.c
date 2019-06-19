@@ -54,7 +54,8 @@ void fd_stuff(server_t *serv)
         clients = teams->clients;
         for (; clients != NULL; clients = clients->next) {
             printf("client fd:%d\n", clients->fd);
-            FD_SET (clients->fd, &(serv->sock->readFds));
+            if (clients->is_dead == 0)
+                FD_SET (clients->fd, &(serv->sock->readFds));
         }
     }
 }
@@ -83,25 +84,15 @@ void get_connections(server_t *serv)
 void start_server(server_t *serv)
 {
     serv->_stop_server = 1;
-    //grafics_t *graphic = create_window();
+    //grafics_t *graphic = create_window(serv);
     while (serv->_stop_server == 1) {
-        //funcion con bucle SDL_PollEvent 
         //window_loop(serv, graphic);
-        //serv->sock->readFds = serv->sock->fds;
         display_map(serv->map);
-
         fd_stuff(serv);
         init_select(&(serv->sock->readFds));
-        //printf("Select Initialization is done, comencing client interaction\n");
         get_connections(serv);
         client_interaction(serv);
-
-        // printf("get connections achieved\n");
     }
-    printf("Ded\n");
-    //SDL_DestroyWindow(graphic->window);
-    //SDL_Quit();      
-        // SDL_FreeSurface(graphic->imageSurface);
-    // SDL_FreeSurface(graphic->windowSurface);   
+    printf("Loop ended\n");
     close(serv->sock->fd);
 }

@@ -44,6 +44,7 @@ typedef struct client_id_s {
     item_t *items;
     int direction;
     struct client_id_s *next;
+    int is_dead;
 } client_id_t;
 
 
