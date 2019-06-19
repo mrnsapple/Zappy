@@ -59,8 +59,7 @@ void move_right(int direction, server_t *serv, client_id_t *clients, pos_t pos)
 int forward(char *result, server_t *serv, client_id_t *clients)
 {
     if (strcmp(result, "Forward\n") != 0)
-        return (0);
-    
+        return (0);  
     pos_t pos = get_position(serv->map, clients);
     if (pos.y != -1 && pos.x != -1 && pos.i != -1) {
         printf("client pos %d,%d is looking %d\n", pos.x, pos.y, clients->direction);        

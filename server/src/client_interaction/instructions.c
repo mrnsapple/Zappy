@@ -23,7 +23,7 @@ pos_t   get_position(map_t ** map, client_id_t *clients)
                     pos.x = x;
                     pos.y = y;
                     pos.i = i;
-                //    printf("this player wants to move\n");
+                //printf("this player wants to move\n");
                 }
     return (pos);
 }

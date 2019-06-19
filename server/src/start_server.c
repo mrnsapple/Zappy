@@ -53,6 +53,7 @@ void fd_stuff(server_t *serv)
     for (; teams != NULL; teams = teams->next) {
         clients = teams->clients;
         for (; clients != NULL; clients = clients->next) {
+            printf("client fd:%d\n", clients->fd);
             FD_SET (clients->fd, &(serv->sock->readFds));
         }
     }
@@ -71,6 +72,7 @@ void get_connections(server_t *serv)
                 printf("Connection with fd %d has been accepted\n", fd);
                 team_name = get_team_name(serv->team_names, fd);
                 init_client(serv, fd, team_name);
+                printf("afterinitclient\n");
             }
             //else
             //    delete_client(serv, i);
@@ -86,7 +88,7 @@ void start_server(server_t *serv)
         //funcion con bucle SDL_PollEvent 
         //window_loop(serv, graphic);
         //serv->sock->readFds = serv->sock->fds;
-        // display_map(serv->map);
+        display_map(serv->map);
 
         fd_stuff(serv);
         init_select(&(serv->sock->readFds));

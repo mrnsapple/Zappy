@@ -62,7 +62,7 @@ client_id_t *malloc_client(int fd, char *team_name, server_t *serv)
 
     };
 
-    client = malloc(sizeof(client_id_t));
+    client = malloc(sizeof(client_id_t)* 3);
     if (client == NULL)
         exit(84);
     client->next = NULL;

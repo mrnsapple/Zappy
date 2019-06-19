@@ -92,6 +92,7 @@ void display_map(map_t **map)
             display_items(map[y][x].items);
         }
     }
+    
     printf("\n\n");
 
 }

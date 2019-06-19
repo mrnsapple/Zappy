@@ -30,24 +30,28 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
        send_map_size(serv, teams, clients);
     read_result = read_user(clients->fd);
     if (strcmp(read_result, "DELETE CLIENT") == 0) {
-        return (delete_client(serv, clients->fd));
+        delete_client(serv, clients->fd);
+        fd_stuff(serv);
+        printf("afterdelete\n");
+        return (5);
     }
     printf("after read:%s\n", read_result);
-    connect_number(read_result, serv, teams, clients);
+    //connect_number(read_result, serv, teams, clients);
     // inventory(read_result, serv, clients);
-    forward(read_result, serv, clients);
-    look(read_result, serv, clients);
-    right(read_result, serv, clients);
-    left(read_result, serv, clients);
+    //forward(read_result, serv, clients);
+    //look(read_result, serv, clients);
+    //right(read_result, serv, clients);
+    //left(read_result, serv, clients);
     //write_to_fd(clients->fd, "ko\n");
     write_to_fd(clients->fd, serv->to_write);
 
     printf("read_result:%s, response:%s:\n", read_result, serv->to_write);
     printf("team_name:%s, fd:%d\n", clients->team_name, clients->fd);
+
     return (0);
 }
 
-void    client_interaction(server_t *serv)
+int    client_interaction(server_t *serv)
 {
     teams_t *teams = serv->sock->teams;
     client_id_t *clients;
@@ -58,8 +62,10 @@ void    client_interaction(server_t *serv)
         for (; clients != NULL; clients = clients->next) {
             //if (fd == clients->fd) {
                 //printf("in clien action\n");
-                client_actions(serv, teams, clients);
+            if (client_actions(serv, teams, clients) == 5)
+                return (2);
             //}
         }
     }
+    return (0);
 }
