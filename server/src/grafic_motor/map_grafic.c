@@ -45,5 +45,5 @@ void window_loop(server_t *serv, grafics_t *graphic)
     draw_rect_map(graphic->rect_map, graphic->render);
     draw_rect_map(graphic->rect_client, graphic->render);
     // draw_triangle(graphic->render);
-    SDL_RenderPresent(graphic->render);
+    // SDL_RenderPresent(graphic->render);
 }
