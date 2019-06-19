@@ -34,7 +34,7 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
     }
     printf("after read:%s\n", read_result);
     connect_number(read_result, serv, teams, clients);
-    // inventory(read_result, serv, clients);
+    inventory(read_result, serv, clients);
     forward(read_result, serv, clients);
     look(read_result, serv, clients);
     right(read_result, serv, clients);
