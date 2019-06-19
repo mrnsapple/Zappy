@@ -34,9 +34,11 @@ int check_items(char *result)
     return (84);
 }
 
-int take( pos_t pos, char *result,map_t **map, client_id_t *clients)
+int take(char *result, server_t *serv, client_id_t *clients)
 {
-    if (check_items(result) == 84){
+    serv->to_write = strdup("ok\n");
+    return (0);
+    /* if (check_items(result) == 84){
         printf("Wrong item\n");
     }
     int what_item = check_items(result);
@@ -52,6 +54,6 @@ int take( pos_t pos, char *result,map_t **map, client_id_t *clients)
                     take_it(map,clients);
             }
         }
-    }
+    }*/
 }
     //hacer un bucle por cada elemento del mapa y ver que hay

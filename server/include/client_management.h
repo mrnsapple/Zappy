@@ -21,4 +21,6 @@ int forward(char *result, server_t *serv, client_id_t *clients);
 int right(char *result, server_t *serv, client_id_t *clients);
 int left(char *result, server_t *serv, client_id_t *clients);
 int    delete_client(server_t *serv, int client_fd);
+int take(char *result, server_t *serv, client_id_t *clients);
+
 #endif /* !clientman */

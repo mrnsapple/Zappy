@@ -26,6 +26,7 @@ SERVSRC	=	$(SERVER_PATH)main.c					\
 			$(SERVER_PATH)client_interaction/client_interaction.c	\
 			$(SERVER_PATH)client_interaction/instructions.c			\
 			$(SERVER_PATH)client_interaction/look.c					\
+			$(SERVER_PATH)client_interaction/take.c					\
 			$(SERVER_PATH)client_interaction/delete_client.c		\
 			$(SERVER_PATH)client_interaction/forward.c				\
 			$(SERVER_PATH)error_management.c			\
