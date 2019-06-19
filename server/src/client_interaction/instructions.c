@@ -58,7 +58,7 @@ int    inventory(char *result, server_t *serv, client_id_t *clients)
     }
     strcat(str, "]");
     //printf("the str:%s\n", str);
-    serv->to_write = str;
+    serv->to_write = strdup(str);
     return (0);
 }
 

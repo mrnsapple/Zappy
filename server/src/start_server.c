@@ -53,7 +53,7 @@ void fd_stuff(server_t *serv)
     for (; teams != NULL; teams = teams->next) {
         clients = teams->clients;
         for (; clients != NULL; clients = clients->next) {
-            //printf("client fd:%d\n", clients->fd);
+            // printf("client fd:%d\n", clients->fd);
             if (clients->is_dead == 0)
                 FD_SET (clients->fd, &(serv->sock->readFds));
         }
@@ -68,12 +68,12 @@ void get_connections(server_t *serv)
     for (int i = 0; i < FD_SETSIZE; i++)
         if (FD_ISSET(i, &serv->sock->readFds)) {
             if (i == serv->sock->fd) {
-                printf("Awaiting for a new connection\n");
+                // printf("Awaiting for a new connection\n");
                 fd = init_accept(serv);
                 printf("Connection with fd %d has been accepted\n", fd);
                 team_name = get_team_name(serv->team_names, fd);
                 init_client(serv, fd, team_name);
-                printf("afterinitclient\n");
+                // printf("afterinitclient\n");
             }
             //else
             //    delete_client(serv, i);
@@ -84,14 +84,16 @@ void get_connections(server_t *serv)
 void start_server(server_t *serv)
 {
     serv->_stop_server = 1;
-    //grafics_t *graphic = create_window(serv);
+    // grafics_t *graphic = create_window(serv);
     while (serv->_stop_server == 1) {
-        //window_loop(serv, graphic);
-        display_map(serv->map);
+        SDL_Delay(250);
+        // window_loop(serv, graphic);
+        // display_map(serv->map);
         fd_stuff(serv);
         init_select(&(serv->sock->readFds));
         get_connections(serv);
         client_interaction(serv);
+        // SDL_RenderPresent(graphic->render);
     }
     printf("Loop ended\n");
     close(serv->sock->fd);

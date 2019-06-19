@@ -46,7 +46,9 @@ int look(char *result, server_t *serv, client_id_t *clients)
         printf("its not look:%s\n", result);
         return (0);
     }
-    //return (0);
+    serv->to_write = "[ player food sibur, phiras,, food sibur ]\n";
+
+    return (0);
     exit(0);
     for (int i =0; i < 4; i++)
         if (dir[i].dir == clients->direction)

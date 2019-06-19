@@ -37,7 +37,8 @@ SERVSRC	=	$(SERVER_PATH)main.c					\
 			$(SERVER_PATH)grafic_motor/map_grafic.c		\
 			$(SERVER_PATH)grafic_motor/rect_sdl.c		\
 			$(SERVER_PATH)grafic_motor/rect_map.c		\
-			$(SERVER_PATH)grafic_motor/color_sdl.c
+			$(SERVER_PATH)grafic_motor/color_sdl.c		\
+			$(SERVER_PATH)grafic_motor/triangle_sdl.c
 
 
 OBJ	=	$(SRC:.cpp=.o)
