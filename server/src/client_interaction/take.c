@@ -34,26 +34,46 @@ int check_items(char *result)
     return (84);
 }
 
+void    add_item_to_client(client_id_t *client, char *item)
+{
+    printf("add to client:%s:\n", item);
+    for (int i = 0; strcmp(client->items[i].name, "end") != 0; i++)
+        if (strcmp(strcat(strdup(client->items[i].name), "\n"), item) == 0) {
+            printf("enter\n");
+            client->items[i].amount++;
+        }
+    printf("last\n");
+}
+
+void delete_item_in_map(server_t *serv, int y, int x, char *item)
+{
+    for (int i = 0; strcmp(serv->map[y][x].items[i].name, "end") != 0; i++)
+        if (strcmp(strcat(serv->map[y][x].items[i].name, "\n"), item) == 0)
+            serv->map[y][x].items[i].amount--;
+}
+
 int take(char *result, server_t *serv, client_id_t *clients)
 {
+    char *ptr = strtok(result, " ");
+    char *value = strtok(NULL, " ");
+                    
+
+
+    printf("the ptr:%s, %s\n", ptr, value);
+    if (strcmp(ptr, "Take") != 0)
+        return (0);
     serv->to_write = strdup("ok\n");
-    return (0);
-    /* if (check_items(result) == 84){
-        printf("Wrong item\n");
-    }
-    int what_item = check_items(result);
-    int dump_x = 0;
-    int dump_y = 0;
-    for (int y = 0; map[y] != NULL; y++) {
-        for (int x = 0; (map[y][x]).is_last == 0; x++) {
-            for (int i = 0; map[y][x].items->name == result && map[y][x].items->amount > 0; i++){
-                dump_x = x;
-                dump_y = y;
-                pos = get_position(map, clients);
-                if (pos.x == dump_x && pos.y == dump_y)
-                    take_it(map,clients);
-            }
-        }
-    }*/
-}
+   
+    for (int y = 0; serv->map[y] != NULL; y++)
+        for (int x = 0; (serv->map[y][x]).is_last == 0; x++)
+            for (int i = 0; serv->map[y][x].player != NULL && serv->map[y][x].player[i] != NULL; i++)
+                if ((serv->map[y][x]).player[i]->fd == clients->fd) {
+                    
+                    add_item_to_client(clients, value);
+                    delete_item_in_map(serv, y, x, value);
+                    //anadir el item a este clients->items
+                    //eliminar el item del map->items
+                }
+
     //hacer un bucle por cada elemento del mapa y ver que hay
+}
