@@ -40,14 +40,14 @@ int     Client::startClient()
     std::string read_from;
 
     _fifo_read = createFifo("client/src/fifos/read/myfifo");
-    std::cout << "The fifo read:" << _fifo_read << "\n";
+    Utils::printMessage(RED, "CLIENT", "The fifo read:" + _fifo_read);
     createPlayer();
     //createPlayer();
 
-    while (23232) {
+    for (bool condition = true; condition == true;) {
         sleep(1);
         read_from = Utils::readFromFifo(_fifo_read);
-        std::cout << "Client read from player:" << read_from << "\n";
+        Utils::printMessage(RED, "CLIENT", "Client read from player:" + read_from);
         if (strcmp(read_from.c_str(), "Create a player\n") == 0)
             createPlayer();
     }

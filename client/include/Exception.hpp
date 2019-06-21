@@ -11,7 +11,7 @@
 //#include <iostream>
 //#include <exception>
 #include <string>
-
+#include "Colors/Colors.hpp"
 
 class MyException: public std::exception
 {
@@ -23,21 +23,10 @@ class MyException: public std::exception
        MyException(){};
         //
         void    print_exception(void) {
-           std::cout << "Error:" << _message;
+           std::cerr << RED <<"Error:" << _message << RESET ;
         };
 	protected:
-	private:       
-       std::string _message;
-    
-};
-
-class PlayerException : public MyException
-{
-    public:
-        PlayerException(std::string message) noexcept : _message(message)
-        {};
-    private:       
-       std::string _message;
+       std::string _message;    
 };
 
 #endif /* !exception */

@@ -39,14 +39,11 @@ std::vector<std::map<std::string, int>>    Commands::getLookArround()
     std::map<std::string, int> my_map;
     (*_stuff_in_tiles).clear();
     //Retrieve info
-    printf("before write look\n");
 
     read_from = Utils::writeInFd(_socket_fd, "Look\n", true);
-    printf("after write look\n");
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
         return (perror("look not recieved\n"), *_stuff_in_tiles);
     // Parse result string
-    std::cout << "the look result:" << read_from << "\n";
     read_from.erase(std::remove(read_from.begin(), read_from.end(), '['), read_from.end());
     read_from.erase(std::remove(read_from.begin(), read_from.end(), ']'), read_from.end());
     // Allocate in _stuff_in_tiles variable
@@ -58,7 +55,6 @@ std::vector<std::map<std::string, int>>    Commands::getLookArround()
             std::map<std::string, int>::iterator it = _stuff_in_tile.find(b);
             if(it != (_stuff_in_tile).end())
                 my_map[b] = my_map[b] + 1;
-            //std::cout << ":" << b << ":\n";      
         }
         (*_stuff_in_tiles).push_back(my_map);
     }    
@@ -74,7 +70,7 @@ int Commands::getConnectNbr()
     read_from = Utils::writeInFd(_socket_fd, "Connect_nbr\n", true);
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
         return (perror("Connect nbr not recieved\n"), -1);
-    std::cout << "read:" << read_from << "\n";
+    Utils::printMessage(GREEN, "COMMANDS", "The ConnectNbr retrieved is " + read_from);
     return (std::stoi(read_from));
 }
 
@@ -85,12 +81,11 @@ std::map<std::string, int>  Commands::getInventory()
     std::vector<std::string> vect_ptr;
 
     //Retrieve info
-    std::cout << "before write inventry\n";
     read_from = Utils::writeInFd(_socket_fd, "Inventory\n", true);
     if (read_from.empty() || strcmp(read_from.c_str(),"ko\n") == 0)
         return (perror("Inventory not recieved\n"), *_inventory);
     // Parse result string
-    std::cout << "inventiory:" << read_from << "\n";
+    Utils::printMessage(GREEN, "COMMANDS", "The Inventory retrieved is " + read_from);
     read_from.erase(std::remove(read_from.begin(), read_from.end(), '['), read_from.end());
     read_from.erase(std::remove(read_from.begin(), read_from.end(), ']'), read_from.end());
     //std::cout << _socket_fd << " reads: "<< read_from << "\n";
@@ -114,9 +109,9 @@ int Commands::sendCommands(std::vector<std::string> message_vector)
     for (auto message : message_vector) {
         if (strcmp(message.c_str(), "Fork\n") == 0)
             Utils::writeToFifo(_fifo_read, "Create a player\n");
-        std::cout << "pos:" << message << "\n";
+        Utils::printMessage(GREEN, "COMMANDS", "Message sent to server is :" + message);
         read_from = Utils::writeInFd(_socket_fd, message, true);
-        std::cout << "return:" << read_from << "\n";
+        Utils::printMessage(GREEN, "COMMANDS", "Message recieved from server is " + read_from);
     }
     return (0);
 }
@@ -125,6 +120,5 @@ int    Commands::sendBroadcastText( std::string text)
 {
     std::string read_from;
     read_from = Utils::writeInFd(_socket_fd, "Broadcast " + text + "\n", true);
-    //std::cout << "Player " << _client_num << "reads: "<< read_from << "\n";
     return (0);
 }

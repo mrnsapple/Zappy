@@ -7,6 +7,7 @@
 
 #ifndef UTILS_HPP_
     #define UTILS_HPP_
+#include "Colors/Colors.hpp"
  #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -29,6 +30,9 @@ class Utils {
 
 		int num_charact(T &string, T2 character);
 		
+		//template<typename color>
+		static void   	printMessage(std::string my_color, std::string come_from, std::string message);
+
 		//fifo interactions
 		static std::string	readFromFifo(std::string fifo);
 		static bool	writeToFifo(std::string fifo, std::string);

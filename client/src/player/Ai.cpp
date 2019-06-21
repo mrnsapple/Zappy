@@ -24,7 +24,7 @@ int Ai::get_item_pos(int location)
     int y_pos[] = {0, 3, 8, 15};
     int x_pos[] = {0, 2, 6, 12};
     std::string dir = "";
-    std::cout << "location:" << location <<"\n";
+    //std::cout << "location:" << location <<"\n";
     for (int i = 0; i < 4; i++) {
         if (y_pos[i] >= location)  {
             std::cout << "i:" << i << "\n";
@@ -52,20 +52,7 @@ int Ai::get_item_pos(int location)
     //    std::cout << "pos:" << a;
     return (0);
 }
-/*
-int main()
-{
-    Ai a;
-    a.get_item_pos(0);
-    std::cout << "other\n";
 
-    a.get_item_pos(2);
-    std::cout << "other\n";
-    a.get_item_pos(3);
-    std::cout << "other\n";
-    a.get_item_pos(15);
-    std::cout << "other\n";
-}*/
 
 void  Ai::get_take_object(int amount, std::string object)
 {
@@ -138,8 +125,7 @@ std::vector<std::string> Ai::get_what_to_do()
         _result.push_back("Right\n");
         for (int i = 0; i < 4; i++)    
             _result.push_back("Forward\n");
-
-        std::cout << "Result is empty\n";
+        Utils::printMessage(BLUE, "AI", "Result is empty");
     }
     return _result;
 }

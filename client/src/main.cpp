@@ -7,6 +7,7 @@
 
 #include "../include/Parser.hpp"
 #include "../include/Client.hpp"
+#include "../include/Colors/Colors.hpp"
 //#include "../include/Exception.hpp"
 
 Client *get_client(int ac, char **av)
@@ -27,7 +28,7 @@ int     client_creation(int ac, char **av)
 
 int main(int ac, char **av)
 {
-    try {
+    try {   
         return (client_creation(ac, av));
     }
     catch ( MyException& e) {

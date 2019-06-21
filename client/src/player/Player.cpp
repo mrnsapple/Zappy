@@ -6,7 +6,7 @@
 */
 
 #include "../../include/Player.hpp"
-#include "../../include/Exception.hpp"
+#include "../../include/PlayerException.hpp"
 
 Player::Player(int port, std::string name, std::string machine, std::string fifo_read) :
     _port(port), _name(name), _machine(machine), _fifo_read(fifo_read), _lvl(0)
@@ -47,8 +47,8 @@ int    Player::createSocket()
 {
     struct sockaddr_in addr;
     int nm = 1;
-
-    std::cout << _machine << ", name: "<< _name << ", port:" <<_port;
+    
+    Utils::printMessage(BLUE, "PLAYER", _machine + ", name: " + _name + ", port:" + std::to_string(_port ));
     _socket_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (_socket_fd == -1)
         throw MyException("Error creating socket\n");
@@ -59,7 +59,7 @@ int    Player::createSocket()
     addr.sin_addr.s_addr = inet_addr(_machine.c_str());
     int c = connect(_socket_fd, (const struct sockaddr *)&addr, sizeof(addr));
     if (c == -1) {
-      std::cerr << "Error on connect" << std::endl;
+        throw MyException("Error on connect\n");
       return (-1);
     }
     return (0);
@@ -69,7 +69,7 @@ int     Player::welcomeInteraction()
 {
     std::string read_from;
 
-    std::cout <<"Start reading form server\n";
+    Utils::printMessage(BLUE, "PLAYER", "Start reading form server\n");
     read_from = Utils::readFromFd(_socket_fd);
     std::cout << read_from << "\n"; 
     if (read_from.empty() || strcmp(read_from.c_str(), "WELCOME\n") != 0)
@@ -99,8 +99,7 @@ int    Player::setClientNumMapSpace(std::string read_from)
     std::vector<std::string> vect;
     
     vect = separate_string(read_from, '\n');
-    //for (std::string a : vect)
-    //    std::cout << "a:" << a << ":\n";
+    
     _client_num = std::stoi(vect[0]);
     vect = separate_string(vect[1], ' ');
     _y = std::stoi(vect[1]);
@@ -111,15 +110,17 @@ int    Player::setClientNumMapSpace(std::string read_from)
 
 int     Player::interactWithServer()
 {
-    std::cout << "Start server interact:" << _socket_fd << "\n";
+    Utils::printMessage(BLUE, "PLAYER", "Start server interact:" + _socket_fd);
     _connect_nbr = _commands->getConnectNbr();
     for (int val = 0; val == 0; val = 0) {        
         //sleep(0.7);
         _commands->getInventory();
-        std::cout  << "\nPrint Inventory:\n";
+        Utils::printMessage(BLUE, "PLAYER", "\nPrint Inventory:\n");
+
         Utils::printMap(_inventory);
         _commands->getLookArround();
-        std::cout << "\n\nConnect nbr:" << _connect_nbr <<"," << _socket_fd<< "\n";
+        Utils::printMessage(BLUE, "PLAYER", "\n\nConnect nbr:" + std::to_string(_connect_nbr) +"," + std::to_string(_socket_fd));
+
         Utils::printVectorMap(_stuff_in_tiles);
         //_inventory["food"]--;
     
@@ -135,11 +136,17 @@ int     Player::start_game()
 {
     std::string read_from;
 
-    std::cout << "Start game\n";
-    createSocket();
-    welcomeInteraction();
-    createCommands();
-    createAi();
+    try {
+        Utils::printMessage(BLUE, "PLAYER", "Start game\n");
+        //throw PlayerException("playerexception\n");
+        createSocket();
+        welcomeInteraction();
+        createCommands();
+        createAi();
     interactWithServer();
+    }
+    catch(PlayerException &e) {
+        e.print_exception();
+    }
     return (0);
 }

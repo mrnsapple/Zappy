@@ -16,6 +16,12 @@ Utils::~Utils()
 {
 
 }
+//template<typename color>
+
+void    Utils::printMessage(std::string my_color, std::string come_from, std::string message)
+{
+    std::cout << my_color << come_from << RESET << "->" << message << std::endl ;
+}
 
 void    Utils::printMap(std::map<std::string, int> inventory)
 {
