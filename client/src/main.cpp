@@ -8,7 +8,8 @@
 #include "../include/Parser.hpp"
 #include "../include/Client.hpp"
 #include "../include/Colors/Colors.hpp"
-//#include "../include/Exception.hpp"
+#include "../include/Errors/ClientException.hpp"
+#include "../include/Errors/GlovalException.hpp"
 
 Client *get_client(int ac, char **av)
 {
@@ -20,10 +21,15 @@ Client *get_client(int ac, char **av)
 int     client_creation(int ac, char **av)
 {
     Client *my_client = get_client(ac, av);
-
-    if (my_client == NULL)
-        return (84);
-    return (my_client->startClient());
+    int result;
+    try {   
+        if (my_client == NULL)
+            return (84);    
+        result = my_client->startClient(); 
+    } catch ( ClientException& e) {
+       e.print_exception();
+    }
+    return (result);
 }
 
 int main(int ac, char **av)
@@ -31,7 +37,7 @@ int main(int ac, char **av)
     try {   
         return (client_creation(ac, av));
     }
-    catch ( MyException& e) {
+    catch ( GlovalException& e) {
        e.print_exception();
     }
 }

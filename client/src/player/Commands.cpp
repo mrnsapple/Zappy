@@ -6,7 +6,7 @@
 */
 
 #include "../../include/Commands.hpp"
-
+#include "../../include/Errors/UtilsException.hpp"
 Commands::Commands(int socket_fd,
     std::map<std::string, int> *inventory, 
  std::map<std::string, int> *gems_finding,
@@ -107,8 +107,13 @@ int Commands::sendCommands(std::vector<std::string> message_vector)
     
     //Retrieve info
     for (auto message : message_vector) {
-        if (strcmp(message.c_str(), "Fork\n") == 0)
-            Utils::writeToFifo(_fifo_read, "Create a player\n");
+        if (strcmp(message.c_str(), "Fork\n") == 0) {
+            try {
+                Utils::writeToFifo(_fifo_read, "Create a player\n");
+            } catch ( UtilsException &e) {
+                 e.print_exception();
+            }
+        }
         Utils::printMessage(GREEN, "COMMANDS", "Message sent to server is :" + message);
         read_from = Utils::writeInFd(_socket_fd, message, true);
         Utils::printMessage(GREEN, "COMMANDS", "Message recieved from server is " + read_from);

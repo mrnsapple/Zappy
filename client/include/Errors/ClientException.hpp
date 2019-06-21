@@ -5,19 +5,19 @@
 ** exception
 */
 
-#ifndef PLAYEREXCEPTION_HPP
-#define PLAYEREXCEPTION_HPP
+#ifndef CLIENTEXCEPTION_HPP
+#define CLIENTEXCEPTION_HPP
 
 //#include <iostream>
 //#include <exception>
-#include "Exception.hpp"
+#include "AException.hpp"
 
 #include <string>
 
-class PlayerException : public MyException
+class ClientException : public AException
 {
     public:
-        PlayerException(std::string message) noexcept
+        ClientException(std::string message) noexcept
         {
             _message = (message);
    

@@ -6,7 +6,7 @@
 */
 
 #include "../../include/Player.hpp"
-#include "../../include/PlayerException.hpp"
+#include "../../include/Errors/PlayerException.hpp"
 
 Player::Player(int port, std::string name, std::string machine, std::string fifo_read) :
     _port(port), _name(name), _machine(machine), _fifo_read(fifo_read), _lvl(0)
@@ -51,15 +51,15 @@ int    Player::createSocket()
     Utils::printMessage(BLUE, "PLAYER", _machine + ", name: " + _name + ", port:" + std::to_string(_port ));
     _socket_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (_socket_fd == -1)
-        throw MyException("Error creating socket\n");
+        throw PlayerException("Error creating socket\n");
     if (setsockopt(_socket_fd, SOL_SOCKET, SO_REUSEADDR, &nm, sizeof(nm)) < 0)
-        throw MyException("Error settting sockopt\n");
+        throw PlayerException("Error settting sockopt\n");
     addr.sin_family = AF_INET;
     addr.sin_port = htons(_port);
     addr.sin_addr.s_addr = inet_addr(_machine.c_str());
     int c = connect(_socket_fd, (const struct sockaddr *)&addr, sizeof(addr));
     if (c == -1) {
-        throw MyException("Error on connect\n");
+        throw PlayerException("Error on connect\n");
       return (-1);
     }
     return (0);
@@ -146,6 +146,8 @@ int     Player::start_game()
     interactWithServer();
     }
     catch(PlayerException &e) {
+        delete _ai;
+        delete _commands;
         e.print_exception();
     }
     return (0);

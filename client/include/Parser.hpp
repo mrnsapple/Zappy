@@ -6,7 +6,7 @@
 */
 
 #include "Client.hpp"
-#include "Exception.hpp"
+#include "Errors/AException.hpp"
 #ifndef MyParser_HPP
 #define MyParser_HPP
 

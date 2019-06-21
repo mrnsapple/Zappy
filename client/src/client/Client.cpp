@@ -6,7 +6,8 @@
 */
 
 #include "../../include/Client.hpp"
-#include "../../include/Exception.hpp"
+#include "../../include/Errors/UtilsException.hpp"
+#include "../../include/Errors/ClientException.hpp"
 
 Client::Client()
 {
@@ -46,7 +47,11 @@ int     Client::startClient()
 
     for (bool condition = true; condition == true;) {
         sleep(1);
-        read_from = Utils::readFromFifo(_fifo_read);
+        try {
+            read_from = Utils::readFromFifo(_fifo_read);
+        } catch ( UtilsException &e) {
+            e.print_exception();
+        }
         Utils::printMessage(RED, "CLIENT", "Client read from player:" + read_from);
         if (strcmp(read_from.c_str(), "Create a player\n") == 0)
             createPlayer();
@@ -63,12 +68,12 @@ int     Client::createPlayer()
     pid = fork();
     if (pid < 0) {
         delete my_player;
-        throw MyException("Fork result is < 0\n");
+        throw ClientException("Fork result is < 0\n");
     }
     else if (pid == 0) {
         my_player->start_game();
         delete my_player;
-        throw MyException("Player died\n");
+        throw ClientException("Player died\n");
     }
     return (0);
 }
@@ -77,6 +82,6 @@ int     Client::createPlayer()
 std::string Client::createFifo(std::string file)
 {
     if (mkfifo(file.c_str(), 0666) == -1)
-        throw MyException("Mkfifo of " + file + " failed\n");
+        throw ClientException("Mkfifo of " + file + " failed\n");
     return file;
 }
