@@ -6,6 +6,7 @@
 */
 
 #include "../../include/Client.hpp"
+#include "../../include/Exception.hpp"
 
 Client::Client()
 {
@@ -61,8 +62,7 @@ int     Client::createPlayer()
     _players.push_back(my_player);
     pid = fork();
     if (pid < 0) {
-        perror("Error when fork\n");
-        exit(84);
+        throw MyException("Error when fork\n");
     }
     else if (pid == 0) {
         my_player->start_game();

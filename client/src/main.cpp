@@ -6,10 +6,12 @@
 */
 
 #include "../include/Parser.hpp"
+#include "../include/Client.hpp"
+//#include "../include/Exception.hpp"
 
 Client *get_client(int ac, char **av)
 {
-    Parser *client_parser = new Parser(ac, av);
+    std::unique_ptr<Parser> client_parser(new Parser(ac, av));
 
     return (client_parser->get_binary_info());
 }
@@ -26,9 +28,10 @@ int     client_creation(int ac, char **av)
 int main(int ac, char **av)
 {
     try {
+        throw MyException("Exceptio\n\n");
         return (client_creation(ac, av));
     }
-    catch ( int e ) {
-        std::cout << "Error:" << e << "\n";
+    catch ( MyException& e) {
+       e.print_exception();
     }
 }

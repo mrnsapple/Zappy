@@ -7,8 +7,9 @@
 
 #include "list.hpp"
 #include "Client.hpp"
-#ifndef MyParser
-#define MyParser
+#include "Exception.hpp"
+#ifndef MyParser_HPP
+#define MyParser_HPP
 
 class Parser {
 	public:

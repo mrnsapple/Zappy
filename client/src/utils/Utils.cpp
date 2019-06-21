@@ -70,11 +70,13 @@ void 	Utils::printVectorMap(std::vector<std::map<std::string, int>>  _stuff_in_t
 
 //template <class myType>
 
-int Utils::num_charact(std::string &string, char character)
+template<typename T,typename T2>
+
+int Utils::num_charact(T &string, T2 character)
 {
     int count = 0;
 
-    for (auto a: string) {
+    for (T2 a: string) {
         if (character == a)
             count++;
     }

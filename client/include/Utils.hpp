@@ -12,9 +12,12 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+
 class Utils {
 	public:
-		int num_charact(std::string &string, char character);
+		template<typename T,typename T2>
+
+		int num_charact(T &tring, T2 character);
 		
 		//fifo interactions
 		static std::string	readFromFifo(std::string fifo);

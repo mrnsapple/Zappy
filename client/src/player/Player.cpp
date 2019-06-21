@@ -6,6 +6,7 @@
 */
 
 #include "../../include/Player.hpp"
+#include "../../include/Exception.hpp"
 
 Player::Player(int port, std::string name, std::string machine, std::string fifo_read) :
     _port(port), _name(name), _machine(machine), _fifo_read(fifo_read), _lvl(0)
@@ -112,7 +113,6 @@ int     Player::interactWithServer()
 {
     std::cout << "Start server interact:" << _socket_fd << "\n";
     _connect_nbr = _commands->getConnectNbr();
-    //exit (0);
     for (int val = 0; val == 0; val = 0) {        
         //sleep(0.7);
         _commands->getInventory();
