@@ -5,7 +5,7 @@
 ** ai file
 */
 
-#include "Ai.hpp"
+#include "../../include/Ai.hpp"
 
 Ai::Ai(std::map<std::string, int> *inventory, 
     std::vector<std::map<std::string, int>> *stuf_in_tiles,

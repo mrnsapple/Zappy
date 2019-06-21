@@ -7,8 +7,8 @@
 
 #ifndef playerfile
 #define playerfile
-#include "../../include/list.hpp"
-#include "../utils/Utils.hpp"
+#include "list.hpp"
+#include "Utils.hpp"
 #include "Ai.hpp"
 #include "Commands.hpp"
 # include	<iostream>

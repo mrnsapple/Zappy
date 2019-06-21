@@ -5,7 +5,7 @@
 ** Fifo
 */
 
-#include "Fifo.hpp"
+#include "../../include/Fifo.hpp"
 
 Fifo::Fifo()
 {

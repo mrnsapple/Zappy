@@ -7,8 +7,8 @@
 
 # ifndef MyClient
 # define MyClient
-# include "../../include/list.hpp"
-# include "../player/Player.hpp"
+# include "list.hpp"
+# include "Player.hpp"
 
 
 class Client {

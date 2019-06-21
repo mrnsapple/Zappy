@@ -7,8 +7,8 @@
 
 #ifndef COMMANDS_HPP_
 #define COMMANDS_HPP_
-#include "../../include/list.hpp"
-#include "../utils/Utils.hpp"
+#include "list.hpp"
+#include "Utils.hpp"
 
 class Commands {
 	public:

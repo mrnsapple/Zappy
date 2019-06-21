@@ -5,7 +5,7 @@
 ** the player file created by luiso
 */
 
-#include "Player.hpp"
+#include "../../include/Player.hpp"
 
 Player::Player(int port, std::string name, std::string machine, std::string fifo_read) :
     _port(port), _name(name), _machine(machine), _fifo_read(fifo_read), _lvl(0)

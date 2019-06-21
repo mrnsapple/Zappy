@@ -7,8 +7,8 @@
 
 #ifndef Inventory
 #define Inventory
-#include "../../include/list.hpp"
-#include "../utils/Utils.hpp"
+#include "list.hpp"
+#include "Utils.hpp"
 
 class Inventory {
 	public:

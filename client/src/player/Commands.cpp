@@ -5,7 +5,7 @@
 ** by oriol
 */
 
-#include "Commands.hpp"
+#include "../../include/Commands.hpp"
 
 Commands::Commands(int socket_fd,
     std::map<std::string, int> *inventory, 

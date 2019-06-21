@@ -5,7 +5,7 @@
 ** Info about client
 */
 
-#include "Client.hpp"
+#include "../../include/Client.hpp"
 
 Client::Client()
 {
