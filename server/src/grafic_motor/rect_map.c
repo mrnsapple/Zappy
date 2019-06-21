@@ -5,7 +5,7 @@
 ** map_array
 */
 
-#include "../../include/grafic_motor.h"
+#include "../../include/graphic_motor/grafic_motor.h"
 
 rect_sdl_t **malloc_map(int width, int height)
 {

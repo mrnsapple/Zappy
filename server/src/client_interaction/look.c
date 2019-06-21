@@ -46,6 +46,7 @@ int look(char *result, server_t *serv, client_id_t *clients)
         printf("its not look:%s\n", result);
         return (0);
     }
+    for (float i = 0; i != (float)(7 / serv->freq); i++);
     serv->to_write = "[ player food sibur, phiras,, food sibur ]\n";
 
     return (0);

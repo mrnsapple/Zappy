@@ -5,7 +5,7 @@
 ** rect_sdl
 */
 
-#include "../../include/rect_sdl.h"
+#include "../../include/graphic_motor/rect_sdl.h"
 
 SDL_Rect init_rect(int x, int y, int width, int height)
 {

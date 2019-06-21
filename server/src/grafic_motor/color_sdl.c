@@ -5,7 +5,7 @@
 ** color_sdl
 */
 
-#include "../../include/color_sdl.h"
+#include "../../include/graphic_motor/color_sdl.h"
 
 SDL_Color init_color(Uint8 r, Uint8 g, Uint8 b)
 {

@@ -79,4 +79,5 @@ int take(char *result, server_t *serv, client_id_t *clients)
                 }
 
     //hacer un bucle por cada elemento del mapa y ver que hay
+    return (0);
 }
