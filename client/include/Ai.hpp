@@ -8,7 +8,6 @@
 #ifndef ai
 #define ai
 
-#include "list.hpp"
 #include "Utils.hpp"
 #include <cmath>  
 

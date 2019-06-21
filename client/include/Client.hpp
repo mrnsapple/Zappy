@@ -7,9 +7,9 @@
 
 # ifndef MyClient
 # define MyClient
-# include "list.hpp"
 # include "Player.hpp"
 
+#include <string.h>
 
 class Client {
 public:

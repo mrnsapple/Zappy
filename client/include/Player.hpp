@@ -7,7 +7,6 @@
 
 #ifndef playerfile
 #define playerfile
-#include "list.hpp"
 #include "Utils.hpp"
 #include "Ai.hpp"
 #include "Commands.hpp"

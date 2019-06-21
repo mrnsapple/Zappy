@@ -7,17 +7,27 @@
 
 #ifndef UTILS_HPP_
     #define UTILS_HPP_
-#include "list.hpp"
  #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <stdio.h>
+#include <iostream>
+#include <iomanip>
+#include <unordered_map>
+#include <unistd.h>
 
+//Types
+#include <string>
+#include <list>
+#include <array>
+#include <map>
+#include <vector>
 
 class Utils {
 	public:
 		template<typename T,typename T2>
 
-		int num_charact(T &tring, T2 character);
+		int num_charact(T &string, T2 character);
 		
 		//fifo interactions
 		static std::string	readFromFifo(std::string fifo);
