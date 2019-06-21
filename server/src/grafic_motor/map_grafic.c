@@ -33,7 +33,6 @@ grafics_t *create_window(server_t *serv)
 
 void window_loop(server_t *serv, grafics_t *graphic)
 {
-    // SDL_Delay(7);
     SDL_SetRenderDrawColor(graphic->render, 0, 0, 0, 0);
     SDL_RenderClear(graphic->render);
     while ( SDL_PollEvent(&graphic->event) != 0){
@@ -43,7 +42,9 @@ void window_loop(server_t *serv, grafics_t *graphic)
     }
     init_rect_map(serv, &graphic->rect_map, &graphic->rect_client);
     draw_rect_map(graphic->rect_map, graphic->render);
-    draw_rect_map(graphic->rect_client, graphic->render);
+    if (graphic->rect_map != NULL) {
+        draw_rect_map(graphic->rect_client, graphic->render);
+    }
     // draw_triangle(graphic->render);
     // SDL_RenderPresent(graphic->render);
 }

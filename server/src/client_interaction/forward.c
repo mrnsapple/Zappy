@@ -61,6 +61,7 @@ int forward(char *result, server_t *serv, client_id_t *clients)
     if (strcmp(result, "Forward\n") != 0)
         return (0);  
     pos_t pos = get_position(serv->map, clients);
+    for (float i = 0; i != (float)(7 / serv->freq); i++);
     if (pos.y != -1 && pos.x != -1 && pos.i != -1) {
         printf("client pos %d,%d is looking %d\n", pos.x, pos.y, clients->direction);        
         serv->map[pos.y][pos.x].player[pos.i] = NULL;
@@ -68,22 +69,6 @@ int forward(char *result, server_t *serv, client_id_t *clients)
         move_down(clients->direction, serv, clients, pos);
         move_left(clients->direction, serv, clients, pos);
         move_right(clients->direction, serv, clients, pos);
-        // if (clients->direction == UP) {
-        //     printf("client moved up\n");
-        //     add_to_map(serv, clients, pos.y - 1, pos.x);
-        // }
-        // else if (clients->direction == DOWN) {
-            // printf("client moved down\n");
-            // add_to_map(serv, clients, pos.y + 1, pos.x);
-        // }
-        // else if (clients->direction == LEFT) {
-            // printf("client moved left\n");
-            // add_to_map(serv, clients, pos.y, pos.x - 1);
-        // }
-        // else if (clients->direction == RIGHT) {
-            // printf("client moved right\n");
-            // add_to_map(serv, clients, pos.y, pos.x + 1);
-        // }
     }
     serv->to_write = "ok";
     return (0);
