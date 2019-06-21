@@ -6,6 +6,7 @@
 */
 
 #include "../../include/Utils.hpp"
+#include "../../include/Exception.hpp"
 
 Utils::Utils()
 {
@@ -40,7 +41,7 @@ void 	Utils::printVectorMap(std::vector<std::map<std::string, int>>  _stuff_in_t
 {
     int fd = open(fifo.c_str(), O_WRONLY, O_CREAT, O_TRUNC); 
     if (fd == -1) {
-        std::cout << "error opening " << fifo << "\n";
+        throw MyException("Error opening " + fifo + "\n");
         return false;
     }
     write(fd, to_write.c_str(), to_write.size());
@@ -56,7 +57,7 @@ void 	Utils::printVectorMap(std::vector<std::map<std::string, int>>  _stuff_in_t
 
     int fd = open(fifo.c_str(), O_RDONLY, O_CREAT, O_TRUNC); 
     if (fd == -1) {
-        std::cout << "error opening " << fifo << "\n";
+        throw MyException("Error opening " + fifo + "\n");
         return "";
     }
     // Read from FIFO 

@@ -28,7 +28,6 @@ int     client_creation(int ac, char **av)
 int main(int ac, char **av)
 {
     try {
-        throw MyException("Exceptio\n\n");
         return (client_creation(ac, av));
     }
     catch ( MyException& e) {

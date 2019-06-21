@@ -62,11 +62,11 @@ int     Client::createPlayer()
     _players.push_back(my_player);
     pid = fork();
     if (pid < 0) {
-        throw MyException("Error when fork\n");
+        throw MyException("Fork result is < 0\n");
     }
     else if (pid == 0) {
         my_player->start_game();
-        exit(0);
+        throw MyException("Player died\n");
     }
     return (0);
 }
@@ -75,6 +75,6 @@ int     Client::createPlayer()
 std::string Client::createFifo(std::string file)
 {
     if (mkfifo(file.c_str(), 0666) == -1)
-        return file;
+        throw MyException("Mkfifo of " + file + " failed\n");
     return file;
 }

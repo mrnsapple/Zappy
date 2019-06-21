@@ -22,7 +22,7 @@ class MyException// : public std::exception
        }
         //
         void    print_exception(void) {
-           std::cout << "Error:" << _message << std::endl;
+           std::cout << "Error:" << _message;
         };
 	protected:
 	private:       

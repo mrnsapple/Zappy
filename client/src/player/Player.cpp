@@ -51,9 +51,9 @@ int    Player::createSocket()
     std::cout << _machine << ", name: "<< _name << ", port:" <<_port;
     _socket_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (_socket_fd == -1)
-        std::cerr << "Error creating socket" << std::endl;
+        throw MyException("Error creating socket\n");
     if (setsockopt(_socket_fd, SOL_SOCKET, SO_REUSEADDR, &nm, sizeof(nm)) < 0)
-        std::cerr << "Error settting sockopt" << std::endl;
+        throw MyException("Error settting sockopt\n");
     addr.sin_family = AF_INET;
     addr.sin_port = htons(_port);
     addr.sin_addr.s_addr = inet_addr(_machine.c_str());
