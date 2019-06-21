@@ -15,17 +15,15 @@
 class Ai {
 	public:
 		Ai(std::map<std::string, int> *, std::vector<std::map<std::string, int>> *,  std::map<std::string, int> *);
-        Ai(){}
-
         ~Ai();
         std::vector<std::string> get_what_to_do();
+    
+    private:
+        void  get_take_object(int amount, std::string);
+        bool    time_to_create_player();
         int get_element(std::string);
         int get_stones();
-        bool    time_to_create_player();
-
         int get_item_pos(int location);
-
-        void  get_take_object(int amount, std::string);
 
 	protected:
 	private:

@@ -34,13 +34,16 @@ int check_items(char *result)
     return (84);
 }
 
-void    add_item_to_client(client_id_t *client, char *item)
+void    add_item_to_client(client_id_t *client, char *item, int option)
 {
     printf("add to client:%s:\n", item);
     for (int i = 0; strcmp(client->items[i].name, "end") != 0; i++)
         if (strcmp(strcat(strdup(client->items[i].name), "\n"), item) == 0) {
             printf("enter\n");
-            client->items[i].amount++;
+            if (option == 1)
+                client->items[i].amount++;
+            else
+                client->items[i].amount--;    
         }
     printf("last\n");
 }
@@ -69,7 +72,7 @@ int take(char *result, server_t *serv, client_id_t *clients)
             for (int i = 0; serv->map[y][x].player != NULL && serv->map[y][x].player[i] != NULL; i++)
                 if ((serv->map[y][x]).player[i]->fd == clients->fd) {
                     
-                    add_item_to_client(clients, value);
+                    add_item_to_client(clients, value, 1);
                     delete_item_in_map(serv, y, x, value);
                     //anadir el item a este clients->items
                     //eliminar el item del map->items

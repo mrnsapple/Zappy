@@ -30,12 +30,11 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
     if (clients->send_map_size == 1)
        send_map_size(serv, teams, clients);
     read_result = read_user(clients->fd);
-    if (strcmp(read_result, "DELETE CLIENT") == 0) {
-        delete_client(serv, clients->fd);
-        fd_stuff(serv);
-        printf("afterdelete\n");
-        return (5);
-    }
+    if (strcmp(read_result, "DELETE CLIENT") == 0)
+        return (delete_client(serv, clients->fd));
+    if (rand() % 3 == 0)
+        add_item_to_client(clients, "food\n", 0);
+
     printf("after read:%s\n", read_result);
     connect_number(read_result, serv, teams, clients);
     inventory(read_result, serv, clients);
@@ -45,7 +44,7 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
     right(read_result, serv, clients);
     left(read_result, serv, clients);
     //write_to_fd(clients->fd, "ko\n");
-    for (i = 0; i != 100000; i++);
+    for (i = 0; i != 10000; i++);
     printf("wait time is over\n");
     write_to_fd(clients->fd, serv->to_write);
 

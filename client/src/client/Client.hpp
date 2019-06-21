@@ -15,15 +15,18 @@ class Client {
 public:
         Client();
         ~Client();
-        void    setName(std::string);
-        void    setPort(int);
-        void    setMachine(std::string);
-        int     createPlayer();
         int     startClient();
-        std::string     createFifo(std::string );
-
+        void    setMachine(std::string);
+        void    setName(std::string);
+        void    setPort(int);  
 protected:
+
 private:
+        std::string     createFifo(std::string );
+      
+        int     createPlayer();
+
+private:        
         int _port;
         std::string _name;
         std::string _machine;

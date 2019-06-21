@@ -110,7 +110,7 @@ int    Player::setClientNumMapSpace(std::string read_from)
 
 int     Player::interactWithServer()
 {
-    std::cout << "Start server interact\n";
+    std::cout << "Start server interact:" << _socket_fd << "\n";
     _connect_nbr = _commands->getConnectNbr();
     //exit (0);
     for (int val = 0; val == 0; val = 0) {        
@@ -119,7 +119,7 @@ int     Player::interactWithServer()
         std::cout  << "\nPrint Inventory:\n";
         Utils::printMap(_inventory);
         _commands->getLookArround();
-        std::cout << "\n\nConnect nbr:" << _connect_nbr << "\n";
+        std::cout << "\n\nConnect nbr:" << _connect_nbr <<"," << _socket_fd<< "\n";
         Utils::printVectorMap(_stuff_in_tiles);
         //_inventory["food"]--;
     

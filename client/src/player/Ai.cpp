@@ -115,6 +115,8 @@ int Ai::get_stones()
 
 bool    Ai::time_to_create_player()
 {
+    if ((*_inventory)["linemate"] >= 1)
+        return true;
     return false;
 }
 

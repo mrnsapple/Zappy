@@ -1,9 +1,10 @@
 /*
 ** EPITECH PROJECT, 2019
-** d
+** ls
 ** File description:
-** d
+** ls
 */
+
 
 #include <stdio.h>
 #include <string.h>
