@@ -45,6 +45,7 @@ int    inventory(char *result, server_t *serv, client_id_t *clients)
 
     if (strcmp(result, "Inventory\n") != 0)
         return (0);
+    for (float i = 0; i != (float)(1 / serv->freq); i++);    
     strcpy(str,"[ ");
     for (int i = 0; strcmp(clients->items[i].name, "end") != 0; i++) {
         //printf("item:%s, %d\n", clients->items[i].name, strcmp(clients->items[i].name, "end"));
@@ -66,6 +67,7 @@ int right(char *result, server_t *serv, client_id_t *clients)
 {
     if (strcmp(result, "Right\n") != 0)
         return (0);
+    for (float i = 0; i != (float)(7 / serv->freq); i++);
     int new_direc = clients->direction + 1;
     if (new_direc > 3)
         new_direc = UP;
@@ -79,6 +81,7 @@ int left(char *result, server_t *serv, client_id_t *clients)
 {
     if (strcmp(result, "Left\n") != 0)
         return (0);
+    for (float i = 0; i != (float)(7 / serv->freq); i++);
     int new_direc = clients->direction - 1;
     if (new_direc < 0)
         new_direc = LEFT;

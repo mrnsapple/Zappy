@@ -24,9 +24,12 @@ void init_rect_map(server_t *serv, rect_sdl_t ***rect_map, rect_sdl_t ***rect_cl
     int u = 0;
 
     for (int y = 0; serv->map[y] != NULL; y++) {
+        printf("here\n");
         for (int x = 0; serv->map[y][x].is_last == 0; x++) {
+            printf("here to me\n");
             (*rect_map)[i] = init_rectangle(REDSDL, MAPRECT(x, y));
             for (int o = 0; serv->map[y][x].player != NULL && serv->map[y][x].player[o] != NULL; o++) {
+                printf("here to shall\n");
                 (*rect_client)[u] = init_rectangle(CYANSDL, MAPCLIENT(x, y));
                 u++;
             }
