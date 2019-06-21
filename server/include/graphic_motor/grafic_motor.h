@@ -9,10 +9,9 @@
 #define GRAFIC_MOTOR_H_
 
 #include <SDL2/SDL.h>
-#include "../include/server.h"
+#include "../server.h"
 #include "rect_sdl.h"
 #include "color_sdl.h"
-#include "triangle_sdl.h"
 
 typedef struct grafics_s {
     SDL_Window *window;

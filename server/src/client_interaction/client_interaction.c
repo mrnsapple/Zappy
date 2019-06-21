@@ -43,8 +43,6 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
     right(read_result, serv, clients);
     left(read_result, serv, clients);
     //write_to_fd(clients->fd, "ko\n");
-    for (int i = 0; i != 10000; i++);
-    printf("wait time is over\n");
     write_to_fd(clients->fd, serv->to_write);
 
     // printf("read_result:%s, response:%s:\n", read_result, serv->to_write);

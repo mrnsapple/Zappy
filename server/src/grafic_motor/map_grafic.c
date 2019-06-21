@@ -6,7 +6,7 @@
 */
 
 #include "../../include/server.h"
-#include "../../include/grafic_motor.h"
+#include "../../include/graphic_motor/grafic_motor.h"
 
 grafics_t *create_window(server_t *serv)
 {

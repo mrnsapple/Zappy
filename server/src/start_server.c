@@ -10,7 +10,7 @@
 #include "../include/error_management.h"
 #include "../include/client_management.h"
 #include "../include/map.h"
-#include "../include/grafic_motor.h"
+#include "../include/graphic_motor/grafic_motor.h"
 
 char *remove_char(char *str, char x)
 {
