@@ -141,12 +141,5 @@ int     Player::start_game()
     createCommands();
     createAi();
     interactWithServer();
-    Utils::writeToFifo(_fifo_read, "helloeeqq my men\n");
-
-    std::cout << "writing in player\n";
-    Utils::writeToFifo(_fifo_read, "helloeeqq my men\n");
-
-    std::cout << "second writing in player\n";
-    Utils::writeToFifo(_fifo_read, "helloeee my men\n");
     return (0);
 }

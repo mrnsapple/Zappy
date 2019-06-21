@@ -7,8 +7,15 @@
 
 #ifndef COMMANDS_HPP_
 #define COMMANDS_HPP_
-#include "list.hpp"
 #include "Utils.hpp"
+#include <stdio.h>
+#include <string.h>
+#include <string>
+
+#include <array>
+#include <map>
+#include <vector>
+#include <algorithm>
 
 class Commands {
 	public:

@@ -7,7 +7,6 @@
 
 #ifndef Inventory
 #define Inventory
-#include "list.hpp"
 #include "Utils.hpp"
 
 class Inventory {

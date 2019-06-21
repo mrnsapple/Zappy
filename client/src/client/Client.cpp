@@ -62,10 +62,12 @@ int     Client::createPlayer()
     _players.push_back(my_player);
     pid = fork();
     if (pid < 0) {
+        delete my_player;
         throw MyException("Fork result is < 0\n");
     }
     else if (pid == 0) {
         my_player->start_game();
+        delete my_player;
         throw MyException("Player died\n");
     }
     return (0);

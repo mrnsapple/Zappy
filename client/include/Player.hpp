@@ -23,15 +23,17 @@ class Player {
 	public:
 		Player(int port, std::string name, std::string machine, std::string );
 		~Player();
+               
+                int start_game();
+	private:
+                int     interactWithServer();
+                std::vector<std::string> separate_string(std::string , char);
+                int        setClientNumMapSpace(std::string read_from);
                 int     createSocket();
                 void     createCommands();
                 void    createAi();
                 int     welcomeInteraction();
-                int     interactWithServer();
-                std::vector<std::string> separate_string(std::string , char);
-                int        setClientNumMapSpace(std::string read_from);
-                int start_game();
-	protected:
+        protected:
 	private:
                 int _port;
                 std::string _name;
