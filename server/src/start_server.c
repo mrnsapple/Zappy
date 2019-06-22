@@ -68,33 +68,32 @@ void get_connections(server_t *serv)
     for (int i = 0; i < FD_SETSIZE; i++)
         if (FD_ISSET(i, &serv->sock->readFds)) {
             if (i == serv->sock->fd) {
-                // printf("Awaiting for a new connection\n");
                 fd = init_accept(serv);
-                printf("Connection with fd %d has been accepted\n", fd);
+                if (fd == -1)
+                    break;
                 team_name = get_team_name(serv->team_names, fd);
                 init_client(serv, fd, team_name);
-                // printf("afterinitclient\n");
             }
-            //else
-            //    delete_client(serv, i);
-            //    client_interaction(serv, i);
         }
 }
 
-void start_server(server_t *serv)
+int start_server(server_t *serv)
 {
     serv->_stop_server = 1;
     // grafics_t *graphic = create_window(serv);
+    // if (graphic == NULL)
+        // return (84);
     while (serv->_stop_server == 1) {
         SDL_Delay(1000);
         // window_loop(serv, graphic);
         // display_map(serv->map);
         fd_stuff(serv);
-        init_select(&(serv->sock->readFds));
+        if (init_select(&(serv->sock->readFds)) == -1)
+            return (84);
         get_connections(serv);
         client_interaction(serv);
         // SDL_RenderPresent(graphic->render);
     }
-    printf("Loop ended\n");
     close(serv->sock->fd);
+    return (0);
 }

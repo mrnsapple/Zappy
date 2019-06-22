@@ -72,7 +72,7 @@ int right(char *result, server_t *serv, client_id_t *clients)
     if (new_direc > 3)
         new_direc = UP;
     clients->direction = new_direc;
-    printf("client move head right to direction %d\n", clients->direction);
+    // printf("client move head right to direction %d\n", clients->direction);
     serv->to_write = "ok";    
     return (0);
 }
@@ -86,7 +86,7 @@ int left(char *result, server_t *serv, client_id_t *clients)
     if (new_direc < 0)
         new_direc = LEFT;
     clients->direction = new_direc;
-    printf("client move head left to direction %d\n", clients->direction);
+    // printf("client move head left to direction %d\n", clients->direction);
     serv->to_write = "ok";    
     return (0);
 }

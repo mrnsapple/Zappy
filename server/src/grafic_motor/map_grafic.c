@@ -23,7 +23,7 @@ grafics_t *create_window(server_t *serv)
     );
     if (grafics->window == NULL) {
         printf("Could not create window: %s \n", SDL_GetError()); 
-        exit(84);
+        return (NULL);
     }
     grafics->render = SDL_CreateRenderer(grafics->window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
     grafics->rect_map = malloc_map(serv->width, serv->height);

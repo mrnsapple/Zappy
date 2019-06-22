@@ -25,7 +25,6 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
     char *read_result;
 
     serv->to_write=strdup("ko\n");
-    // printf("inclient action\n\n");
     if (clients->send_map_size == 1)
        send_map_size(serv, teams, clients);
     read_result = read_user(clients->fd);
@@ -33,8 +32,7 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
         return (delete_client(serv, clients->fd));
     if (rand() % 3 == 0)
         add_item_to_client(clients, "food\n", 0);
-
-    printf("after read:%s\n", read_result);
+    // printf("after read:%s\n", read_result);
     connect_number(read_result, serv, teams, clients);
     inventory(read_result, serv, clients);
     forward(read_result, serv, clients);
@@ -42,6 +40,7 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
     take(read_result, serv, clients);
     right(read_result, serv, clients);
     left(read_result, serv, clients);
+    broadcast(read_result, serv, clients);
     //write_to_fd(clients->fd, "ko\n");
     write_to_fd(clients->fd, serv->to_write);
 

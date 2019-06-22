@@ -7,18 +7,17 @@
 
 #include "../include/init_server.h"
 
-void init_listen(int fd, int client_nb, char **team_names)
+int init_listen(int fd, int client_nb, char **team_names)
 {
-    //Numero de equipos * numero de clientes por equipo
-    //numero maximo de jugadores
     int teams = 0;
     for (int i = 0;team_names[i] != NULL; i++) 
         teams++;
     int max_number = teams * client_nb;
     if (listen(fd, max_number) < 0) {
         perror("Listening failed");
-        exit(84);
+        return (-1);
     }
+    return (0);
 }
 
 int init_socket(void)
@@ -30,41 +29,40 @@ int init_socket(void)
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
         perror("Socket creation failed");
-        exit(84);
+        return (-1);
     }
     sockopt = setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &nm, sizeof(nm));
     if (sockopt < 0) {
         perror("Socket options failed");
-        exit(0);
+        return (-1);
     }
     return (sockfd);
 }
 
-struct sockaddr_in init_bind_address(int port, int fd)
+int init_bind_address(struct sockaddr_in address, int fd)
 {
-    struct sockaddr_in address;
+    // struct sockaddr_in address;
     int bindRes;
 
-    address.sin_family = AF_INET;
-    address.sin_port = htons(port);
-    address.sin_addr.s_addr = INADDR_ANY;
+    // address.sin_family = AF_INET;
+    // address.sin_port = htons(port);
+    // address.sin_addr.s_addr = INADDR_ANY;
     bindRes = bind(fd, (struct sockaddr*)&address, sizeof(address));
     if (bindRes == -1) {
         perror("socket binding failed");
-        exit(84);
+        return (-1);
     }
-    return (address);
+    return (0);
 }
 
-void init_select(fd_set *readFds)
+int init_select(fd_set *readFds)
 {   
-    struct timeval time = {.tv_sec = 0.000000001, .tv_usec = 1}; 
-    //if (select(FD_SETSIZE, &readFds, NULL, NULL, &time) < 0) {
-    // struct timeval time = {.tv_sec = 1, .tv_usec = 1}; 
+    struct timeval time = {.tv_sec = 0.000000001, .tv_usec = 1};
     if (select(FD_SETSIZE, readFds, NULL, 0,  &time) < 0) {
         perror("Select failed");
-        exit(84);
+        return (-1);
     }
+    return (0);
 }
 
 int init_accept(server_t *serv)
@@ -75,7 +73,7 @@ int init_accept(server_t *serv)
     sock = accept(serv->sock->fd, (struct sockaddr*)&serv->sock->address, (socklen_t*)&addrlen);
     if (sock < 0) {
         perror("accepting failed");
-        exit(84);
+        return (-1);
     }
     return (sock);
 }
@@ -88,6 +86,12 @@ socket_t *init_server(server_t *serv)
         return (NULL);
     sock->teams = NULL;
     sock->fd = init_socket();
-    sock->address = init_bind_address(serv->port, sock->fd);
+    if (sock->fd == -1)
+        return (NULL);
+    sock->address.sin_family = AF_INET;
+    sock->address.sin_port = htons(serv->port);
+    sock->address.sin_addr.s_addr = INADDR_ANY;
+    if (init_bind_address(sock->address, sock->fd) == -1)
+        return (NULL);
     return (sock);
 }

@@ -14,12 +14,9 @@
 
 void add_to_map(server_t *serv, client_id_t *client, int pos_y, int pos_x)
 {
-    // int pos_x = rand() % serv->width;
-    // int pos_y = rand() % serv->height;
     client_id_t **c_player;
     int i;
 
-    printf("x:%d,y:%d\n", pos_x, pos_y);
     if (serv->map[pos_y][pos_x].player == NULL) {
         serv->map[pos_y][pos_x].player = malloc(sizeof(client_id_t) * 2);
         serv->map[pos_y][pos_x].player[0] = client;
@@ -34,17 +31,6 @@ void add_to_map(server_t *serv, client_id_t *client, int pos_y, int pos_x)
         c_player[i + 1] = NULL;
         serv->map[pos_y][pos_x].player = c_player;
     }
-    for (int y = 0; serv->map[y] != NULL; y++) {
-        for (int x = 0; (serv->map[y][x]).is_last == 0; x++) {
-            if (serv->map[y][x].player == NULL )
-                printf("x");
-            else
-                printf("o");
-            //display_items(map[y][x].items);
-        }
-        printf("\n");
-    }
-    // display_map(serv->map);
 }
 
 client_id_t *malloc_client(int fd, char *team_name, server_t *serv)
@@ -64,7 +50,7 @@ client_id_t *malloc_client(int fd, char *team_name, server_t *serv)
 
     client = malloc(sizeof(client_id_t)* 3);
     if (client == NULL)
-        exit(84);
+        return(NULL);
     client->next = NULL;
     client->fd = fd;
     client->team_name = team_name;
@@ -75,7 +61,7 @@ client_id_t *malloc_client(int fd, char *team_name, server_t *serv)
     //buff = malloc(totalsize);
     memcpy(client->items, &items, sizeof(item_t) * 9);
     add_to_map(serv, client, rand() % serv->height, rand() % serv->width);
-    return client;
+    return (client);
 }
 
 teams_t *malloc_team(client_id_t *client)
@@ -84,11 +70,11 @@ teams_t *malloc_team(client_id_t *client)
 
     team = malloc(sizeof(teams_t));
     if (team == NULL)
-        exit(84);
+        return (NULL);
     team->clients = client;
     team->team_name = client->team_name;
     team->clients_in_team = 1;
-    return team;
+    return (team);
 }
 
 int add_client_to_existing_team(int client_nb, teams_t *team, client_id_t *client)

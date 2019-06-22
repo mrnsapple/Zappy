@@ -10,15 +10,15 @@
 int is_number_negative(int num)
 {
     if (num <= 0)
-        exit(84);
+        return (-1);
     return (num);
 }
 
 int size_limit(int num)
 {
     if (num > 100)
-        exit(84);
-    return num;
+        return (-1);
+    return (num);
 }
 
 void get_team_names(server_t **serv, int i, char **av)
@@ -32,10 +32,12 @@ void get_team_names(server_t **serv, int i, char **av)
 
 void get_size(server_t **serv, char **av, int i)
 {
-    if (strcmp(av[i], "-x") == 0)
+    if (strcmp(av[i], "-x") == 0) {
         (*serv)->width = size_limit(is_number_negative(atoi(av[i + 1])));
-    if (strcmp(av[i], "-y") == 0)
+    }
+    else if (strcmp(av[i], "-y") == 0) {
         (*serv)->height = size_limit(is_number_negative(atoi(av[i + 1])));
+    }
 }
 
 server_t *take_arguments(int ac, char **av)
@@ -43,16 +45,26 @@ server_t *take_arguments(int ac, char **av)
     server_t    *server = malloc(sizeof(server_t));
 
     for (int i = 1; i != ac; i++) {
-        if (strcmp(av[i], "-p") == 0)
+        if (strcmp(av[i], "-p") == 0) {
             server->port = is_number_negative(atoi(av[i + 1]));
+            if (server->port == -1)
+                return (NULL);
+        }
         get_size(&server, av, i);
+        if (server->width == -1 || server->height == -1)
+            return (NULL);
         if (strcmp(av[i], "-n") == 0)
             get_team_names(&server, i, av);
-        else if (strcmp(av[i], "-c") == 0)
+        else if (strcmp(av[i], "-c") == 0) {
             server->client_nb = is_number_negative(atoi(av[i + 1]));
-        if (strcmp(av[i], "-f") == 0)
+            if (server->client_nb == -1)
+                return (NULL);
+        }
+        if (strcmp(av[i], "-f") == 0) {
             server->freq = is_number_negative(atoi(av[i + 1]));
-        // printf("%d -> %d -> %s\n", i, ac, av[i]);
+            if (server->freq == -1)
+                return (NULL);
+        }
     }
     return (server);
 }

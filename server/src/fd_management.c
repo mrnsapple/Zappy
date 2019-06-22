@@ -7,7 +7,6 @@
 
 #include "../include/init_server.h"
 #include "../include/client_management.h"
-
 #include "../include/server.h"
 
 char *read_user(int fd)
@@ -30,10 +29,7 @@ char *read_user(int fd)
 
 int write_to_fd(int fd, char *str)
 {
-    if (write(fd, str, strlen(str)) == -1) {
-        perror("write fail\n");
-        exit(84);
-    }
-    printf("writen_to_fd:%s\n", str);
+    write(fd, str, strlen(str));
+    // printf("writen_to_fd:%s\n", str);
     return (0);
 }
