@@ -50,12 +50,4 @@ int look(char *result, server_t *serv, client_id_t *clients)
     serv->to_write = "[ player food sibur, phiras,, food sibur ]\n";
 
     return (0);
-    exit(0);
-    for (int i =0; i < 4; i++)
-        if (dir[i].dir == clients->direction)
-            dir[i].fun_ptr(serv->map, clients);
-    pos = get_position(serv->map, clients);
-    printf("look asked, %d, %d\n", pos.x, pos.y);
-    exit(0);
-    return (0);
 }
