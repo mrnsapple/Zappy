@@ -36,11 +36,10 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
     connect_number(read_result, serv, teams, clients);
     inventory(read_result, serv, clients);
     forward(read_result, serv, clients);
-    look(read_result, serv, clients);
+    look(read_result, serv);
     take(read_result, serv, clients);
     right(read_result, serv, clients);
     left(read_result, serv, clients);
-    broadcast(read_result, serv, clients);
     //write_to_fd(clients->fd, "ko\n");
     write_to_fd(clients->fd, serv->to_write);
 

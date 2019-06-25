@@ -34,13 +34,3 @@ int find_space(char *str)
     }
     return (i);
 }
-
-int broadcast(char *result, server_t *serv, client_id_t *clients)
-{
-    char *res = substring(result, 0, find_space(result));
-    char *text = substring(result, find_space(result), strlen(result));
-
-    if (strcmp(res, "Broadcast") != 0)
-        return (0);
-    return (0);
-}
