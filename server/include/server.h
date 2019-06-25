@@ -5,6 +5,8 @@
 ** server
 */
 
+void    add_item_to_client(client_id_t *client, char *item, int option);
+
 #ifndef SERVER_H_
 #define SERVER_H_
 
