@@ -33,7 +33,7 @@ int    client_actions(server_t *serv, teams_t *teams, client_id_t *clients)
     if (rand() % 3 == 0)
         add_item_to_client(clients, "food\n", 0);
     // printf("after read:%s\n", read_result);
-    connect_number(read_result, serv, teams, clients);
+    connect_number(read_result, serv, teams);
     inventory(read_result, serv, clients);
     forward(read_result, serv, clients);
     look(read_result, serv);

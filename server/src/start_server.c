@@ -80,19 +80,19 @@ void get_connections(server_t *serv)
 int start_server(server_t *serv)
 {
     serv->_stop_server = 1;
-    // grafics_t *graphic = create_window(serv);
-    // if (graphic == NULL)
-        // return (84);
+    //grafics_t *graphic = create_window(serv);
+    //if (graphic == NULL)
+    //    return (84);
     while (serv->_stop_server == 1) {
         SDL_Delay(1000);
-        // window_loop(serv, graphic);
+        //window_loop(serv, graphic);
         // display_map(serv->map);
         fd_stuff(serv);
         if (init_select(&(serv->sock->readFds)) == -1)
             return (84);
         get_connections(serv);
         client_interaction(serv);
-        // SDL_RenderPresent(graphic->render);
+        //SDL_RenderPresent(graphic->render);
     }
     close(serv->sock->fd);
     return (0);

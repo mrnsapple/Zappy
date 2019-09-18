@@ -50,7 +50,7 @@ int delete_client_from_list(teams_t *teams, client_id_t *client, client_id_t *pr
 
 int  delete_client(server_t *serv, int client_fd)
 {
-    client_id_t *prev_clients = NULL;
+    //client_id_t *prev_clients = NULL;
 
     close(client_fd);
     for (teams_t *teams = serv->sock->teams; teams != NULL; teams = teams->next)
@@ -59,7 +59,7 @@ int  delete_client(server_t *serv, int client_fd)
                 teams->clients_in_team--;
                 clients->is_dead=1;
             }
-            prev_clients = clients;
+            //prev_clients = clients;
         }
     return (5);
 }

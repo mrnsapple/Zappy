@@ -81,7 +81,7 @@ int     Client::createPlayer()
 
 std::string Client::createFifo(std::string file)
 {
-    if (mkfifo(file.c_str(), 0666) == -1)
-        throw ClientException("Mkfifo of " + file + " failed\n");
+    mkfifo(file.c_str(), 0666);
+    //    throw ClientException("Mkfifo of " + file + " failed\n");
     return file;
 }

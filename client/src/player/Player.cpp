@@ -12,12 +12,12 @@ Player::Player(int port, std::string name, std::string machine, std::string fifo
     _port(port), _name(name), _machine(machine), _fifo_read(fifo_read), _lvl(0)
 {
     _gems_finding = { 
-        {"dareumere", 0},
+        {"dareumere", 1},
         {"linemate", 1},
-        {"sibur", 0},
-        {"mediane", 0},
-        {"phiras", 0},
-        {"thystame", 0},
+        {"sibur", 1},
+        {"mediane", 1},
+        {"phiras", 1},
+        {"thystame", 1},
     };
     _inventory = _gems_finding;
     _inventory.insert(std::make_pair("food", 0));

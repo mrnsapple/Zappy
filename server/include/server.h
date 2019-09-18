@@ -5,8 +5,6 @@
 ** server
 */
 
-void    add_item_to_client(client_id_t *client, char *item, int option);
-
 #ifndef SERVER_H_
 #define SERVER_H_
 
@@ -48,7 +46,6 @@ typedef struct client_id_s {
     struct client_id_s *next;
     int is_dead;
 } client_id_t;
-
 
 typedef struct teams_s {
     //the file descriptor
@@ -93,5 +90,8 @@ typedef struct server_s {
     //To_write
     char *to_write;
 } server_t;
+
+void    add_item_to_client(client_id_t *client, char *item, int option);
+
 
 #endif /* !SERVER_H_ */
